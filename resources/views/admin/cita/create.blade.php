@@ -8,6 +8,7 @@
 @section('preference')
 @endsection
 @section('content')
+
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
@@ -30,9 +31,9 @@
 
                         </div>
                         {!! Form::open(['route' => 'citas.store', 'method' => 'POST']) !!}
+
                         @include('admin.cita._form')
-                        
-                        <button type="submit" class="btn btn-primary mr-2">Agregar</button>
+
                         <a href="{{ route('citas.index') }}" class="btn btn-light mr-2">
                             cancelar
                         </a>
@@ -45,41 +46,98 @@
 
 @endsection
 @section('scripts')
-    {!! Html::script('melody/js/select2.js') !!}
-    {!! Html::script('melody/js/wizard.js') !!}
-
     <script>
-        var cupo_id = $('#cupo_id');
-        var Fecha = $('#Fecha');
-        var HoraCita = $('#HoraCita');
-
-        Fecha.change(mostrarValores);
-        HoraCita.change(mostrarValores2);
-
-        function mostrarValores() {
-            HoraCita.val("");
-            HoraCita.children('option:not(:first)').remove();
-            @foreach ($horasFaltantes as $hora)
-                var option = $('<option></option>').val('{{ $hora }}').text('{{ $hora }}');
-                HoraCita.append(option);
-            @endforeach
-        }
-
-
-        function mostrarValores2() {
-            cupo_id.val("");
-            var id_cupo =  Fecha.val();
-            cupo_id.children('option:not(:first)').remove();
-            @foreach ($cupos as $cupo)
-            if (id_cupo == {{$cupo->id}}) {
-                var option = $('<option></option>').val('{{ $cupo->id }}').text('{{ $cupo->medico->nombre }} {{ $cupo->medico->apellido }} - {{ $cupo->descripcion }}');
-                cupo_id.append(option);
-            }
-            @endforeach
-            var textoSeleccionado = $("#Fecha option:selected").text(); 
-            $('#FechaCita').val(textoSeleccionado);
-        }
+        $(document).ready(function() {
+            $("#fecha").datepicker();
+        });
     </script>
+    <script>
+        (function($) {
+            var verticalForm = $("#example-vertical-wizard");
+            verticalForm.children("div").steps({
+                headerTag: "h3",
+                bodyTag: "section",
+                transitionEffect: "slideLeft",
+                stepsOrientation: "vertical",
+                labels: {
+                    cancel: "Cancelar",
+                    current: "Paso actual:",
+                    pagination: "Paginación",
+                    finish: "Finalizar",
+                    next: "Siguiente",
+                    previous: "Anterior",
+                    loading: "Cargando ..."
+                },
+                onStepChanging: function(event, currentIndex, newIndex) {
+                    var especialidad_id = $("#especialidad_id");
+                    if (currentIndex === 0) {
+                        if (especialidad_id.val() === null) {
+                            swal({
+                                text: 'Debes completar este campo antes de continuar.',
+                                icon: 'warning',
+                                button: {
+                                    text: "OK",
+                                    value: true,
+                                    visible: true,
+                                    className: "btn btn-primary"
+                                }
+                            })
+                            return false;
+                        }
+                    } else if (currentIndex === 1) {
+                        var fecha = $("#fecha");
+                        console.log(fecha.val());
+                        if (fecha.val().trim() === "") {
+                            swal({
+                                text: 'Debes completar este campo antes de continuar.',
+                                icon: 'warning',
+                                button: {
+                                    text: "OK",
+                                    value: true,
+                                    visible: true,
+                                    className: "btn btn-primary"
+                                }
+                            })
+                            return false;
+                        } else if (currentIndex === 1) {
+                            $.ajax({
+                                url: "{{ route('get_turnos') }}",
+                                method: 'GET',
+                                data: {
+                                    fecha: fecha.val(),
+                                },
+                                success: function(data) {
+                                    if (currentIndex === 1) {
+                                        if (data.length === 0) {
+                                            swal({
+                                                text: 'No se encontraron citas para el dia seleccionado',
+                                                icon: 'warning',
+                                                button: {
+                                                    text: "OK",
+                                                    value: true,
+                                                    visible: true,
+                                                    className: "btn btn-primary"
+                                                }
+                                            });
+                                            $('#info-error').removeAttr("hidden");
+                                            return false;
+                                        }
+                                    }
+                                    $('#info-ok').removeAttr("hidden");
+                                    console.log(data);
+                                    $("#medico").text(data);
+                                }
+                            });
+                        }
+                    }
 
+                    return true;
+                },
+                onFinished: function(event, currentIndex) {
+                    alert("¡Enviado!");
+                }
+            });
+        })(jQuery);
+    </script>
 
 @endsection

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Cita;
 use App\Cupo;
+use App\Especialidad;
 use App\Http\Requests\Cita\StoreRequest;
 use App\Http\Requests\Cita\UpdateRequest;
+use App\Medico;
+use App\Turno;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,16 +43,18 @@ class CitaController extends Controller
 
     public function create()
     {
-        $cupos = Cupo::get();
-        $cuposRegistrados = Cita::pluck('HoracIta')->toArray();
+        $turnos = Turno::get();
+        $especialidades = Especialidad::get();
+        $medico = Medico::get();
+        $cuposRegistrados = Cita::where('FechaCita', '2023-07-28')->pluck('HoracIta')->toArray();
         $horasFaltantes = [];
-        foreach ($cupos as $cupo) {
+        foreach ($turnos as $cupo) {
             $horasCadena = $cupo->horas;
             $horasArray = explode(', ', $horasCadena);
             $horasFaltantes = array_diff($horasArray, $cuposRegistrados);
         }
 
-        return view('admin.cita.create', compact('cupos', 'horasFaltantes'));
+        return view('admin.cita.create', compact('turnos', 'horasFaltantes', 'especialidades', 'medico'));
     }
 
 

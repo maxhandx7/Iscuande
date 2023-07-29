@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name', 'apellido', 'tipo_documento', 'no_documento', 'telefono', 'email', 'password', 'tipo', 'estado', 
     ];
 
+
     /**
      * The attributes that should be hidden for arrays.
      *

@@ -25,7 +25,7 @@
 </div>
 
 <div class="form-group">
-    <label for="cupo_id">Hora Inicio</label>
+    <label for="Turno_id">Hora Inicio</label>
     <div class="input-group date" id="timepicker-example" data-target-input="nearest">
         <div class="input-group" data-target="#timepicker-example" data-toggle="datetimepicker">
             <input type="text" name="inicio" class="form-control datetimepicker-input" data-target="#timepicker-example" />
@@ -36,7 +36,7 @@
 
 
 <div class="form-group">
-    <label for="cupo_id">Hora Fin</label>
+    <label for="Turno_id">Hora Fin</label>
     <div class="input-group date" id="timepicker-example1" data-target-input="nearest">
         <div class="input-group" data-target="#timepicker-example1" data-toggle="datetimepicker">
             <input type="text" name="fin" class="form-control datetimepicker-input" data-target="#timepicker-example1" />

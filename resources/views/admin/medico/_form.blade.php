@@ -16,9 +16,16 @@
 </div>
 
 <div class="form-group">
-    <label for="especialidad">Especialidad</label>
-    <input type="text" name="especialidad" id="especialidad" class="form-control ">
+    <label for="especialidad_id">Especialidad</label>
+    <select id="especialidad_id" class="form-control js-example-basic-single" name="especialidad_id">
+        <option selected disabled value="">Seleccione la especialidad</option>
+        @foreach ($especialidades as $especialidad)
+            <option value="{{ $especialidad->id }}">{{ $especialidad->nombre }}</option>
+        @endforeach
+    </select>
 </div>
+
+
 
 
 

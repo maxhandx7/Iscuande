@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Gestión de citas')
+@section('title','Gestión de especialidads')
 @section('styles')
 @endsection
 
@@ -11,12 +11,12 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
-            Administrar Citas
+            Administrar personal especialidad
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-custom">
                 <li class="breadcrumb-item"><a href="/home">Panel administrador</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Citas</li>
+                <li class="breadcrumb-item active" aria-current="page">Especialidades</li>
             </ol>
         </nav>
     </div>
@@ -25,11 +25,11 @@
             <div class="card">
                 <div class="card-body ">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title">Citas</h4>
+                        <h4 class="card-title">Especialidades</h4>
                         <div class="btn-group">
-                            <a href=" {{route('citas.create')}} " class="btn btn-success" type="button">
+                            <a href=" {{route('especialidads.create')}} " class="btn btn-success" type="button">
                                 <i class="fa fa-plus"></i>
-                                Solicitar cita</a>
+                                Registrar nueva especialidad</a>
                         </div>
                     </div>
                     <br>
@@ -39,37 +39,29 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Medico</th>
-                                    <th>Fecha</th>
-                                    <th>Hora</th>
-                                    <th>Estado</th>
+                                    <th>Descripcion</th>
                                     <th style="width: 100px;">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($citas as $cita)
+                                @foreach ($especialidads as $especialidad)
 
                                 <tr>
-                                    <td> {{$cita->user->name. " " . $cita->user->apellido  }} </td>
 
-                                    <td> {{$cita->turno->medico->nombre
-                                    ." ".
-                                    $cita->turno->medico->apellido }} </td>
+                                    <td> {{$especialidad->nombre }} </td>
 
-                                    <td> {{$cita->fecha_formateada  }} </td>
+                                    <td> {{$especialidad->descripcion  }} </td>
 
-                                    <td> {{ $cita->HoraCita }} </td>
 
-                                    <td> {{ $cita->estado }} </td>
 
                                     <td style="width: 230px;">
-                                        {!! Form::open(['route'=>['citas.destroy', $cita], 'method'=>'DELETE', 'id'=>'delete-form']) !!}
-                                        <a class="btn btn-info" href="{{ route('citas.edit', $cita)}}" title="Editar">
-                                            <i class="far fa-edit">Modificar</i>
+                                        {!! Form::open(['route'=>['especialidads.destroy', $especialidad], 'method'=>'DELETE', 'id'=>'delete-form']) !!}
+                                        <a class="btn btn-info" href="{{ route('especialidads.edit', $especialidad)}}" title="Editar">
+                                            <i class="far fa-edit">Editar</i>
                                         </a>
 
                                         <button class="btn btn-danger delete-confirm" type="submit" title="Eliminar" onclick="return confirmDelete()">
-                                            <i class="far fa-trash-alt">Cancelar</i>
+                                            <i class="far fa-trash-alt">Eliminar</i>
                                         </button>
                                         {!! Form::close() !!}
                                     </td>

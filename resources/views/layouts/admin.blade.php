@@ -28,14 +28,6 @@
           <li class="nav-item nav-search d-none d-md-flex">
             <div class="nav-link">
               <div class="input-group">
-                {{-- <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-search"></i>
-                  </span>
-                </div>
-                <form action="{{ route('buscar') }}" method="GET">
-                <input type="text" class="form-control" name="query" placeholder="Buscar" aria-label="Search">
-                </form> --}}
               </div>
             </div>
           </li>
@@ -112,10 +104,16 @@
             </a>
           </li>
           @if ( Auth::user()->tipo == 'ADMIN')
-          <li class="nav-item {{ Request::segment(1) === 'cupos' ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('cupos.index')}}">
+          <li class="nav-item {{ Request::segment(1) === 'turnos' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('turnos.index')}}">
               <i class="fa fa-hospital menu-icon"></i>
               <span class="menu-title">Configurar disponibilidad</span>
+            </a>
+          </li>
+          <li class="nav-item {{ Request::segment(1) === 'especialidads' ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('especialidads.index')}}">
+              <i class="fa fa-stethoscope menu-icon"></i>
+              <span class="menu-title">Especialidades</span>
             </a>
           </li>
           <li class="nav-item {{ Request::segment(1) === 'medicos' ? 'active' : '' }}">
@@ -131,78 +129,14 @@
             </a>
           </li>
           @endif
-          {{-- 
-          <li class="nav-item {{ Request::segment(1) === 'products' ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('products.index')}}">
-              <i class="fa fa-archive menu-icon"></i>
-              <span class="menu-title">Tus Productos</span>
-            </a>
-          </li>
-          <li class="nav-item {{ Request::segment(1) === 'providers' ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('providers.index')}}">
-              <i class="fa fa-truck menu-icon"></i>
-              <span class="menu-title">Tus Proveedores</span>
-            </a>
-          </li>
-          <li class="nav-item {{ Request::segment(1) === 'categories' ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('categories.index')}}">
-              <i class="fa fa-list menu-icon"></i>
-              <span class="menu-title">Tus Categorias</span>
-            </a>
-          </li>
-          <!-- Código HTML del menú mejorado -->
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
-              <i class="fas fa-cog menu-icon"></i>
-              <span class="menu-title">Configuración</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="page-layouts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item {{ Request::segment(1) === 'business' ? 'active' : '' }}"> <a class="nav-link" href="{{ route('business.index')}}">Empresa</a></li>
-                <li class="nav-item {{ Request::segment(1) === 'printers' ? 'active' : '' }}"> <a class="nav-link" href="{{ route('printers.index')}}">Impresora</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#sidebar-layouts" aria-expanded="false" aria-controls="sidebar-layouts">
-              <i class="fas fa-users menu-icon"></i>
-              <span class="menu-title">Gestion de usuarios</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="sidebar-layouts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item {{ Request::segment(1) === 'users' ? 'active' : '' }}"> <a class="nav-link" href="{{ route('users.index')}}">Usuarios</a></li>
-                <li class="nav-item {{ Request::segment(1) === 'roles' ? 'active' : '' }}"> <a class="nav-link" href="{{ route('roles.index')}}">Roles</a></li>
-              </ul>
-            </div>
-          </li>
-
-          <li class="nav-item ">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="fas fa-chart-line menu-icon"></i>
-              <span class="menu-title">Reportes</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item {{ Request::segment(1) === 'reports' ? 'active' : '' }}"> <a class="nav-link" href="{{route('reports.day')}}">Reportes por día</a></li>
-                <li class="nav-item {{ Request::segment(1) === 'reports' ? 'active' : '' }}"> <a class="nav-link" href="{{route('reports.date')}}">Reportes por fecha</a></li>
-
-              </ul>
-            </div>
-          </li> --}}
         </ul>
       </nav>
       @yield('preference')
-      <!-- Pagina Principal -->
-      {{-- @include('layouts._nav') --}}
       <div class="main-panel">
         @yield('content')
         <!-- main-panel ends -->
         <footer class="footer">
           <div class="col-lg-12 login-half-bg d-flex flex-row justify-content-center">
-            {{-- <div class="d-sm-flex justify-content-center justify-content-sm-between"> --}}
             <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.
               Todos los derechos reservados.&nbsp;</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><b><a style="text-decoration: none; color:rgb(17, 15, 129);" href="https://www.instagram.com/tribie17/">&nbsp;AF</a> </b> <i class="far fa-heart text-danger"></i>&nbsp;</span>
@@ -217,10 +151,7 @@
   {!! Html::script('melody/js/off-canvas.js') !!}
   {!! Html::script('melody/js/hoverable-collapse.js') !!}
   {!! Html::script('melody/js/misc.js') !!}
-  {!! Html::script('melody/js/select2.js') !!}
-  {!! Html::script('melody/js/toastDemo.js') !!}
   {!! Html::script('melody/js/settings.js') !!}
-  {!! Html::script('melody/js/numeral.min.js') !!}
   {!! Html::script('melody/js/dashboard.js') !!}
   @yield('scripts')
 </body>

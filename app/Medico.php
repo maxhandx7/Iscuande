@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Medico extends Model
 {
     protected $fillable = [
-        'nombre', 'apellido', 'cedula',  'especialidad',
+        'nombre', 'apellido', 'cedula',  'especialidad_id',
     ];
+
+    public function especialidad()
+    {
+        return $this->belongsTo(Especialidad::class);
+    }
+
 
     public function my_store($request)
     {
@@ -16,7 +22,7 @@ class Medico extends Model
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'cedula' => $request->cedula,
-            'especialidad' => $request->especialidad,
+            'especialidad_id' => $request->especialidad_id,
         ]);
 
     }
@@ -27,7 +33,7 @@ class Medico extends Model
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'cedula' => $request->cedula,
-            'especialidad' => $request->especialidad,
+            'especialidad_id' => $request->especialidad_id,
         ]);
     }
 }

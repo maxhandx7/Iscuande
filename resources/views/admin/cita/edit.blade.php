@@ -34,10 +34,10 @@
                         <div class="form-group">
                             <label for="cupo_id">Medico</label>
                             <select id="cupo_id" class="form-control js-example-basic-single" name="cupo_id">
-                                @foreach ($cupos as $cupo)
-                                    <option value="{{ $cupo->id }}"
-                                        {{ old('cupo_id', $cupo->id) == $cupo->id ? 'selected' : '' }}>
-                                        {{$cupo->medico->nombre}}</option>
+                                @foreach ($turnos as $turno)
+                                    <option value="{{ $turno->id }}"
+                                        {{ old('cupo_id', $turno->id) == $turno->id ? 'selected' : '' }}>
+                                        {{$turno->medico->nombre}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -45,10 +45,10 @@
                         <div  class="form-group">
                             <label for="FechaCita">Seleccione fecha de cita</label>
                             <select id="FechaCita" class="form-control js-example-basic-single" name="FechaCita">
-                                @foreach ($cupos as $cupo)
-                                    <option value="{{$cupo->fecha}}"
-                                        {{ old('id', $cupo->id) == $cupo->id ? 'selected' : '' }}>
-                                        {{$cupo->fecha}}</option>
+                                @foreach ($turnos as $turno)
+                                    <option value="{{$turno->fecha}}"
+                                        {{ old('id', $turno->id) == $turno->id ? 'selected' : '' }}>
+                                        {{$turno->fecha}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -65,7 +65,7 @@
                                 @endforeach 
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary mr-2">Agregar</button>
+                        <button type="submit" class="btn btn-primary mr-2">Actualizar</button>
                         <a href="{{ route('users.index') }}" class="btn btn-light mr-2">
                             cancelar
                         </a>
@@ -94,8 +94,8 @@
         function mostrarValores() {
             FechaCita.val("");
             FechaCita.children('option:not(:first)').remove();
-            @foreach ($cupos as $cupo)
-                var option = $('<option></option>').val('{{ $cupo->fecha }}').text('{{ $cupo->fecha }}');
+            @foreach ($turnos as $turno)
+                var option = $('<option></option>').val('{{ $turno->fecha }}').text('{{ $turno->fecha }}');
                 FechaCita.append(option);
             @endforeach
         }

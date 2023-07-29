@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Nuevo turno')
+@section('title', 'Nuevo especialidad')
 @section('styles')
 @endsection
 
@@ -11,13 +11,13 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                Nuevo turno
+                Nueva especialidad
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="/home">Panel administrador</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('cupos.index') }}">Turnos</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Nuevo turno</li>
+                    <li class="breadcrumb-item"><a href="{{ route('especialidads.index') }}">Especialidades</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Nueva especialidad</li>
                 </ol>
             </nav>
         </div>
@@ -26,13 +26,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title">Registrar nuevo turno</h4>
+                            <h4 class="card-title">Registrar nueva especialidad</h4>
 
                         </div>
-                        {!! Form::open(['route' => 'cupos.store', 'method' => 'POST']) !!}
-                        @include('admin.cupo._form')
+                        {!! Form::open(['route' => 'especialidads.store', 'method' => 'POST']) !!}
+                        @include('admin.especialidad._form')
                         <button type="submit" class="btn btn-primary mr-2">Agregar</button>
-                        <a href="{{ route('cupos.index') }}" class="btn btn-light mr-2">
+                        <a href="{{ route('especialidads.index') }}" class="btn btn-light mr-2">
                             cancelar
                         </a>
 

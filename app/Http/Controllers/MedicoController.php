@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Especialidad;
 use App\Medico;
 use App\Http\Requests\Medico\StoreRequest;
 use App\Http\Requests\Medico\UpdateRequest;
@@ -23,22 +24,18 @@ class MedicoController extends Controller
 
     public function create()
     {
-        return view('admin.medico.create');
+        $especialidades = Especialidad::get();
+        return view('admin.medico.create', compact('especialidades'));
     }
 
 
     public function store(StoreRequest $request, Medico $medico)
     {
-        /* $validarCupo = Medico::where('id', $request->cupo_id)->first();
-        dd($validarCupo->id);
-        if ($validarCupo->medicos == 0) {
-            return redirect()->back()->with('error', 'No hay medicos disponibles');
-        } */
         try {
             $medico->my_store($request);
-            return redirect()->route('medicos.index')->with('success', 'Medico credada con éxito');
+            return redirect()->route('medicos.index')->with('success', 'Medico credado con éxito');
         } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Ocurrió un error al crear la medico');
+            return redirect()->back()->with('error', 'Ocurrió un error al crear al medico');
         }
     }
 
@@ -57,9 +54,9 @@ class MedicoController extends Controller
     {
         try {
             $medico->my_update($request);
-            return redirect()->route('medicos.index')->with('success', 'Medico modificada');
+            return redirect()->route('medicos.index')->with('success', 'Medico modificado');
         } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Ocurrió un error al actualizar la medico');
+            return redirect()->back()->with('error', 'Ocurrió un error al actualizar al medico');
         }
     }
 
@@ -68,9 +65,9 @@ class MedicoController extends Controller
     {
         try {
             $medico->delete();
-            return redirect()->route('medicos.index')->with('success', 'Medico eliminada');
+            return redirect()->route('medicos.index')->with('success', 'Medico eliminado');
         } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Ocurrió un error al cancelar la medico');
+            return redirect()->back()->with('error', 'Ocurrió un error al eliminar al medico');
         }
     }
 }

@@ -52,7 +52,7 @@
                                     ." ".
                                     $medico->apellido }} </td>
 
-                                    <td> {{$medico->especialidad  }} </td>
+                                    <td> {{$medico->especialidad->nombre }} </td>
 
 
 

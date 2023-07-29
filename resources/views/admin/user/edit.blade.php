@@ -112,7 +112,7 @@
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mr-2">Agregar</button>
+                        <button type="submit" class="btn btn-primary mr-2">Actualizar</button>
                         <a href="{{ route('users.index') }}" class="btn btn-light mr-2">
                             cancelar
                         </a>

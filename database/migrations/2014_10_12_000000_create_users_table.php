@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('tipo_documento');
             $table->string('no_documento')->unique();
             $table->string('telefono')->nullable();
-            $table->string('email')->unique();
-            $table->enum('tipo',['PACIENTE', 'ADMIN'])->default('PACIENTE');
+            $table->string('email');
+            $table->enum('tipo',['PACIENTE', 'ADMIN', 'MEDICO'])->default('PACIENTE');
             $table->enum('estado',['ACTIVO', 'INACTIVO'])->default('ACTIVO');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

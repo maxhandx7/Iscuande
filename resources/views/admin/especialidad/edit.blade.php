@@ -22,39 +22,27 @@
             </nav>
         </div>
         <div class="row">
-            <div class="col-lg-12 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-cardescripciond">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Editar cita</h4>
 
                         </div>
-                        {!! Form::model($medico,['route'=>['citas.update' ,$medico], 'method'=>'PUT']) !!}
+                        {!! Form::model($especialidad,['route'=>['especialidads.update' ,$especialidad->id], 'method'=>'PUT']) !!}
                     
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" value="{{ old('nombre', $medico->nombre) }}" class="form-control ">
+                            <input type="text" name="nombre" id="nombre" value="{{ old('nombre', $especialidad->nombre) }}" class="form-control ">
                         </div>
-                        
-                        
+
                         <div class="form-group">
-                            <label for="apellido">Apellido</label>
-                            <input type="text" name="apellido" id="apellido" value="{{ old('apellido', $medico->apellido) }}" class="form-control ">
-                        </div>
-                        
-                        
-                        <div class="form-group">
-                            <label for="cedula">Cedula</label>
-                            <input type="text" name="cedula" id="cedula" value="{{ old('cedula', $medico->cedula) }}" class="form-control ">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="especialidad">Especialidad</label>
-                            <input type="text" name="especialidad" id="especialidad" value="{{ old('especialidad', $medico->especialidad) }}" class="form-control ">
+                            <label for="descripcion">Descripción</label>
+                            <textarea name="descripcion" class="form-control" id="exampleTextarea1" rows="4">{{ old('nombre', $especialidad->descripcion) }}</textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary mr-2">Actualizar</button>
-                        <a href="{{ route('medicos.index') }}" class="btn btn-light mr-2">
+                        <a href="{{ route('especialidads.index') }}" class="btn btn-light mr-2">
                             cancelar
                         </a>
 

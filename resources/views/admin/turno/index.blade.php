@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Gestión de cupos')
+@section('title','Gestión de Turnos')
 @section('styles')
 @endsection
 
@@ -27,7 +27,7 @@
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Turnos</h4>
                         <div class="btn-group">
-                            <a href=" {{route('cupos.create')}} " class="btn btn-success" type="button">
+                            <a href=" {{route('turnos.create')}} " class="btn btn-success" type="button">
                                 <i class="fa fa-plus"></i>
                                 Registrar nuevo turno</a>
                         </div>
@@ -44,21 +44,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($cupos as $cupo)
+                                @foreach ($turnos as $turno)
 
                                 <tr>
 
-                                    <td> {{$cupo->medico->nombre
+                                    <td> {{$turno->medico->nombre
                                     ." ".
-                                    $cupo->medico->apellido }} </td>
+                                    $turno->medico->apellido }} </td>
 
-                                    <td> {{$cupo->fecha  }} </td>
+                                    <td> {{$turno->fecha  }} </td>
 
 
 
                                     <td style="width: 230px;">
-                                        {!! Form::open(['route'=>['cupos.destroy', $cupo], 'method'=>'DELETE', 'id'=>'delete-form']) !!}
-                                        <a class="btn btn-info" href="{{ route('cupos.edit', $cupo)}}" title="Editar">
+                                        {!! Form::open(['route'=>['turnos.destroy', $turno], 'method'=>'DELETE', 'id'=>'delete-form']) !!}
+                                        <a class="btn btn-info" href="{{ route('turnos.edit', $turno)}}" title="Editar">
                                             <i class="far fa-edit">Modificar</i>
                                         </a>
 

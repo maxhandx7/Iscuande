@@ -9,10 +9,9 @@ class Cita extends Model
 {
     protected $fillable = [
         'user_id',
-        'cupo_id',
+        'turno_id',
         'FechaCita',
         'HoraCita',
-        'cupos',
         'estado'
     ];
 
@@ -21,16 +20,16 @@ class Cita extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function cupo()
+    public function turno()
     {
-        return $this->belongsTo(Cupo::class);
+        return $this->belongsTo(Turno::class);
     }
 
     public function my_store($request)
     {
          self::create([
             'user_id' => Auth::user()->id,
-            'cupo_id' => $request->cupo_id,
+            'turno_id' => $request->turno_id,
             'FechaCita' => $request->FechaCita,
             'HoraCita' => $request->HoraCita,
         ]);
@@ -41,7 +40,7 @@ class Cita extends Model
     {
         $this->update([
             'user_id' => Auth::user()->id,
-            'cupo_id' => $request->cupo_id,
+            'turno_id' => $request->turno_id,
             'FechaCita' => $request->FechaCita,
             'HoraCita' => $request->HoraCita,
         ]);

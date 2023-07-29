@@ -20,8 +20,10 @@ Route::get('/', function () {
 
 Route::resource('users', 'UserController')->names('users');
 Route::resource('medicos', 'MedicoController')->names('medicos');
+Route::resource('especialidads', 'EspecialidadController')->names('especialidads');
 Route::resource('citas', 'CitaController')->names('citas');
-Route::resource('cupos', 'CupoController')->names('cupos');
+Route::resource('turnos', 'TurnoController')->names('turnos');
+Route::get('get_turnos', 'AjaxController@getTurnos')->name('get_turnos');
 
 Auth::routes();
 
