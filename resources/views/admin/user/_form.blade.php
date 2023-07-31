@@ -50,10 +50,21 @@
     <label for="tipo">Tipo de usuario</label>
     <select id="tipo" class="form-control js-example-basic-single @error('tipo') is-invalid @enderror" name="tipo"
         name="tipo" required autocomplete="tipo" autofocus>
-        <option selected disabled value="">Seleccione tipo de documento</option>
+        <option selected disabled value="">Seleccione tipo de usuario</option>
         <option value="ADMIN">Administrador</option>
+        <option value="MEDICO">Medico</option>   
         <option value="PACIENTE">Paciente</option>   
     </select>
 </div>
+
+
+<div class="form-group especialidad_id" hidden>
+    <label>Especialidad</label>
+    <select id="especialidad_id" class="form-control " name="especialidad_id">
+    </select>
+</div>
+
+
+
 
 

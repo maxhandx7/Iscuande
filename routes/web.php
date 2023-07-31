@@ -19,11 +19,14 @@ Route::get('/', function () {
 });
 
 Route::resource('users', 'UserController')->names('users');
-Route::resource('medicos', 'MedicoController')->names('medicos');
 Route::resource('especialidads', 'EspecialidadController')->names('especialidads');
-Route::resource('citas', 'CitaController')->names('citas');
+Route::resource('citas', 'CitaController')->names('citas'); 
+Route::post('storeCita', 'CitaController@storeCita')->name('storeCita');
+
 Route::resource('turnos', 'TurnoController')->names('turnos');
+
 Route::get('get_turnos', 'AjaxController@getTurnos')->name('get_turnos');
+Route::post('update_status', 'AjaxController@updateStatus')->name('update_status');
 
 Auth::routes();
 

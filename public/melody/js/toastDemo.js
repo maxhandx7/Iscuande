@@ -4,7 +4,7 @@
     resetToastPosition();
     $.toast({
       heading: 'Success',
-      text: 'And these were just the basic demos! Scroll down to check further details on how to customize the output.',
+      text: 'Se ha actualizado el estado',
       showHideTransition: 'slide',
       icon: 'success',
       loaderBg: '#f96868',
@@ -40,7 +40,7 @@
     resetToastPosition();
     $.toast({
       heading: 'Danger',
-      text: 'And these were just the basic demos! Scroll down to check further details on how to customize the output.',
+      text: 'Hubo un error al actualizar el estado',
       showHideTransition: 'slide',
       icon: 'error',
       loaderBg: '#f2a654',

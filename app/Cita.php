@@ -10,6 +10,7 @@ class Cita extends Model
     protected $fillable = [
         'user_id',
         'turno_id',
+        'especialidad_id',
         'FechaCita',
         'HoraCita',
         'estado'
@@ -25,24 +26,21 @@ class Cita extends Model
         return $this->belongsTo(Turno::class);
     }
 
-    public function my_store($request)
+    public function my_store($id, $fecha, $hora)
     {
-         self::create([
-            'user_id' => Auth::user()->id,
-            'turno_id' => $request->turno_id,
-            'FechaCita' => $request->FechaCita,
-            'HoraCita' => $request->HoraCita,
-        ]);
+        $especialidad = Turno::where('id', $id)->first();
 
+        return self::create([
+            'user_id' => Auth::user()->id,
+            'turno_id' => intval($id),
+            'especialidad_id' => $especialidad->especialidad_id,
+            'FechaCita' => $fecha,
+            'HoraCita' => $hora,
+        ]);
     }
 
-    public function my_update($request)
+    public function my_update($id, $estado)
     {
-        $this->update([
-            'user_id' => Auth::user()->id,
-            'turno_id' => $request->turno_id,
-            'FechaCita' => $request->FechaCita,
-            'HoraCita' => $request->HoraCita,
-        ]);
+        return $this->where('id', $id)->update(['estado' => $estado]);
     }
 }

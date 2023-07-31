@@ -3,7 +3,7 @@
     <select id="medico_id" class="form-control js-example-basic-single" name="medico_id">
         <option selected disabled value="">Seleccione medico</option>
         @foreach ($medicos as $medico)
-            <option value="{{ $medico->id }}">{{ $medico->nombre }} {{ $medico->apellido }}</option>
+            <option value="{{ $medico->id }}">{{ $medico->name }} {{ $medico->apellido }} - {{ $medico->especialidad->nombre }}</option>
         @endforeach
     </select>
 </div>
@@ -43,5 +43,11 @@
             <div class="input-group-addon input-group-append"><i class="far fa-clock input-group-text"></i></div>
         </div>
     </div>
+</div>
+
+<div class="form-group">
+    <label for="iCitas">Intervalo entre citas (en minutos)</label>
+    <input id="iCitas" type="text" class="form-control @error('iCitas') is-invalid @enderror" name="iCitas"
+        value="30" required autocomplete="iCitas" autofocus>
 </div>
 

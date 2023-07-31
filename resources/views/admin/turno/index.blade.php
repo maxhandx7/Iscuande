@@ -48,9 +48,9 @@
 
                                 <tr>
 
-                                    <td> {{$turno->medico->nombre
+                                    <td> {{$turno->user->name
                                     ." ".
-                                    $turno->medico->apellido }} </td>
+                                    $turno->user->apellido }} </td>
 
                                     <td> {{$turno->fecha  }} </td>
 

@@ -29,7 +29,7 @@
                             <h4 class="card-title">Editar cita</h4>
 
                         </div>
-                        {!! Form::model($medico,['route'=>['citas.update' ,$medico], 'method'=>'PUT']) !!}
+                        {!! Form::model($medico,['route'=>['medicos.update' ,$medico], 'method'=>'PUT']) !!}
                     
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
@@ -49,8 +49,13 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="especialidad">Especialidad</label>
-                            <input type="text" name="especialidad" id="especialidad" value="{{ old('especialidad', $medico->especialidad) }}" class="form-control ">
+                            <label for="especialidad_id">Especialidad</label>
+                            <select id="especialidad_id" class="form-control js-example-basic-single" name="especialidad_id">
+                                @foreach ($especialidades as $especialidad)
+                                <option value="{{ $especialidad->id }}" 
+                                 {{ old('id', $especialidad->id ) == $especialidad->id ? 'selected' : '' }}>{{ $especialidad->nombre }}</option>
+                            @endforeach
+                            </select>
                         </div>
 
                         <button type="submit" class="btn btn-primary mr-2">Actualizar</button>

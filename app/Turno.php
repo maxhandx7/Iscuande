@@ -9,23 +9,26 @@ use Illuminate\Database\Eloquent\Model;
 class Turno extends Model
 {
     protected $fillable = [
-        'medico_id',
+        'user_id',
+        'especialidad_id',
         'fecha',
         'descripcion',
         'horas',
     ];
 
-    public function medico()
+    public function user()
     {
-        return $this->belongsTo(Medico::class);
+        return $this->belongsTo(User::class);
     }
 
     public function my_store($request)
     {
         $fecha = $this->formatear_fecha($request->fecha);
-        $horas = $this->horas($request->inicio, $request->fin);
+        $horas = $this->horas($request->inicio, $request->fin, $request->iCitas);
+        $especialidad = User::where('id', $request->medico_id)->first();
         self::create([
-            'medico_id' => $request->medico_id,
+            'user_id' => $request->medico_id,
+            'especialidad_id' => $especialidad->especialidad_id,
             'fecha' => $fecha,
             'descripcion' => $request->descripcion,
             'horas' => $horas,
@@ -36,7 +39,8 @@ class Turno extends Model
     {
 
         $this->update([
-            'medico_id' => $request->medico_id,
+            'user_id' => $request->medico_id,
+            'especialidad_id' => $request->especialidad_id,
             'fecha' => $request->fecha,
             'descripcion' => $request->descripcion,
             'horas' => $request->horas,
@@ -44,7 +48,7 @@ class Turno extends Model
     }
 
 
-    public function horas($inicio, $fin)
+    public function horas($inicio, $fin, $mcitas)
     {
 
 
@@ -68,7 +72,7 @@ class Turno extends Model
 
         while ($horaInicio <= $horaFin) {
             $horas[] = $horaInicio->format('g:i A');
-            $horaInicio->addMinutes(30); // Añadir 30 minutos
+            $horaInicio->addMinutes($mcitas); 
         }
 
         $array = $horas;

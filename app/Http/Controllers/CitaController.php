@@ -9,7 +9,9 @@ use App\Http\Requests\Cita\StoreRequest;
 use App\Http\Requests\Cita\UpdateRequest;
 use App\Medico;
 use App\Turno;
+use App\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CitaController extends Controller
@@ -21,20 +23,35 @@ class CitaController extends Controller
 
     public function index()
     {
+        Carbon::setLocale('es');
         $tipo = Auth::user()->tipo;
         $id = Auth::user()->id;
         if ($tipo == 'ADMIN') {
             Carbon::setLocale('es');
             $citas = Cita::get();
             foreach ($citas as $cita) {
-                $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->format('d \d\e F \d\e Y');
+                $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
             }
             return view('admin.cita.index', compact('citas'));
+        }
+        if ($tipo == 'MEDICO') {
+            $turnos = Turno::where('user_id', $id)->get();
+            $citas = [];
+
+            foreach ($turnos as $turno) {
+                $citasDeTurno = Cita::where('turno_id', $turno->id)->get();
+
+                foreach ($citasDeTurno as $cita) {
+                    $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+                    $citas[] = $cita;
+                }
+            }
+
+            return view('admin.cita.index', compact('citas'));
         } else {
-            Carbon::setLocale('es');
             $citas = Cita::where('user_id', $id)->get();
             foreach ($citas as $cita) {
-                $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->format('d \d\e F \d\e Y');
+                $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
             }
             return view('admin.cita.index', compact('citas'));
         }
@@ -43,10 +60,12 @@ class CitaController extends Controller
 
     public function create()
     {
+
         $turnos = Turno::get();
         $especialidades = Especialidad::get();
-        $medico = Medico::get();
-        $cuposRegistrados = Cita::where('FechaCita', '2023-07-28')->pluck('HoracIta')->toArray();
+        $medico = User::where('tipo', 'MEDICO')
+            ->get();;
+        $cuposRegistrados = Cita::pluck('HoracIta')->toArray();
         $horasFaltantes = [];
         foreach ($turnos as $cupo) {
             $horasCadena = $cupo->horas;
@@ -54,24 +73,29 @@ class CitaController extends Controller
             $horasFaltantes = array_diff($horasArray, $cuposRegistrados);
         }
 
-        return view('admin.cita.create', compact('turnos', 'horasFaltantes', 'especialidades', 'medico'));
+        return view('admin.cita.create', compact('turnos', 'especialidades', 'medico'));
     }
 
 
-    public function store(StoreRequest $request, Cita $cita)
+    public function storeCita(Request $request)
     {
-        /* $validarCupo = Cupo::where('id', $request->cupo_id)->first();
-        dd($validarCupo->id);
-        if ($validarCupo->cupos == 0) {
-            return redirect()->back()->with('error', 'No hay cupos disponibles');
-        } */
         try {
-            $cita->my_store($request);
-            return redirect()->route('citas.index')->with('success', 'Cita credada con éxito');
+            $idTurno = $request->input('id_turno');
+            $fechaTurno = $request->input('fecha_turno');
+            $horaSeleccionada = $request->input('hora_seleccionada');
+
+            $cita = new Cita;
+            $result = $cita->my_store($idTurno, $fechaTurno, $horaSeleccionada);
+            if ($result) {
+                return response()->json(['success' => true, 'redirect_url' => route('citas.index')]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Ocurrió un error al crear la cita']);
+            }
         } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Ocurrió un error al crear la cita');
+            return response()->json(['success' => false, 'message' => 'Ocurrió un error al crear la cita']);
         }
     }
+
 
     public function show(Cita $cita)
     {
@@ -79,28 +103,7 @@ class CitaController extends Controller
     }
 
 
-    public function edit(Cita $cita)
-    {
-        $cupos = Cupo::get();
-        $cuposRegistrados = Cita::pluck('HoracIta')->toArray();
-        foreach ($cupos as $cupo) {
-            $horasCadena = $cupo->horas;
-            $horasArray = explode(', ', $horasCadena);
-            $horasFaltantes = array_diff($horasArray, $cuposRegistrados);
-        }
 
-        return view('admin.cita.edit', compact('cita', 'cupos', 'horasFaltantes'));
-    }
-
-    public function update(UpdateRequest $request, Cita $cita)
-    {
-        try {
-            $cita->my_update($request);
-            return redirect()->route('citas.index')->with('success', 'Cita modificada');
-        } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Ocurrió un error al actualizar la cita');
-        }
-    }
 
 
     public function destroy(Cita $cita)

@@ -23,15 +23,19 @@
         }
       });
 
-      $('#sex').editable({
+      $('#estado').editable({
         source: [{
-            value: 1,
-            text: 'Male'
+            value: 'PENDIENTE',
+            text: 'PENDIENTE'
           },
           {
-            value: 2,
-            text: 'Female'
-          }
+            value: 'ACEPTADA',
+            text: 'ACEPTADA'
+          },
+          {
+            value: 'RECHAZADA',
+            text: 'RECHAZADA'
+          },
         ]
       });
 

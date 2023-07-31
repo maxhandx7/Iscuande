@@ -11,7 +11,8 @@ class Especialidad extends Model
         'descripcion',
     ];
 
-
+   
+    
     public function my_store($request)
     {
         self::create([

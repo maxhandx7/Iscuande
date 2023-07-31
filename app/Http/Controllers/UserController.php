@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Especialidad;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,8 @@ class UserController extends Controller
     public function create()
     {
         $users = User::get();
-        return view('admin.user.create', compact('users'));
+        $especialidades = Especialidad::get();
+        return view('admin.user.create', compact('users', 'especialidades'));
     }
 
 

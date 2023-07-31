@@ -33,7 +33,6 @@
                         <div class="form-group">
                             <label for="medico_id">Medico</label>
                             <select id="medico_id" class="form-control js-example-basic-single" name="medico_id">
-                                <option selected disabled value="">Seleccione medico</option>
                                 @foreach ($medicos as $medico)
                                     <option value="{{ $medico->id }}" 
                                      {{ old('id', $medico->id ) == $medico->id ? 'selected' : '' }}>{{ $medico->nombre }} {{ $medico->apellido }}</option>

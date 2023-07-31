@@ -15,13 +15,15 @@ class CreateTurnosTable extends Migration
     {
         Schema::create('turnos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('medico_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('especialidad_id');
             $table->date('fecha');
             $table->text('descripcion');
             $table->longText('horas');
             $table->timestamps();
             // Definir las relaciones con las tablas de pacientes y médicos
-            $table->foreign('medico_id')->references('id')->on('medicos')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('especialidad_id')->references('id')->on('especialidads')->onDelete('cascade');
         });
     }
 

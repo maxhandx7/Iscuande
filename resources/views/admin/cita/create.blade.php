@@ -30,14 +30,10 @@
                             <h4 class="card-title">Registrar nueva cita</h4>
 
                         </div>
-                        {!! Form::open(['route' => 'citas.store', 'method' => 'POST']) !!}
+
 
                         @include('admin.cita._form')
 
-                        <a href="{{ route('citas.index') }}" class="btn btn-light mr-2">
-                            cancelar
-                        </a>
-                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
@@ -48,7 +44,23 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $("#fecha").datepicker();
+            $("#fecha").datepicker({
+                enableOnReadonly: true,
+                todayHighlight: true,
+                startDate: new Date()
+            });
+
+            $('.btn-reservar').hide();
+
+            $(window).resize(function() {
+                if ($(window).width() < 576) {
+
+                    $('.btn-reservar').show();
+                } else {
+                    $('.btn-reservar').hide();
+                }
+            }).trigger('resize');
+
         });
     </script>
     <script>
@@ -58,7 +70,6 @@
                 headerTag: "h3",
                 bodyTag: "section",
                 transitionEffect: "slideLeft",
-                stepsOrientation: "vertical",
                 labels: {
                     cancel: "Cancelar",
                     current: "Paso actual:",
@@ -86,7 +97,7 @@
                         }
                     } else if (currentIndex === 1) {
                         var fecha = $("#fecha");
-                        console.log(fecha.val());
+                        var especialidad_id = $("#especialidad_id");
                         if (fecha.val().trim() === "") {
                             swal({
                                 text: 'Debes completar este campo antes de continuar.',
@@ -99,18 +110,19 @@
                                 }
                             })
                             return false;
-                        } else if (currentIndex === 1) {
+                        } else {
                             $.ajax({
                                 url: "{{ route('get_turnos') }}",
                                 method: 'GET',
                                 data: {
                                     fecha: fecha.val(),
+                                    especialidad: especialidad_id.val(),
                                 },
-                                success: function(data) {
+                                success: function(response) {
                                     if (currentIndex === 1) {
-                                        if (data.length === 0) {
+                                        if (response.data.length === 0) {
                                             swal({
-                                                text: 'No se encontraron citas para el dia seleccionado',
+                                                text: 'No se encontraron citas para el día seleccionado',
                                                 icon: 'warning',
                                                 button: {
                                                     text: "OK",
@@ -119,25 +131,122 @@
                                                     className: "btn btn-primary"
                                                 }
                                             });
-                                            $('#info-error').removeAttr("hidden");
+                                            if (currentIndex > newIndex) {
+                                                $('#info-error').attr("hidden", true);
+                                            } else {
+                                                $('#info-error').removeAttr("hidden");
+                                            }
                                             return false;
                                         }
                                     }
-                                    $('#info-ok').removeAttr("hidden");
-                                    console.log(data);
-                                    $("#medico").text(data);
+
+                                    if (currentIndex > newIndex) {
+                                        $('#info-ok').attr("hidden", true);
+                                    } else {
+                                        $('#info-ok').removeAttr("hidden");
+                                    }
+
+                                    const tabla = $('#tabla-turnos tbody');
+
+                                    tabla.empty();
+
+                                    const cuposRegistrados = response.cuposRegistrados;
+                                    for (const turno of response.data) {
+                                        const id = turno.id;
+                                        const fecha = turno.fecha;
+                                        const descripcion = turno.descripcion;
+                                        const medico = turno.medico;
+                                        const medico_id = turno.medico_id;
+                                        const newRow = $(`
+                                        <tr>
+                                            <td>${id}</td>
+                                            <td>${fecha}</td>
+                                            <td>${descripcion}</td>
+                                            <td>${medico}</td>
+                                            <td><select class="form-control horas" name="horas"></select></td>
+                                            <td><a class="btn btn-info reservar-link" href="" title="reservar">
+                                                <i class="far fa-check-circle">reservar</i>
+                                            </a></td>
+                                        </tr>
+                                    `);
+
+                                        const horasSelect = newRow.find('.horas');
+                                        const horasArray = turno.horas.split(', ');
+
+                                        for (const hora of horasArray) {
+                                            if (!cuposRegistrados.includes(hora)) {
+                                                horasSelect.append(
+                                                    `<option value="${hora}">${hora}</option>`
+                                                );
+                                            }
+                                        }
+
+                                        tabla.append(newRow);
+                                    }
+
+                                    tabla.on('click', 'a.reservar-link', function(e) {
+                                        e.preventDefault();
+                                        const fila = $(this).closest('tr');
+                                        const idTurno = fila.find('td:nth-child(1)')
+                                            .text();
+                                        const fechaTurno = fila.find('td:nth-child(2)')
+                                            .text();
+                                        const horaSeleccionada = fila.find(
+                                            'select.horas').val();
+
+                                        const token = $('meta[name="csrf-token"]').attr(
+                                            'content');
+                                        $.ajax({
+                                            url: "{{ route('storeCita') }}",
+                                            method: 'POST',
+                                            data: {
+                                                id_turno: idTurno,
+                                                fecha_turno: fechaTurno,
+                                                hora_seleccionada: horaSeleccionada,
+                                            },
+                                            headers: {
+                                                'X-CSRF-TOKEN': token
+                                            },
+                                            success: function(response) {
+                                                if (response.success) {
+                                                    swal("Reserva exitosa!",
+                                                        "La reserva ha sido realizada con éxito.",
+                                                        "success").then(
+                                                        function() {
+                                                            window
+                                                                .location
+                                                                .href =
+                                                                response
+                                                                .redirect_url;
+                                                        });
+                                                } else {
+                                                    swal("Error",
+                                                        "Hubo un error al realizar la reserva.",
+                                                        "error");
+                                                }
+                                            },
+                                            error: function(xhr, status,
+                                                error) {
+                                                console.error(error);
+                                            }
+                                        });
+                                    });
                                 }
                             });
                         }
+
                     }
 
                     return true;
                 },
+                onStepChanged: function(event, currentIndex, newIndex) {
+                    $('#info-ok').attr("hidden", true);
+                    $('#info-error').attr("hidden", true);
+                },
                 onFinished: function(event, currentIndex) {
-                    alert("¡Enviado!");
+                    window.location.href = "{{ route('citas.index') }}";
                 }
             });
         })(jQuery);
     </script>
-
 @endsection

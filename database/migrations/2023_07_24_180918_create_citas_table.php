@@ -20,7 +20,7 @@ class CreateCitasTable extends Migration
             $table->unsignedBigInteger('especialidad_id');
             $table->string('FechaCita');
             $table->string('HoraCita');
-            $table->enum('estado',['ACTIVO', 'INACTIVO'])->default('ACTIVO');
+            $table->enum('estado',['PENDIENTE', 'ACEPTADA', 'RECHAZADA'])->default('PENDIENTE');
             $table->timestamps();
 
             // Definir las relaciones con las tablas de pacientes y médicos

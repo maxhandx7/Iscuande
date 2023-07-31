@@ -6,6 +6,7 @@ use App\Turno;
 use App\Http\Requests\Cupo\StoreRequest;
 use App\Http\Requests\Cupo\UpdateRequest;
 use App\Medico;
+use App\User;
 use Illuminate\Http\Request;
 
 class TurnoController extends Controller
@@ -27,7 +28,7 @@ class TurnoController extends Controller
     public function create()
     {
         $turnos = Turno::get();
-        $medicos = Medico::get();
+        $medicos = User::where('tipo', 'MEDICO')->get();
         return view('admin.turno.create', compact('turnos', 'medicos'));
     }
 
@@ -50,7 +51,7 @@ class TurnoController extends Controller
 
     public function edit(Turno $turno)
     {
-        $medicos = Medico::get();
+        $medicos = User::where('tipo', 'MEDICO')->get();
         return view('admin.turno.edit', compact('turno', 'medicos'));
     }
 
