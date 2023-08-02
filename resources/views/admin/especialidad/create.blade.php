@@ -15,7 +15,7 @@
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="/home">Panel administrador</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('especialidads.index') }}">Especialidades</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Nueva especialidad</li>
                 </ol>

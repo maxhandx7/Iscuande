@@ -132,6 +132,20 @@
                                 <span class="menu-title">Usuarios</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
+                              <i class="fas fa-bullhorn menu-icon"></i>
+                              <span class="menu-title">Noticias</span>
+                              <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="page-layouts">
+                              <ul class="nav flex-column sub-menu">
+                                <li class="nav-item {{ Request::segment(1) === 'posts' ? 'active' : '' }}"> <a class="nav-link" href="{{ route('posts.index')}}">Publicaciones</a></li>
+                                <li class="nav-item {{ Request::segment(1) === 'category' ? 'active' : '' }}"> <a class="nav-link" href="{{ route('categories.index')}}">Categorias</a></li>
+                                <li class="nav-item {{ Request::segment(1) === 'tags' ? 'active' : '' }}"> <a class="nav-link" href="{{ route('tags.index')}}">Etiquetas</a></li>
+                              </ul>
+                            </div>
+                          </li>
                     @endif
                 </ul>
             </nav>

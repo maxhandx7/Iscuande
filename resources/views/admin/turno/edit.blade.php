@@ -15,7 +15,7 @@
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="/home">Panel administrador</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('turnos.index') }}">Turnos</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Editar turno</li>
                 </ol>
@@ -29,54 +29,24 @@
                             <h4 class="card-title">Editar turno</h4>
 
                         </div>
-                        {!! Form::model($Turno,['route'=>['turnos.update' ,$Turno], 'method'=>'PUT']) !!}
+                        {!! Form::model($turno,['route'=>['turnos.update' ,$turno], 'method'=>'PUT']) !!}
                         <div class="form-group">
                             <label for="medico_id">Medico</label>
                             <select id="medico_id" class="form-control js-example-basic-single" name="medico_id">
                                 @foreach ($medicos as $medico)
                                     <option value="{{ $medico->id }}" 
-                                     {{ old('id', $medico->id ) == $medico->id ? 'selected' : '' }}>{{ $medico->nombre }} {{ $medico->apellido }}</option>
+                                     {{ old('id', $turno->id ) == $medico->id ? 'selected' : '' }}>{{ $medico->nombre }} {{ $medico->apellido }}</option>
                                 @endforeach
                             </select>
                         </div>
                  
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
-                            <textarea name="descripcion" class="form-control" id="exampleTextarea1" rows="4">{{ old('descripcion', $Turno->descripcion) }}</textarea>
+                            <textarea name="descripcion" class="form-control" id="exampleTextarea1" rows="4">{{ old('descripcion', $turno->descripcion) }}</textarea>
                         </div>
                         
-                        
-                        <div class="form-group">
-                            <label for="fecha">Fecha</label>
-                            <div id="datepicker-popup" class="input-group date datepicker">
-                                <input type="text" value="{{ old('fecha', $Turno->fecha) }}" name="fecha" class="form-control">
-                                <span class="input-group-addon input-group-append border-left">
-                                    <span class="far fa-calendar input-group-text"></span>
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="Turno_id">Hora Inicio</label>
-                            <div class="input-group date" id="timepicker-example" data-target-input="nearest">
-                                <div class="input-group" data-target="#timepicker-example" data-toggle="datetimepicker">
-                                    <input type="text" name="inicio" class="form-control datetimepicker-input" data-target="#timepicker-example" />
-                                    <div class="input-group-addon input-group-append"><i class="far fa-clock input-group-text"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        
-                        <div class="form-group">
-                            <label for="Turno_id">Hora Fin</label>
-                            <div class="input-group date" id="timepicker-example1" data-target-input="nearest">
-                                <div class="input-group" data-target="#timepicker-example1" data-toggle="datetimepicker">
-                                    <input type="text" name="fin" class="form-control datetimepicker-input" data-target="#timepicker-example1" />
-                                    <div class="input-group-addon input-group-append"><i class="far fa-clock input-group-text"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary mr-2">Agregar</button>
+
+                        <button type="submit" class="btn btn-primary mr-2">Actualizar</button>
                         <a href="{{ route('turnos.index') }}" class="btn btn-light mr-2">
                             cancelar
                         </a>

@@ -15,7 +15,7 @@
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-custom">
-                <li class="breadcrumb-item"><a href="/home">Panel administrador</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
             </ol>
         </nav>
@@ -48,9 +48,9 @@
 
                                 <tr>
 
-                                    <td> {{$user->name
+                                    <td><a href="{{route('users.show',$user)}}"> {{$user->name
                                     ." ".
-                                    $user->apellido }} </td>
+                                    $user->apellido }} </a></td>
 
                                     <td> {{$user->tipo }} </td>
 
@@ -59,12 +59,17 @@
                                     <td style="width: 230px;">
                                         {!! Form::open(['route'=>['users.destroy', $user], 'method'=>'DELETE', 'id'=>'delete-form']) !!}
                                         <a class="btn btn-info" href="{{ route('users.edit', $user)}}" title="Editar">
-                                            <i class="far fa-edit">Editar</i>
+                                            <i class="far fa-edit"></i>
                                         </a>
 
                                         <button class="btn btn-danger delete-confirm" type="submit" title="Eliminar" onclick="return confirmDelete()">
-                                            <i class="far fa-trash-alt">Eliminar</i>
+                                            <i class="far fa-trash-alt"></i>
                                         </button>
+
+                                        <a class="btn btn-info" href="{{ route('users.show', $user) }}"
+                                        title="Editar">
+                                        <i class="far fa-eye"></i>
+                                    </a>
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>

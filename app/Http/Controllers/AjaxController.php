@@ -33,7 +33,7 @@ class AjaxController extends Controller
                     foreach ($medicos as $medico) {
                         $fecha->medico = $medico->name." " .$medico->apellido;
                     }
-                    $data[] = $fecha; // Agregar cada objeto $fecha al nuevo array $data
+                    $data[] = $fecha; 
                 }
 
             

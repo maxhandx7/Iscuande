@@ -4,15 +4,15 @@
 <form class="pt-3" method="POST" action="{{ route('login') }}">
     @csrf
     <div class="form-group">
-      <label for="email">Correo electrónico</label>
+      <label for="email">Numero de documento</label>
       <div class="input-group">
         <div class="input-group-prepend bg-transparent">
           <span class="input-group-text bg-transparent border-right-0">
             <i class="fa fa-user text-primary"></i>
           </span>
         </div>
-        <input id="email" type="email" name="email" class="form-control form-control-lg border-left-0 @error('email') is-invalid @enderror" id="email" placeholder="ejemplo@mail.com" required>
-        @error('email')
+        <input id="no_documento" type="no_documento" name="no_documento" class="form-control form-control-lg border-left-0 @error('no_documento') is-invalid @enderror" id="no_documento" placeholder="Ejemplo: 123456789" required>
+        @error('no_documento')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>

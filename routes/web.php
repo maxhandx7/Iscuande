@@ -21,12 +21,22 @@ Route::get('/', function () {
 Route::resource('users', 'UserController')->names('users');
 Route::resource('especialidads', 'EspecialidadController')->names('especialidads');
 Route::resource('citas', 'CitaController')->names('citas'); 
-Route::post('storeCita', 'CitaController@storeCita')->name('storeCita');
-
 Route::resource('turnos', 'TurnoController')->names('turnos');
+Route::resource('categories', 'CategoryController')->names('categories');
+Route::resource('posts', 'PostController')->names('posts');
+Route::resource('tags', 'TagController')->names('tags');
 
-Route::get('get_turnos', 'AjaxController@getTurnos')->name('get_turnos');
+
+Route::post('storeCita', 'CitaController@storeCita')->name('storeCita');
 Route::post('update_status', 'AjaxController@updateStatus')->name('update_status');
+
+Route::get('change_status/posts/{post}', 'PostController@change_status')->name('change.status.posts');
+Route::get('get_turnos', 'AjaxController@getTurnos')->name('get_turnos');
+Route::get('blog/', 'BlogController@blog')->name('blog');
+Route::get('post/{slug}', 'BlogController@post')->name('post');
+Route::get('category/{slug}','BlogController@category')->name('category');
+Route::get('Etiquetas/{slug}','BlogController@tag')->name('tag');
+
 
 Auth::routes();
 
@@ -35,5 +45,7 @@ Route::group(['middleware' => 'user.status'], function () {
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login');
 });
+
+
 
 

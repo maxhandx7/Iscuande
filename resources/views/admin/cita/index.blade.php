@@ -15,7 +15,7 @@
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="/home">Panel administrador</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Citas</li>
                 </ol>
             </nav>
@@ -38,18 +38,22 @@
                             <table id="order-listing" class="table table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Id</th>
                                         <th>Nombre</th>
                                         <th>Medico</th>
                                         <th>Fecha</th>
                                         <th>Hora</th>
                                         <th style="width: 200px;">Estado</th>
+                                        @if(Auth::user()->tipo == 'PACIENTE')
                                         <th>Acciones</th>
+                                         @endif
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     @foreach ($citas as $cita)
                                         <tr>
+                                            <td>{{$cita->id}}</td>
                                             <td> {{ $cita->user->name . ' ' . $cita->user->apellido }} </td>
 
                                             <td>Dr.{{ ' ' . $cita->turno->user->name . ' ' . $cita->turno->user->apellido }}
@@ -70,6 +74,7 @@
                                                 @else
                                                 <td>{{ $cita->estado }}</td>
                                             @endif
+                                            @if(Auth::user()->tipo == 'PACIENTE' && $cita->estado != 'ACEPTADA')
                                             <td>
                                                 {!! Form::open(['route' => ['citas.destroy', $cita], 'method' => 'DELETE', 'id' => 'delete-form']) !!}
                                                 <button class="btn btn-danger delete-confirm" type="submit"
@@ -78,6 +83,7 @@
                                                 </button>
                                                 {!! Form::close() !!}
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
 

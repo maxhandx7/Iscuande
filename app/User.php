@@ -11,11 +11,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    const USERNAME_FIELD = 'no_documento';
+
     protected $fillable = [
         'especialidad_id', 'name', 'apellido', 'tipo_documento', 'no_documento', 'telefono', 'email', 'password',  'tipo', 'estado', 
     ];
@@ -42,6 +39,16 @@ class User extends Authenticatable
     public function especialidad()
     {
         return $this->belongsTo(Especialidad::class);
+    }
+
+    public function cita()
+    {
+        return $this->hasMany(Cita::class);
+    }
+
+    public function turno()
+    {
+        return $this->hasMany(Turno::class);
     }
 
     public function my_store($request)

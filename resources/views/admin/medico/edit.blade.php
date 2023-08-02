@@ -15,7 +15,7 @@
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="/home">Panel administrador</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('citas.index') }}">citas</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Editar cita</li>
                 </ol>

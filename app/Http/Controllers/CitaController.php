@@ -110,7 +110,7 @@ class CitaController extends Controller
     {
         try {
             $cita->delete();
-            return redirect()->route('citas.index')->with('success', 'Cita eliminada');
+            return redirect()->route('citas.index')->with('success', 'Cita cancelada');
         } catch (\Exception $th) {
             return redirect()->back()->with('error', 'Ocurrió un error al cancelar la cita');
         }
