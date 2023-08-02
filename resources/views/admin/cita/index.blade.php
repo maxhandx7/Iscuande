@@ -24,6 +24,16 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body ">
+                        @if (Auth::user()->tipo == 'ADMIN')
+                            <span>Fecha de consulta: <b> </b></span>
+                            <div class="form-group">
+                                <form id="filtrar-citas">
+                                    <input type="date" name="filterFecha" id="filterFecha" class="form-control"
+                                        value="">
+                                    <input type="submit" class="btn btn-link" value="consultar">
+                                </form>
+                            </div>
+                        @endif
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Citas</h4>
                             <div class="btn-group">
@@ -44,16 +54,16 @@
                                         <th>Fecha</th>
                                         <th>Hora</th>
                                         <th style="width: 200px;">Estado</th>
-                                        @if(Auth::user()->tipo == 'PACIENTE')
-                                        <th>Acciones</th>
-                                         @endif
+                                        @if (Auth::user()->tipo == 'PACIENTE')
+                                            <th>Acciones</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     @foreach ($citas as $cita)
                                         <tr>
-                                            <td>{{$cita->id}}</td>
+                                            <td>{{ $cita->id }}</td>
                                             <td> {{ $cita->user->name . ' ' . $cita->user->apellido }} </td>
 
                                             <td>Dr.{{ ' ' . $cita->turno->user->name . ' ' . $cita->turno->user->apellido }}
@@ -71,18 +81,18 @@
                                                             data-title="Select estado">{{ $cita->estado }}</a>
                                                     </div>
                                                 </td>
-                                                @else
+                                            @else
                                                 <td>{{ $cita->estado }}</td>
                                             @endif
-                                            @if(Auth::user()->tipo == 'PACIENTE' && $cita->estado != 'ACEPTADA')
-                                            <td>
-                                                {!! Form::open(['route' => ['citas.destroy', $cita], 'method' => 'DELETE', 'id' => 'delete-form']) !!}
-                                                <button class="btn btn-danger delete-confirm" type="submit"
-                                                    title="Eliminar" onclick="return confirmDelete()">
-                                                    <i class="far fa-trash-alt">Cancelar</i>
-                                                </button>
-                                                {!! Form::close() !!}
-                                            </td>
+                                            @if (Auth::user()->tipo == 'PACIENTE' && $cita->estado != 'ACEPTADA')
+                                                <td>
+                                                    {!! Form::open(['route' => ['citas.destroy', $cita], 'method' => 'DELETE', 'id' => 'delete-form']) !!}
+                                                    <button class="btn btn-danger delete-confirm" type="submit"
+                                                        title="Eliminar" onclick="return confirmDelete()">
+                                                        <i class="far fa-trash-alt">Cancelar</i>
+                                                    </button>
+                                                    {!! Form::close() !!}
+                                                </td>
                                             @endif
                                         </tr>
                                     @endforeach
@@ -147,6 +157,23 @@
                     });
                 }
             });
+
+            $.ajax({
+                url: "{{ route('filter_fecha') }}",
+                method: 'GET',
+                data: {
+                    filterFecha: filterFecha.val(),
+                },
+                success: function(response) {
+                    if (response) {
+                        showSuccessToast();
+                    } else {
+                        showDangerToast();
+                    }
+                }
+
+            });
+
         });
     </script>
 @endsection

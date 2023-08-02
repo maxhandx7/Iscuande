@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cita;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,15 +31,15 @@ class HomeController extends Controller
             ->orderByRaw('MONTH(c.FechaCita) DESC')
             ->limit(12)
             ->get();
-      
+
         $fechaEspecifica = Carbon::now()->format('Y-m-d');
 
         $totalCitasDia = Cita::selectRaw('DATE_FORMAT(FechaCita, "%d/%m/%Y") as dia')
-        ->selectRaw('COUNT(*) as total_citas')
-        ->where('estado', 'ACEPTADA')
-        ->groupBy('FechaCita')
-        ->orderBy('FechaCita', 'desc')
-        ->get();
+            ->selectRaw('COUNT(*) as total_citas')
+            ->where('estado', 'ACEPTADA')
+            ->groupBy('FechaCita')
+            ->orderBy('FechaCita', 'desc')
+            ->get();
 
 
         $totalCitasAceptadas = DB::table('citas')
@@ -53,13 +54,24 @@ class HomeController extends Controller
             ->where('estado', 'PENDIENTE')
             ->count();
 
+        $medicosMasAtendidos = User::select('users.id', 'users.name', 'users.apellido')
+            ->withCount(['turno as cita_count' => function ($query) {
+                $query->join('citas', 'citas.turno_id', '=', 'turnos.id');
+            }])
+            ->where('tipo', 'MEDICO')
+            ->orderBy('cita_count', 'desc')
+            ->get();
+
 
         return view('home', compact(
             'citasMes',
             'totalCitasDia',
             'totalCitasAceptadas',
             'totalCitasRechazadas',
-            'totalCitasPendientes'
+            'totalCitasPendientes',
+            'medicosMasAtendidos'
         ));
+
+        
     }
 }

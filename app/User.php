@@ -80,7 +80,6 @@ class User extends Authenticatable
             'email' => $request->email,
             'tipo' => $request->tipo,
             'estado' => $request->estado,
-            'especialidad_id' => $request->especialidad_id,
         ]);
     }
 }

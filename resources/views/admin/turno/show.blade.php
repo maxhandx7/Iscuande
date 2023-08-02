@@ -48,6 +48,10 @@
                                     <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" turno="tab" aria-controls="home">
                                         Medico asignado
                                     </a>
+
+                                    <a type="button" class="list-group-item list-group-item-action"
+                                                id="list-messages-list" data-toggle="list" href="#list-messages"
+                                                user="tab" aria-controls="messages">Usuarios</a>
                                 </div>
                             </div>
                         </div>
@@ -113,6 +117,52 @@
 
                                 </div>
 
+
+                                <div class="tab-pane fade" id="list-messages" user="tabpanel"
+                                aria-labelledby="list-messages-list">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h4>Historial de citas</h4>
+                                    </div>
+                                </div>
+
+                                <div class="profile-feed">
+                                    <div class="d-flex align-items-start profile-feed-item">
+
+                                        <div class="table-responsive">
+                                            <table id="order-listing" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Nombre</th>
+                                                        <th>Apellido</th>
+                                                        <th>Fecha</th>
+                                                        <th>Hora</th>
+                                                        <th>Estado</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (is_array($citas) || is_object($citas))
+                                                        @foreach ($citas as $cita)
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    {{ $cita->id }}</th>
+                                                                <td> {{ $cita->nombre }}</td>
+                                                                <td> {{ $cita->apellido }}</td>
+                                                                <td> {{ $cita->fecha }}</td>
+                                                                <td> {{ $cita->hora }}</td>
+                                                                <td> {{ $cita->estado }}</td>
+
+
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             </div>
                         </div>

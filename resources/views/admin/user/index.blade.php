@@ -47,10 +47,17 @@
                                 @foreach ($users as $user)
 
                                 <tr>
-
-                                    <td><a href="{{route('users.show',$user)}}"> {{$user->name
+                                    @if ($user->tipo == 'ADMIN')
+                                    <td>{{$user->name
                                     ." ".
-                                    $user->apellido }} </a></td>
+                                    $user->apellido }} </td>
+                                    @else
+                                    <td><a href="{{route('users.show',$user)}}"> {{$user->name
+                                        ." ".
+                                        $user->apellido }} </a></td>
+                                    @endif
+
+                                    
 
                                     <td> {{$user->tipo }} </td>
 
@@ -65,11 +72,13 @@
                                         <button class="btn btn-danger delete-confirm" type="submit" title="Eliminar" onclick="return confirmDelete()">
                                             <i class="far fa-trash-alt"></i>
                                         </button>
-
-                                        <a class="btn btn-info" href="{{ route('users.show', $user) }}"
+                                    @if ($user->tipo != 'ADMIN')
+                                
+                                    <a class="btn btn-info" href="{{ route('users.show', $user) }}"
                                         title="Editar">
                                         <i class="far fa-eye"></i>
                                     </a>
+                                    @endif
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>

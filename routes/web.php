@@ -32,6 +32,7 @@ Route::post('update_status', 'AjaxController@updateStatus')->name('update_status
 
 Route::get('change_status/posts/{post}', 'PostController@change_status')->name('change.status.posts');
 Route::get('get_turnos', 'AjaxController@getTurnos')->name('get_turnos');
+Route::get('filter_fecha', 'CitaController@index')->name('filter_fecha');
 Route::get('blog/', 'BlogController@blog')->name('blog');
 Route::get('post/{slug}', 'BlogController@post')->name('post');
 Route::get('category/{slug}','BlogController@category')->name('category');

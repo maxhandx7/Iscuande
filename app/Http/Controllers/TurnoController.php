@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cita;
 use App\Turno;
 use App\Http\Requests\Cupo\StoreRequest;
 use App\Http\Requests\Cupo\UpdateRequest;
@@ -19,7 +20,7 @@ class TurnoController extends Controller
     public function index()
     {
         $turnos = Turno::get();
-        
+
 
         return view('admin.turno.index', compact('turnos'));
     }
@@ -45,7 +46,12 @@ class TurnoController extends Controller
 
     public function show(Turno $turno)
     {
-        return view('admin.turno.show', compact('turno'));
+        $citas = Cita::select('citas.id AS id', 'citas.FechaCita AS fecha', 'citas.HoraCita AS hora', 'citas.estado AS estado', 'users.name AS nombre', 'users.apellido AS apellido')
+            ->join('users', 'citas.user_id', '=', 'users.id')
+            ->where('citas.turno_id', $turno->id)
+            ->where('users.tipo', 'PACIENTE')
+            ->get();
+        return view('admin.turno.show', compact('turno', 'citas'));
     }
 
 

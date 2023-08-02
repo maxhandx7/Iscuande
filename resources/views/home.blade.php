@@ -25,33 +25,48 @@
                 </div>
             </div>
         @else
-        
-        <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <i class="fa fa-medkit"></i>
-                            citas diarias
-                        </h4>
-                        <canvas id="citas_diarias" height="100"></canvas>
-                        <div id="orders-chart-legend" class="orders-chart-legend"></div>
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fa fa-medkit"></i>
+                                Medicos mejor valorados
+                            </h4>
+                            <canvas id="citas_medicos" height="100"></canvas>
+                            <div id="orders-chart-legend" class="orders-chart-legend"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <i class="fa fa-medkit"></i>
-                    Total Citas
-                  </h4>
-                  <canvas id="pieChart"></canvas>
+
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fa fa-medkit"></i>
+                                citas diarias
+                            </h4>
+                            <canvas id="citas_diarias" height="100"></canvas>
+                            <div id="orders-chart-legend" class="orders-chart-legend"></div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                <div class="col-lg-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <i class="fa fa-medkit"></i>
+                                Total Citas
+                            </h4>
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
@@ -93,8 +108,22 @@
                         data: [<?php foreach ($citasMes as $reg) {
                             echo '"' . $reg->mtotal . '",';
                         } ?>],
-
-                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
                         borderWidth: 3
                     }]
                 },
@@ -125,7 +154,7 @@
                         data: [<?php foreach ($totalCitasDia as $reg) {
                             echo '"' . $reg->total_citas . '",';
                         } ?>],
-                        backgroundColor: 'rgba(20, 204, 20, 1)',
+                        backgroundColor: 'rgba(20, 204, 20, 0.5)',
                         borderColor: 'rgba(54, 162, 235, 0.2)',
                         borderWidth: 1
                     }]
@@ -141,41 +170,40 @@
                 }
             });
 
-    var doughnutPieData = {
-    datasets: [{
-      data: [<?php echo '"' . $totalCitasRechazadas . '",', '"' . $totalCitasAceptadas . '",', '"' . $totalCitasPendientes . '",' ?>],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.5)',
-        'rgba(54, 162, 235, 0.5)',
-        'rgba(255, 206, 86, 0.5)',
-        'rgba(75, 192, 192, 0.5)',
-        'rgba(153, 102, 255, 0.5)',
-        'rgba(255, 159, 64, 0.5)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-    }],
+            var doughnutPieData = {
+                datasets: [{
+                    data: [<?php echo '"' . $totalCitasRechazadas . '",', '"' . $totalCitasAceptadas . '",', '"' . $totalCitasPendientes . '",'; ?>],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 159, 64, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                }],
 
-    // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels: [
-      'Citas Rechazadas',
-      'Citas Aceptadas',
-      'Citas Pendientes',
-    ]
-  };
-  var doughnutPieOptions = {
-    responsive: true,
-    animation: {
-      animateScale: true,
-      animateRotate: true
-    }
-  };
+                labels: [
+                    'Citas Rechazadas',
+                    'Citas Aceptadas',
+                    'Citas Pendientes',
+                ]
+            };
+            var doughnutPieOptions = {
+                responsive: true,
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            };
 
 
             if ($("#pieChart").length) {
@@ -186,6 +214,39 @@
                     options: doughnutPieOptions
                 });
             }
+
+
+
+            var varVenta = document.getElementById('citas_medicos').getContext('2d');
+            var charVenta = new Chart(varVenta, {
+                type: 'bar',
+                data: {
+                    labels: [<?php foreach ($medicosMasAtendidos as $medico) {
+                        $nombre = $medico->name;
+                        $apellido = $medico->apellido;
+                    
+                        echo '"' . $nombre . ' ' . $apellido . '",';
+                    } ?>],
+                    datasets: [{
+                        label: 'Citas realizadas',
+                        data: [<?php foreach ($medicosMasAtendidos as $reg) {
+                            echo '"' . $reg->cita_count . '",';
+                        } ?>],
+                        backgroundColor: 'rgba(20, 91, 204, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
         });
     </script>
 @endsection
