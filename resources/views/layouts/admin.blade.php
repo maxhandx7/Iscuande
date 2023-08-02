@@ -57,8 +57,8 @@
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="" data-toggle="tooltip" data-placement="top"
-                                title="" data-original-title="Logout">
+                            <a class="dropdown-item" href="{{ route('configs.edit', Auth::user()->id) }}" data-toggle="tooltip" data-placement="top"
+                                title="Configuracion" data-original-title="config">
                                 <i class="fas fa-cogs text-primary"></i>
                                 Configuración
                             </a>

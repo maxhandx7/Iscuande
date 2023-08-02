@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Especialidad;
-use App\Http\Requests\Medico\StoreRequest;
-use App\Http\Requests\Medico\UpdateRequest;
+use App\Http\Requests\Especialidad\StoreRequest;
+use App\Http\Requests\Especialidad\UpdateRequest;
 use Illuminate\Http\Request;
 
 class EspecialidadController extends Controller

@@ -29,13 +29,20 @@
                             <h4 class="card-title">Editar cita</h4>
 
                         </div>
-                        {!! Form::model($especialidad,['route'=>['especialidads.update' ,$especialidad->id], 'method'=>'PUT']) !!}
-                    
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" value="{{ old('nombre', $especialidad->nombre) }}" class="form-control ">
-                        </div>
+                        {!! Form::model($especialidad, ['route' => ['especialidads.update', $especialidad->id], 'method' => 'PUT']) !!}
 
+                        <div class="form-group">
+                            <label for="nombre">Nombre *</label>
+                            <input type="text" name="nombre" id="nombre"
+                                value="{{ old('nombre', $especialidad->nombre) }}"
+                                class="form-control @error('nombre') is-invalid @enderror">
+                                @error('nombre')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                      
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
                             <textarea name="descripcion" class="form-control" id="exampleTextarea1" rows="4">{{ old('nombre', $especialidad->descripcion) }}</textarea>

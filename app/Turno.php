@@ -25,9 +25,9 @@ class Turno extends Model
     {
         $fecha = $this->formatear_fecha($request->fecha);
         $horas = $this->horas($request->inicio, $request->fin, $request->iCitas);
-        $especialidad = User::where('id', $request->medico_id)->first();
+        $especialidad = User::where('id', $request->user_id)->first();
         self::create([
-            'user_id' => $request->medico_id,
+            'user_id' => $request->user_id,
             'especialidad_id' => $especialidad->especialidad_id,
             'fecha' => $fecha,
             'descripcion' => $request->descripcion,
@@ -37,10 +37,10 @@ class Turno extends Model
 
     public function my_update($request)
     {
-       
+
         $especialidad = User::where('id', $request->medico_id)->first();
 
-        
+
         $this->update([
             'user_id' => $request->medico_id,
             'especialidad_id' => $especialidad->especialidad_id,
@@ -51,7 +51,6 @@ class Turno extends Model
 
     public function horas($inicio, $fin, $mcitas)
     {
-
 
         $hora_objetoInicio = DateTime::createFromFormat('g:i A', $inicio);
         $Inicio = date_format($hora_objetoInicio, "G:i");
@@ -73,7 +72,7 @@ class Turno extends Model
 
         while ($horaInicio <= $horaFin) {
             $horas[] = $horaInicio->format('g:i A');
-            $horaInicio->addMinutes($mcitas); 
+            $horaInicio->addMinutes($mcitas);
         }
 
         $array = $horas;

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Cita;
 use App\Turno;
-use App\Http\Requests\Cupo\StoreRequest;
-use App\Http\Requests\Cupo\UpdateRequest;
+use App\Http\Requests\Turno\StoreRequest;
+use App\Http\Requests\Turno\UpdateRequest;
 use App\Medico;
 use App\User;
 use Illuminate\Http\Request;
@@ -36,6 +36,15 @@ class TurnoController extends Controller
 
     public function store(StoreRequest $request, Turno $turno)
     {
+        if ($request->inicio == null) {
+            return redirect()->route('turnos.create')->with('error', 'Hora inicio no puede quedar vacia');
+        }
+        if ($request->fin == null) {
+            return redirect()->route('turnos.create')->with('error', 'Hora fin no puede quedar vacia');
+        }
+        if ($request->iCitas == null) {
+            return redirect()->route('turnos.create')->with('error', 'Ingrese un valor valido en el intervalo');
+        }
         try {
             $turno->my_store($request);
             return redirect()->route('turnos.index')->with('success', 'Turno credada con éxito');

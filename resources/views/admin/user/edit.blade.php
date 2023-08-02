@@ -90,6 +90,12 @@
                             </select>
                         </div>
 
+                        <div class="form-group especialidad_id" hidden>
+                            <label>Especialidad</label>
+                            <select id="especialidad_id" class="form-control " name="especialidad_id">
+                            </select>
+                        </div>
+
 
                         <div class="form-group">
                             <label for="estado">Estado</label>
@@ -116,6 +122,44 @@
 @endsection
 @section('scripts')
     {!! Html::script('melody/js/select2.js') !!}
-    {!! Html::script('melody/js/wizard.js') !!}
+    <script>
+        $(document).ready(function() {
+            var especialidad_id = $('#especialidad_id');
+            var isEspecialidadesLoaded =
+            false; // Variable para verificar si las especialidades ya han sido cargadas
+            
+            $("#tipo").on('change', function() {
+                if ($('#tipo').val() == 'MEDICO') {
+                    mostrarMedicos();
+                } else {
+                    ocultarMedicos();
+                }
+            });
+
+            function mostrarMedicos() {
+                if (!isEspecialidadesLoaded) {
+                    especialidad_id.val("");
+                    $('.especialidad_id').removeAttr('hidden');
+                    especialidad_id.children('option:not(:first)').remove();
+                    @foreach ($especialidades as $especialidad)
+                        var option = $('<option></option>').val('{{ $especialidad->id }}').text(
+                            '{{ $especialidad->nombre }}');
+                        especialidad_id.append(option);
+                    @endforeach
+                    isEspecialidadesLoaded = true; // Marcar las especialidades como cargadas
+                }
+            }
+
+            function ocultarMedicos() {
+                especialidad_id.val("");
+                especialidad_id.children('option').remove();
+                $('.especialidad_id').attr("hidden", true);
+                isEspecialidadesLoaded =
+                false; // Reiniciar la variable para volver a cargar las especialidades cuando sea necesario
+            }
+
+
+        });
+    </script>
 
 @endsection

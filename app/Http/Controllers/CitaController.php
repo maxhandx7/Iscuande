@@ -28,8 +28,13 @@ class CitaController extends Controller
         $id = Auth::user()->id;
         if ($tipo == 'ADMIN') {
             Carbon::setLocale('es');
-            $fechaActual = Carbon::today();
-            $citas = Cita::where('FechaCita', isset($request->filterFecha) ? $request->filterFecha : $fechaActual)->get();
+            if(isset($request->filterFecha)){
+                $carbonFecha = Carbon::createFromFormat('Y-m-d', $request->filterFecha);
+                $fechaFormateada = $carbonFecha->format('Y-d-m');
+            }
+           
+            $fechaActual = Carbon::now()->format('Y-d-m');
+            $citas = Cita::where('FechaCita', isset($fechaFormateada) ? $fechaFormateada : $fechaActual)->get();
             foreach ($citas as $cita) {
                 $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
             }
@@ -50,7 +55,7 @@ class CitaController extends Controller
             return view('admin.cita.index', compact('citas'));
         } else {
             $citas = Cita::where('user_id', $id)
-            ->whereDate('FechaCita', '>=', Carbon::today())
+            ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-d-m'))
             ->get();
             foreach ($citas as $cita) {
                 $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');

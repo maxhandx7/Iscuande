@@ -15,6 +15,7 @@
   }
   if ($("#datepicker-popup").length) {
     $('#datepicker-popup').datepicker({
+      language: 'es',
       enableOnReadonly: true,
       todayHighlight: true,
       startDate: new Date() 

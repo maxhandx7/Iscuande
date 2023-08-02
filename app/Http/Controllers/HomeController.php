@@ -56,7 +56,8 @@ class HomeController extends Controller
 
         $medicosMasAtendidos = User::select('users.id', 'users.name', 'users.apellido')
             ->withCount(['turno as cita_count' => function ($query) {
-                $query->join('citas', 'citas.turno_id', '=', 'turnos.id');
+                $query->join('citas', 'citas.turno_id', '=', 'turnos.id')
+                ->where('citas.estado', 'ACEPTADA');
             }])
             ->where('tipo', 'MEDICO')
             ->orderBy('cita_count', 'desc')

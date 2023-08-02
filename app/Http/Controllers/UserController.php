@@ -35,7 +35,6 @@ class UserController extends Controller
         
         try {
             $user->my_store($request);
-            
             return redirect()->route('users.index')->with('success', 'User credada con éxito');
         } catch (\Exception $th) {
             return redirect()->back()->with('error', 'Ocurrió un error al crear la user');
@@ -50,7 +49,8 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('admin.user.edit', compact('user'));
+        $especialidades = Especialidad::get();
+        return view('admin.user.edit', compact('user', 'especialidades'));
     }
 
     public function update(Request $request, User $user)
@@ -73,4 +73,7 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Ocurrió un error al cancelar la user');
         }
     }
+
+
+   
 }

@@ -30,6 +30,8 @@
 
                         </div>
                         {!! Form::open(['route' => 'users.store', 'method' => 'POST']) !!}
+                        <span class="text-danger">Los campos con (*) son obligatorios</span>
+                        <hr>
                         @include('admin.user._form')
                         <button type="submit" class="btn btn-primary mr-2">Agregar</button>
                         <a href="{{ route('users.index') }}" class="btn btn-light mr-2">

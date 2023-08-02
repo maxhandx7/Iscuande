@@ -29,22 +29,38 @@
                             <h4 class="card-title">Editar turno</h4>
 
                         </div>
-                        {!! Form::model($turno,['route'=>['turnos.update' ,$turno], 'method'=>'PUT']) !!}
+                        {!! Form::model($turno, ['route' => ['turnos.update', $turno], 'method' => 'PUT']) !!}
                         <div class="form-group">
-                            <label for="medico_id">Medico</label>
-                            <select id="medico_id" class="form-control js-example-basic-single" name="medico_id">
+                            <label for="user_id">Medico</label>
+                            <select id="user_id"
+                                class="form-control js-example-basic-single @error('user_id') is-invalid @enderror"
+                                name="user_id">
                                 @foreach ($medicos as $medico)
-                                    <option value="{{ $medico->id }}" 
-                                     {{ old('id', $turno->id ) == $medico->id ? 'selected' : '' }}>{{ $medico->nombre }} {{ $medico->apellido }}</option>
+                                    <option value="{{ $medico->id }}"
+                                        {{ old('user_id', $turno->user_id) == $medico->id ? 'selected' : '' }}>
+                                        {{ $medico->name }} {{ $medico->apellido }}
+                                        - {{ $medico->especialidad->nombre }}
+                                    </option>
                                 @endforeach
                             </select>
+                            @error('user_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                 
+
                         <div class="form-group">
                             <label for="descripcion">Descripción</label>
-                            <textarea name="descripcion" class="form-control" id="exampleTextarea1" rows="4">{{ old('descripcion', $turno->descripcion) }}</textarea>
+                            <textarea name="descripcion" class="form-control @error('descripcion') is-invalid @enderror" id="exampleTextarea1"
+                                rows="4">{{ old('descripcion', $turno->descripcion) }}</textarea>
+                            @error('descripcion')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                        
+
 
                         <button type="submit" class="btn btn-primary mr-2">Actualizar</button>
                         <a href="{{ route('turnos.index') }}" class="btn btn-light mr-2">
@@ -61,6 +77,7 @@
 @endsection
 @section('scripts')
     {!! Html::script('melody/js/select2.js') !!}
-    {!! Html::script('melody/js/wizard.js') !!}
+    {!! Html::script('melody/js/bootstrap-datepicker.es.js') !!}
+    {!! Html::script('melody/js/formpickers.js') !!}
 
 @endsection

@@ -1,20 +1,20 @@
 @extends('layouts.blog')
 
 @section('contenido')
-
-<div class="page-banner overlay-dark bg-image" style="background-image: url({{asset('one-health/assets/img/bg_image_1.jpg')}});">
-  <div class="banner-section">
-    <div class="container text-center wow fadeInUp">
-      <nav aria-label="Breadcrumb">
-        <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Noticias</li>
-        </ol>
-      </nav>
-      <h1 class="font-weight-normal">Noticias</h1>
-    </div> <!-- .container -->
-  </div> <!-- .banner-section -->
-</div> <!-- .page-banner -->
+    <div class="page-banner overlay-dark bg-image"
+        style="background-image: url({{ asset('one-health/assets/img/bg_image_1.jpg') }});">
+        <div class="banner-section">
+            <div class="container text-center wow fadeInUp">
+                <nav aria-label="Breadcrumb">
+                    <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Noticias</li>
+                    </ol>
+                </nav>
+                <h1 class="font-weight-normal">Noticias</h1>
+            </div> <!-- .container -->
+        </div> <!-- .banner-section -->
+    </div> <!-- .page-banner -->
 
     <div class="page-section">
         <div class="container">
@@ -48,9 +48,21 @@
                                 </div>
                             </div>
                         @endforeach
-                        {{ $posts->render() }}
+                        
 
                     </div> <!-- .row -->
+                   
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- El resultado de $posts->render() se centrará -->
+                                <div class="text-center">
+                                    {{ $posts->render() }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 
                 </div>
                 <div class="col-lg-4">
                     <div class="sidebar">
@@ -59,69 +71,40 @@
                             <h3 class="sidebar-title">Categorias</h3>
                             <ul class="categories">
                                 @foreach ($categoriesWithCount as $category)
-                                    <li><a href="#">{{ $category->name }} <span>{{ $category->posts_count }}</span></a></li>
+                                    <li><a href="{{ route('category', $category->slug) }}">{{ $category->name }}
+                                            <span>{{ $category->posts_count }}</span></a></li>
                                 @endforeach
                             </ul>
+                            @if(isset($relatedPosts))
+                            <h3 class="sidebar-title">Últimos posts de la misma categoría</h3>
+                            @foreach($relatedPosts as $relatedPost)
+                            <div class="blog-item">
+                                <a class="post-thumb" href="">
+                                    <img src="{{asset('image/' . $relatedPost->image)}}" alt="">
+                                </a>
+                                <div class="content">
+                                    <h5 class="post-title"><a href="{{ route('post', $post->slug) }}">{{$relatedPost->name}}</a></h5>
+                                    <div class="meta">
+                                        <a > {{$relatedPost->user->name}}</a>
+                                        <a ><span class="mai-person"></span> {{$relatedPost->user->tipo}}</a>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            @endif
                         </div>
-
-                       {{--  <div class="sidebar-block">
-                            <h3 class="sidebar-title">Recent Blog</h3>
-                            <div class="blog-item">
-                                <a class="post-thumb" href="">
-                                    <img src="../assets/img/blog/blog_1.jpg" alt="">
-                                </a>
-                                <div class="content">
-                                    <h5 class="post-title"><a href="#">Even the all-powerful Pointing has no
-                                            control</a></h5>
-                                    <div class="meta">
-                                        <a href="#"><span class="mai-calendar"></span> July 12, 2018</a>
-                                        <a href="#"><span class="mai-person"></span> Admin</a>
-                                        <a href="#"><span class="mai-chatbubbles"></span> 19</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="blog-item">
-                                <a class="post-thumb" href="">
-                                    <img src="../assets/img/blog/blog_2.jpg" alt="">
-                                </a>
-                                <div class="content">
-                                    <h5 class="post-title"><a href="#">Even the all-powerful Pointing has no
-                                            control</a></h5>
-                                    <div class="meta">
-                                        <a href="#"><span class="mai-calendar"></span> July 12, 2018</a>
-                                        <a href="#"><span class="mai-person"></span> Admin</a>
-                                        <a href="#"><span class="mai-chatbubbles"></span> 19</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="blog-item">
-                                <a class="post-thumb" href="">
-                                    <img src="../assets/img/blog/blog_3.jpg" alt="">
-                                </a>
-                                <div class="content">
-                                    <h5 class="post-title"><a href="#">Even the all-powerful Pointing has no
-                                            control</a></h5>
-                                    <div class="meta">
-                                        <a href="#"><span class="mai-calendar"></span> July 12, 2018</a>
-                                        <a href="#"><span class="mai-person"></span> Admin</a>
-                                        <a href="#"><span class="mai-chatbubbles"></span> 19</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-
-
 
                         <div class="sidebar-block">
                             <h3 class="sidebar-title">Etiquetas</h3>
                             <div class="tagcloud">
-                              @foreach($tags as $tag)
-                                <a href="#" class="tag-cloud-link">{{$tag->name}}</a>
-                               @endforeach
+                                @foreach ($tags as $tag)
+                                    <a href="#" class="tag-cloud-link">{{ $tag->name }}</a>
+                                @endforeach
                             </div>
                         </div>
 
-                        
+
                     </div>
                 </div>
             </div> <!-- .row -->

@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', 'WebController@index');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('nosotros/', 'WebController@index');
+Route::get('medicos/', 'WebController@index');
+Route::get('contactos/', 'WebController@index');
 
 Route::resource('users', 'UserController')->names('users');
 Route::resource('especialidads', 'EspecialidadController')->names('especialidads');
@@ -25,6 +26,7 @@ Route::resource('turnos', 'TurnoController')->names('turnos');
 Route::resource('categories', 'CategoryController')->names('categories');
 Route::resource('posts', 'PostController')->names('posts');
 Route::resource('tags', 'TagController')->names('tags');
+Route::resource('configs', 'ConfigController')->names('configs');
 
 
 Route::post('storeCita', 'CitaController@storeCita')->name('storeCita');
@@ -36,7 +38,9 @@ Route::get('filter_fecha', 'CitaController@index')->name('filter_fecha');
 Route::get('blog/', 'BlogController@blog')->name('blog');
 Route::get('post/{slug}', 'BlogController@post')->name('post');
 Route::get('category/{slug}','BlogController@category')->name('category');
-Route::get('Etiquetas/{slug}','BlogController@tag')->name('tag');
+Route::get('etiquetas/{slug}','BlogController@tag')->name('tag');
+
+
 
 
 Auth::routes();

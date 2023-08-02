@@ -42,9 +42,11 @@
 
 @endsection
 @section('scripts')
+    {!! Html::script('melody/js/bootstrap-datepicker.es.js') !!}
     <script>
         $(document).ready(function() {
             $("#fecha").datepicker({
+                language: 'es',
                 enableOnReadonly: true,
                 todayHighlight: true,
                 startDate: new Date()
@@ -172,16 +174,48 @@
 
                                         const horasSelect = newRow.find('.horas');
                                         const horasArray = turno.horas.split(', ');
+                                        const fechaParts = fecha.split('-');
+                                        const fechaFormateada =
+                                            `${fechaParts[1]}/${fechaParts[2]}/${fechaParts[0]}`;
+
+                                        const fechaActual = new Date().toLocaleDateString(
+                                            'es-ES', {
+                                                month: '2-digit',
+                                                day: '2-digit',
+                                                year: 'numeric'
+                                            });
+                                        const horaActual = new Date().toLocaleTimeString(
+                                            'es-ES', {
+                                                hour: '2-digit',
+                                                minute: '2-digit'
+                                            });
 
                                         for (const hora of horasArray) {
                                             if (!cuposRegistrados.includes(hora)) {
-                                                horasSelect.append(
-                                                    `<option value="${hora}">${hora}</option>`
-                                                );
+                                                const hora24 = new Date(
+                                                        `${fechaFormateada} ${hora}`)
+                                                    .toLocaleTimeString('es-ES', {
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                        hour12: false
+                                                    });
+
+                                                // Si la fecha es diferente de hoy, o si la fecha es hoy pero la hora no ha pasado, agregamos la hora al select
+                                                console.log(fechaFormateada, new Date()
+                                                    .toLocaleDateString('es-ES'));
+                                                if (fechaFormateada !== fechaActual|| hora24 >=
+                                                    horaActual) {
+                                                    horasSelect.append(
+                                                        `<option value="${hora}">${hora}</option>`
+                                                    );
+                                                }
                                             }
                                         }
 
                                         tabla.append(newRow);
+
+
+
                                     }
 
                                     tabla.on('click', 'a.reservar-link', function(e) {

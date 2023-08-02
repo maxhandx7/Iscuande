@@ -1,25 +1,38 @@
 <div class="form-group">
-    <label for="name">Nombre</label>
+    <label for="name">Nombre *</label>
     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
         value="{{ old('name') }}" required autocomplete="name" autofocus>
+    @error('name')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
 </div>
 
 
 <div class="form-group">
-    <label for="apellido">Apellido</label>
+    <label for="apellido">Apellido *</label>
     <input id="apellido" type="text" class="form-control @error('apellido') is-invalid @enderror" name="apellido"
         value="{{ old('apellido') }}" required autocomplete="apellido" autofocus>
+    @error('apellido')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
 </div>
 
 <div class="form-group">
-    <label for="tipo">Tipo de usuario</label>
-    <select id="tipo" class="form-control js-example-basic-single @error('tipo') is-invalid @enderror" name="tipo"
-        name="tipo" required autocomplete="tipo" autofocus>
+    <label for="tipo">Tipo de usuario *</label>
+    <select id="tipo" class="form-control js-example-basic-single @error('tipo') is-invalid @enderror"
+        name="tipo" name="tipo" required autocomplete="tipo" autofocus>
         <option selected disabled value="">Seleccione tipo de usuario</option>
         <option value="ADMIN">Administrador</option>
-        <option value="MEDICO">Medico</option>   
-        <option value="PACIENTE">Paciente</option>   
+        <option value="MEDICO">Medico</option>
+        <option value="PACIENTE">Paciente</option>
     </select>
+    @error('tipo')
+        <span class="text-danger">{{ $message }}</span>
+    @enderror
 </div>
 
 
@@ -30,8 +43,9 @@
 </div>
 
 <div class="form-group">
-    <label for="tipo_documento">Tipo de codumento</label>
-    <select id="tipo_documento" class="form-control js-example-basic-single @error('tipo_documento') is-invalid @enderror" name="tipo_documento"
+    <label for="tipo_documento">Tipo de codumento *</label>
+    <select id="tipo_documento"
+        class="form-control js-example-basic-single @error('tipo_documento') is-invalid @enderror" name="tipo_documento"
         name="tipo_documento" required autocomplete="tipo_documento" autofocus>
         <option selected disabled value="">Seleccione tipo de documento</option>
         <option value="cc">Cedula</option>
@@ -39,35 +53,50 @@
         <option value="nit">Nit</option>
         <option value="ti">Tarjeta de identidad</option>
     </select>
+    @error('tipo_documento')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
 </div>
 
 <div class="form-group">
-    <label for="no_documento">N° documento</label>
+    <label for="no_documento">N° documento *</label>
     <input id="no_documento" type="number" class="form-control @error('no_documento') is-invalid @enderror"
         name="no_documento" value="{{ old('no_documento') }}" required autocomplete="no_documento" autofocus>
-
+        @error('no_documento')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
 </div>
 
 <div class="form-group">
     <label for="telefono">Telefono</label>
-    <input id="telefono" type="text" class="form-control @error('telefono') is-invalid @enderror" name="telefono"
+    <input id="telefono" type="number" class="form-control @error('telefono') is-invalid @enderror" name="telefono"
         value="{{ old('telefono') }}" autocomplete="telefono" autofocus>
+        @error('telefono')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
 </div>
 
 <div class="form-group">
-    <label for="email">Email</label>
+    <label for="email">Email *</label>
     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
         value="{{ old('email') }}" required autocomplete="email">
+        @error('email')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
 </div>
 <div class="form-group">
-    <label for="password">Contraseña</label>
+    <label for="password">Contraseña *</label>
     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"
         required autocomplete="new-password">
+        @error('password')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
 </div>
-
-
-
-
-
-
-

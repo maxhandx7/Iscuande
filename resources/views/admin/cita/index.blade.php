@@ -36,11 +36,13 @@
                         @endif
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Citas</h4>
-                            <div class="btn-group">
-                                <a href=" {{ route('citas.create') }} " class="btn btn-success" type="button">
-                                    <i class="fa fa-plus"></i>
-                                    Solicitar cita</a>
-                            </div>
+                            @if (Auth::user()->tipo !== 'MEDICO')
+                                <div class="btn-group">
+                                    <a href=" {{ route('citas.create') }} " class="btn btn-success" type="button">
+                                        <i class="fa fa-plus"></i>
+                                        Solicitar cita</a>
+                                </div>
+                            @endif
                         </div>
                         <br>
                         @include('alert.message')

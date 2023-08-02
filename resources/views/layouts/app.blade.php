@@ -62,24 +62,25 @@
                 <div class="collapse navbar-collapse" id="navbarSupport">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/">Home</a>
+                            <a class="nav-link" href="{{ url('/') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{-- {{ route('aboutUs') }} --}}">Sobre Nosotros</a>
+                            <a class="nav-link" href="{{ url('nosotros') }}">Sobre Nosotros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{-- {{ route('medicos') }} --}}">Medicos</a>
+                            <a class="nav-link" href="{{ url('medicos') }}">Medicos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('blog') }}">Noticias</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contactos</a>
+                            <a class="nav-link" href="{{ url('contactos') }}">Contactos</a>
                         </li>
                         <span class="divider">|</span>
                         <li class="nav-item">
                             @auth
-                            <a class="btn btn-outline-primary ml-lg-3" href="{{ route('home') }}">Hola, {{ Auth::user()->name }} {{ Auth::user()->apellido }}</a>
+                                <a class="btn btn-outline-primary ml-lg-3" href="{{ route('home') }}">Hola,
+                                    {{ Auth::user()->name }} {{ Auth::user()->apellido }}</a>
                             @endauth
 
                             @guest
@@ -97,7 +98,7 @@
             <div class="container text-center wow zoomIn">
                 <span class="subhead">Hagamos tu vida más feliz</span>
                 <h1 class="display-4">Vida saludable</h1>
-                <a href="#" class="btn btn-primary">Sacar cita</a>
+                <a href="{{ route('citas.index') }}" class="btn btn-primary">Sacar cita</a>
             </div>
         </div>
     </div>
@@ -112,7 +113,7 @@
                             <div class="circle-shape bg-secondary text-white">
                                 <span class="mai-chatbubbles-outline"></span>
                             </div>
-                            <p><span>Chat</span> with a doctors</p>
+                            <p><span>Conoce </span>a nuestros doctores</p>
                         </div>
                     </div>
                     <div class="col-md-4 py-3 py-md-0">
@@ -120,7 +121,7 @@
                             <div class="circle-shape bg-primary text-white">
                                 <span class="mai-shield-checkmark"></span>
                             </div>
-                            <p><span>One</span>-Health Protection</p>
+                            <p><span>Protección</span> Familiar</p>
                         </div>
                     </div>
                     <div class="col-md-4 py-3 py-md-0">
@@ -128,7 +129,7 @@
                             <div class="circle-shape bg-accent text-white">
                                 <span class="mai-basket"></span>
                             </div>
-                            <p><span>One</span>-Health Pharmacy</p>
+                            <p><span>Farmacias </span>a tu disposición</p>
                         </div>
                     </div>
                 </div>
@@ -139,13 +140,13 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 py-3 wow fadeInUp">
-                        <h1>Welcome to Your Health <br> Center</h1>
+                        <h1>Bienvenidos a <br> Santa barbara Centro de salud</h1>
                         <p class="text-grey mb-4">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
                             nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
                             vero eos et accusam et justo duo dolores et ea rebum. Accusantium aperiam earum ipsa eius,
                             inventore nemo labore eaque porro consequatur ex aspernatur. Explicabo, excepturi
                             accusantium! Placeat voluptates esse ut optio facilis!</p>
-                        <a href="about.html" class="btn btn-primary">Learn More</a>
+                        <a href="about.html" class="btn btn-primary">Leer más</a>
                     </div>
                     <div class="col-lg-6 wow fadeInRight" data-wow-delay="400ms">
                         <div class="img-place custom-img-1">
@@ -159,210 +160,67 @@
 
     <div class="page-section">
         <div class="container">
-            <h1 class="text-center mb-5 wow fadeInUp">Our Doctors</h1>
+            <h1 class="text-center mb-5 wow fadeInUp">Nuestros medicos</h1>
 
             <div class="owl-carousel wow fadeInUp" id="doctorSlideshow">
-                <div class="item">
-                    <div class="card-doctor">
-                        <div class="header">
-                            <img src="one-health/assets/img/doctors/doctor_1.jpg" alt="">
-                            <div class="meta">
-                                <a href="#"><span class="mai-call"></span></a>
-                                <a href="#"><span class="mai-logo-whatsapp"></span></a>
+                @foreach ($medicos as $medico)
+                    <div class="item">
+                        <div class="card-doctor">
+                            <div class="header">
+                                <img src="{{ asset('image/system/medico.png') }}" alt="">
+                                <div class="meta">
+                                    <a href="mailto:{{ $medico->email }}"><span class="mai-mail"></span></a>
+                                    <a href="https://wa.me/{{ $medico->telefono }}/?text=Hola, como estas"><span
+                                            class="mai-logo-whatsapp"></span></a>
+                                </div>
+                            </div>
+                            <div class="body">
+                                <p class="text-xl mb-0">{{ $medico->name }} {{ $medico->apellido }}</p>
+                                <span class="text-sm text-grey">{{ $medico->especialidad->nombre }}</span>
                             </div>
                         </div>
-                        <div class="body">
-                            <p class="text-xl mb-0">Dr. Stein Albert</p>
-                            <span class="text-sm text-grey">Cardiology</span>
-                        </div>
                     </div>
-                </div>
-                <div class="item">
-                    <div class="card-doctor">
-                        <div class="header">
-                            <img src="one-health/assets/img/doctors/doctor_2.jpg" alt="">
-                            <div class="meta">
-                                <a href="#"><span class="mai-call"></span></a>
-                                <a href="#"><span class="mai-logo-whatsapp"></span></a>
-                            </div>
-                        </div>
-                        <div class="body">
-                            <p class="text-xl mb-0">Dr. Alexa Melvin</p>
-                            <span class="text-sm text-grey">Dental</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card-doctor">
-                        <div class="header">
-                            <img src="one-health/assets/img/doctors/doctor_3.jpg" alt="">
-                            <div class="meta">
-                                <a href="#"><span class="mai-call"></span></a>
-                                <a href="#"><span class="mai-logo-whatsapp"></span></a>
-                            </div>
-                        </div>
-                        <div class="body">
-                            <p class="text-xl mb-0">Dr. Rebecca Steffany</p>
-                            <span class="text-sm text-grey">General Health</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card-doctor">
-                        <div class="header">
-                            <img src="one-health/assets/img/doctors/doctor_3.jpg" alt="">
-                            <div class="meta">
-                                <a href="#"><span class="mai-call"></span></a>
-                                <a href="#"><span class="mai-logo-whatsapp"></span></a>
-                            </div>
-                        </div>
-                        <div class="body">
-                            <p class="text-xl mb-0">Dr. Rebecca Steffany</p>
-                            <span class="text-sm text-grey">General Health</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="card-doctor">
-                        <div class="header">
-                            <img src="one-health/assets/img/doctors/doctor_3.jpg" alt="">
-                            <div class="meta">
-                                <a href="#"><span class="mai-call"></span></a>
-                                <a href="#"><span class="mai-logo-whatsapp"></span></a>
-                            </div>
-                        </div>
-                        <div class="body">
-                            <p class="text-xl mb-0">Dr. Rebecca Steffany</p>
-                            <span class="text-sm text-grey">General Health</span>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
 
     <div class="page-section bg-light">
         <div class="container">
-            <h1 class="text-center wow fadeInUp">Latest News</h1>
+            <h1 class="text-center wow fadeInUp">Ultimas noticias</h1>
             <div class="row mt-5">
-                <div class="col-lg-4 py-2 wow zoomIn">
-                    <div class="card-blog">
-                        <div class="header">
-                            <div class="post-category">
-                                <a href="#">Covid19</a>
-                            </div>
-                            <a href="blog-details.html" class="post-thumb">
-                                <img src="one-health/assets/img/blog/blog_1.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="body">
-                            <h5 class="post-title"><a href="blog-details.html">List of Countries without Coronavirus
-                                    case</a></h5>
-                            <div class="site-info">
-                                <div class="avatar mr-2">
-                                    <div class="avatar-img">
-                                        <img src="one-health/assets/img/person/person_1.jpg" alt="">
-                                    </div>
-                                    <span>Roger Adams</span>
+                @foreach ($posts as $post)
+                    <div class="col-sm-4 py-3">
+                        <div class="card-blog">
+                            <div class="header">
+                                <div class="post-category">
+                                    <a href="{{ route('post', $post->slug) }}">{{ $post->category->name }}</a>
                                 </div>
-                                <span class="mai-time"></span> 1 week ago
+                                <a href="{{ route('post', $post->slug) }}" class="post-thumb">
+                                    <img src="{{ asset('image/' . $post->image) }}" alt="">
+                                </a>
+                            </div>
+                            <div class="body">
+                                <h5 class="post-title"><a
+                                        href="{{ route('post', $post->slug) }}">{{ $post->name }}</a></h5>
+                                <div class="site-info">
+                                    <div class="avatar mr-2">
+                                        <div class="avatar-img">
+                                            <img src="{{ asset('melody/images/iscuande.jpg') }}" alt="">
+                                        </div>
+                                        <span>{{ $post->user->name }}</span>
+                                    </div>
+                                    <span class="mai-person"></span> {{ $post->user->tipo }}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 py-2 wow zoomIn">
-                    <div class="card-blog">
-                        <div class="header">
-                            <div class="post-category">
-                                <a href="#">Covid19</a>
-                            </div>
-                            <a href="blog-details.html" class="post-thumb">
-                                <img src="one-health/assets/img/blog/blog_2.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="body">
-                            <h5 class="post-title"><a href="blog-details.html">Recovery Room: News beyond the
-                                    pandemic</a></h5>
-                            <div class="site-info">
-                                <div class="avatar mr-2">
-                                    <div class="avatar-img">
-                                        <img src="one-health/assets/img/person/person_1.jpg" alt="">
-                                    </div>
-                                    <span>Roger Adams</span>
-                                </div>
-                                <span class="mai-time"></span> 4 weeks ago
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 py-2 wow zoomIn">
-                    <div class="card-blog">
-                        <div class="header">
-                            <div class="post-category">
-                                <a href="#">Covid19</a>
-                            </div>
-                            <a href="blog-details.html" class="post-thumb">
-                                <img src="one-health/assets/img/blog/blog_3.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="body">
-                            <h5 class="post-title"><a href="blog-details.html">What is the impact of eating too much
-                                    sugar?</a></h5>
-                            <div class="site-info">
-                                <div class="avatar mr-2">
-                                    <div class="avatar-img">
-                                        <img src="one-health/assets/img/person/person_2.jpg" alt="">
-                                    </div>
-                                    <span>Diego Simmons</span>
-                                </div>
-                                <span class="mai-time"></span> 2 months ago
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
                 <div class="col-12 text-center mt-4 wow zoomIn">
-                    <a href="blog.html" class="btn btn-primary">Read More</a>
+                    <a href="{{ url('blog') }}" class="btn btn-primary">Leer más</a>
                 </div>
 
             </div>
-        </div>
-    </div> <!-- .page-section -->
-
-    <div class="page-section">
-        <div class="container">
-            <h1 class="text-center wow fadeInUp">Make an Appointment</h1>
-
-            <form class="main-form">
-                <div class="row mt-5 ">
-                    <div class="col-12 col-sm-6 py-2 wow fadeInLeft">
-                        <input type="text" class="form-control" placeholder="Full name">
-                    </div>
-                    <div class="col-12 col-sm-6 py-2 wow fadeInRight">
-                        <input type="text" class="form-control" placeholder="Email address..">
-                    </div>
-                    <div class="col-12 col-sm-6 py-2 wow fadeInLeft" data-wow-delay="300ms">
-                        <input type="date" class="form-control">
-                    </div>
-                    <div class="col-12 col-sm-6 py-2 wow fadeInRight" data-wow-delay="300ms">
-                        <select name="departement" id="departement" class="custom-select">
-                            <option value="general">General Health</option>
-                            <option value="cardiology">Cardiology</option>
-                            <option value="dental">Dental</option>
-                            <option value="neurology">Neurology</option>
-                            <option value="orthopaedics">Orthopaedics</option>
-                        </select>
-                    </div>
-                    <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
-                        <input type="text" class="form-control" placeholder="Number..">
-                    </div>
-                    <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
-                        <textarea name="message" id="message" class="form-control" rows="6" placeholder="Enter message.."></textarea>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary mt-3 wow zoomIn">Submit Request</button>
-            </form>
         </div>
     </div> <!-- .page-section -->
 

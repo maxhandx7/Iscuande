@@ -41,8 +41,8 @@
                                         <th><i class="fa fa-image"></i></th>
                                         <th>Nombre</th>
                                         <th>Descripcion</th>
-                                        <th>Estado</th>
                                         <th>Categoria</th>
+                                        <th>Estado</th>
                                         <th style="width: 100px;">Acciones</th>
                                     </tr>
                                 </thead>
@@ -55,6 +55,7 @@
                                             <td> <a href="{{ route('post', $post->slug) }}" Target="_blank"> {{ $post->name }} </a></td>
 
                                             <td>{{ $post->Previa }}</td>
+                                            <td>{{ $post->category->name }}</td>
                                             @if ($post->status == 'PUBLISHED')
                                                 <td>
                                                     <a class="badge badge-success" href="{{ route('change.status.posts', $post)}}"
@@ -73,7 +74,7 @@
                                                 </td>
                                             @endif
 
-                                            <td>{{ $post->category->name }}</td>
+                                            
 
                                             <td style="width: 100px;">
                                                 {!! Form::open(['route' => ['posts.destroy', $post], 'method' => 'DELETE', 'id' => 'delete-form']) !!}
