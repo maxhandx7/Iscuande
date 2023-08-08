@@ -11,8 +11,9 @@
     {!! Html::style('melody/vendors/css/vendor.bundle.base.css') !!}
     {!! Html::style('melody/vendors/css/vendor.bundle.addons.css') !!}
     {!! Html::style('melody/css/style.css') !!}
+    {!! Html::style('melody/css/main.css') !!}
     @yield('styles')
-    <link rel="shortcut icon" href="{{ asset('melody/images/logo.png') }}" />
+    <link rel="shortcut icon" href="{{asset('image/'.$business->logo)}}" />
 </head>
 
 <body>
@@ -51,16 +52,31 @@
 
                         <a class="nav-link dropdown-toggle" href="/" data-toggle="dropdown" id="profileDropdown">
 
-                            {{ Auth::user()->email }}
+                            {{ Auth::user()->name }}
 
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('configs.edit', Auth::user()->id) }}" data-toggle="tooltip" data-placement="top"
-                                title="Configuracion" data-original-title="config">
+                            <a class="dropdown-item" href="{{ route('configs.edit', Auth::user()->id) }}"
+                                data-toggle="tooltip" data-placement="top" title="Configuracion"
+                                data-original-title="config">
                                 <i class="fas fa-cogs text-primary"></i>
                                 Configuración
+                            </a>
+                            @if (Auth::user()->tipo == 'ADMIN')
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('business.index') }}" data-toggle="tooltip"
+                                data-placement="top" title="" data-original-title="Logout">
+                                <i class="fas fa-briefcase text-primary"></i>
+                                {{ $business->name }}
+                            </a>
+                            @endif
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ url('/') }}" data-toggle="tooltip"
+                                data-placement="top" title="Configuracion" data-original-title="config">
+                                <i class="fa fa-reply text-primary"></i>
+                                Ir a la web
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="tooltip"
@@ -70,7 +86,8 @@
                                 <i class="fas fa-power-off text-primary"></i>
                                 Salir
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
                                 @csrf
                             </form>
                         </div>
@@ -93,7 +110,7 @@
                             </div>
                             <div class="profile-name">
                                 <p class="name">
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->email }}
                                 </p>
                                 <p class="designation">
                                     {{ Auth::user()->tipo }}
@@ -133,19 +150,30 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false" aria-controls="page-layouts">
-                              <i class="fas fa-bullhorn menu-icon"></i>
-                              <span class="menu-title">Noticias</span>
-                              <i class="menu-arrow"></i>
+                            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false"
+                                aria-controls="page-layouts">
+                                <i class="fas fa-bullhorn menu-icon"></i>
+                                <span class="menu-title">Noticias</span>
+                                <i class="menu-arrow"></i>
                             </a>
                             <div class="collapse" id="page-layouts">
-                              <ul class="nav flex-column sub-menu">
-                                <li class="nav-item {{ Request::segment(1) === 'posts' ? 'active' : '' }}"> <a class="nav-link" href="{{ route('posts.index')}}">Publicaciones</a></li>
-                                <li class="nav-item {{ Request::segment(1) === 'category' ? 'active' : '' }}"> <a class="nav-link" href="{{ route('categories.index')}}">Categorias</a></li>
-                                <li class="nav-item {{ Request::segment(1) === 'tags' ? 'active' : '' }}"> <a class="nav-link" href="{{ route('tags.index')}}">Etiquetas</a></li>
-                              </ul>
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item {{ Request::segment(1) === 'posts' ? 'active' : '' }}"> <a
+                                            class="nav-link" href="{{ route('posts.index') }}">Publicaciones</a></li>
+                                    <li class="nav-item {{ Request::segment(1) === 'categories' ? 'active' : '' }}">
+                                        <a class="nav-link" href="{{ route('categories.index') }}">Categorias</a>
+                                    </li>
+                                    <li class="nav-item {{ Request::segment(1) === 'tags' ? 'active' : '' }}"> <a
+                                            class="nav-link" href="{{ route('tags.index') }}">Etiquetas</a></li>
+                                </ul>
                             </div>
-                          </li>
+                        </li>
+                        <li class="nav-item {{ Request::segment(1) === 'configs' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('configs.index') }}">
+                                <i class="fa fa-paper-plane menu-icon"></i>
+                                <span class="menu-title">PQRS</span>
+                            </a>
+                        </li>
                     @endif
                 </ul>
             </nav>

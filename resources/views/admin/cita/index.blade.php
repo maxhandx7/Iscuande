@@ -8,6 +8,7 @@
 @section('preference')
 @endsection
 @section('content')
+
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
@@ -29,7 +30,7 @@
                             <div class="form-group">
                                 <form id="filtrar-citas">
                                     <input type="date" name="filterFecha" id="filterFecha" class="form-control"
-                                        value="">
+                                        >
                                     <input type="submit" class="btn btn-link" value="consultar">
                                 </form>
                             </div>
@@ -121,7 +122,7 @@
                 '<button type="button" class="btn btn-default btn-sm editable-cancel">' +
                 '<i class="fa fa-fw fa-times"></i>' +
                 '</button>';
-
+                    
             $('.editable-text').editable({
                 source: [{
                         value: 'PENDIENTE',
@@ -159,7 +160,7 @@
                     });
                 }
             });
-
+            var filterFecha = $('#filterFecha');
             $.ajax({
                 url: "{{ route('filter_fecha') }}",
                 method: 'GET',
@@ -167,11 +168,7 @@
                     filterFecha: filterFecha.val(),
                 },
                 success: function(response) {
-                    if (response) {
-                        showSuccessToast();
-                    } else {
-                        showDangerToast();
-                    }
+                    
                 }
 
             });

@@ -11,6 +11,7 @@ use App\Medico;
 use App\Turno;
 use App\User;
 use Carbon\Carbon;
+use Hamcrest\Arrays\IsArray;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,15 +29,15 @@ class CitaController extends Controller
         $id = Auth::user()->id;
         if ($tipo == 'ADMIN') {
             Carbon::setLocale('es');
-            if(isset($request->filterFecha)){
+            if (isset($request->filterFecha)) {
                 $carbonFecha = Carbon::createFromFormat('Y-m-d', $request->filterFecha);
                 $fechaFormateada = $carbonFecha->format('Y-d-m');
             }
-           
+
             $fechaActual = Carbon::now()->format('Y-d-m');
             $citas = Cita::where('FechaCita', isset($fechaFormateada) ? $fechaFormateada : $fechaActual)->get();
             foreach ($citas as $cita) {
-                $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+                $cita->fecha_formateada = Carbon::createFromFormat('Y-d-m', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
             }
             return view('admin.cita.index', compact('citas'));
         }
@@ -47,7 +48,7 @@ class CitaController extends Controller
             foreach ($turnos as $turno) {
                 $citasDeTurno = Cita::where('turno_id', $turno->id)->get();
                 foreach ($citasDeTurno as $cita) {
-                    $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+                    $cita->fecha_formateada = Carbon::createFromFormat('Y-d-m', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
                     $citas[] = $cita;
                 }
             }
@@ -55,10 +56,10 @@ class CitaController extends Controller
             return view('admin.cita.index', compact('citas'));
         } else {
             $citas = Cita::where('user_id', $id)
-            ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-d-m'))
-            ->get();
+                ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-d-m'))
+                ->get();
             foreach ($citas as $cita) {
-                $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+                $cita->fecha_formateada = Carbon::createFromFormat('Y-d-m', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
             }
             return view('admin.cita.index', compact('citas'));
         }
@@ -70,8 +71,10 @@ class CitaController extends Controller
 
         $turnos = Turno::get();
         $especialidades = Especialidad::get();
-        $medico = User::where('tipo', 'MEDICO')
-            ->get();;
+        $medicos = User::where('tipo', 'MEDICO')
+            ->get();
+        $pacientes = User::where('tipo', 'PACIENTE')
+            ->get();
         $cuposRegistrados = Cita::pluck('HoracIta')->toArray();
         $horasFaltantes = [];
         foreach ($turnos as $cupo) {
@@ -80,7 +83,7 @@ class CitaController extends Controller
             $horasFaltantes = array_diff($horasArray, $cuposRegistrados);
         }
 
-        return view('admin.cita.create', compact('turnos', 'especialidades', 'medico'));
+        return view('admin.cita.create', compact('turnos', 'especialidades', 'medicos', 'pacientes'));
     }
 
 
@@ -90,16 +93,27 @@ class CitaController extends Controller
             $idTurno = $request->input('id_turno');
             $fechaTurno = $request->input('fecha_turno');
             $horaSeleccionada = $request->input('hora_seleccionada');
+            
+            $validate = Cita::where('FechaCita', $fechaTurno)
+                ->where('HoraCita', $horaSeleccionada)
+                ->where('turno_id', $idTurno)
+                ->get();
 
             $cita = new Cita;
+
+            if ($validate->count() > 0) {
+                return response()->json(['success' => false, 'message' => 'Ya se tomó esta reserva']);
+            }
+
             $result = $cita->my_store($idTurno, $fechaTurno, $horaSeleccionada);
             if ($result) {
                 return response()->json(['success' => true, 'redirect_url' => route('citas.index')]);
             } else {
+                var_dump($result);
                 return response()->json(['success' => false, 'message' => 'Ocurrió un error al crear la cita']);
             }
         } catch (\Exception $th) {
-            return response()->json(['success' => false, 'message' => 'Ocurrió un error al crear la cita']);
+            return response()->json(['success' => false, 'message' => $th]);
         }
     }
 

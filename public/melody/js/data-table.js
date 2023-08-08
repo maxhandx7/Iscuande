@@ -2,6 +2,7 @@
   'use strict';
   $(function () {
     $('#order-listing').DataTable({
+      responsive: true,
       "order": [[ 0, "desc" ]],
       "aLengthMenu": [
         [5, 10, 15, -1],
@@ -33,6 +34,7 @@
 
 
     $('#order-listing1').DataTable({
+      responsive: true,
       "order": [[ 0, "desc" ]],
       "aLengthMenu": [
         [5, 10, 15, -1],

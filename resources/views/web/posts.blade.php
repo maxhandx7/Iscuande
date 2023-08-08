@@ -1,4 +1,4 @@
-@extends('layouts.blog')
+@extends('layouts.pages')
 
 @section('contenido')
     <div class="page-banner overlay-dark bg-image"
@@ -38,7 +38,7 @@
                                         <div class="site-info">
                                             <div class="avatar mr-2">
                                                 <div class="avatar-img">
-                                                    <img src="{{ asset('melody/images/iscuande.jpg') }}" alt="">
+                                                    <img src="{{asset('image/'.$business->logo)}}" alt="">
                                                 </div>
                                                 <span>{{ $post->user->name }}</span>
                                             </div>
@@ -48,21 +48,12 @@
                                 </div>
                             </div>
                         @endforeach
-                        
-
                     </div> <!-- .row -->
-                   
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <!-- El resultado de $posts->render() se centrará -->
-                                <div class="text-center">
-                                    {{ $posts->render() }}
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-12 my-5">
+                        <nav aria-label="Page Navigation">
+                            {{ $posts->render() }}
+                        </nav>
                     </div>
-                 
                 </div>
                 <div class="col-lg-4">
                     <div class="sidebar">
@@ -75,23 +66,25 @@
                                             <span>{{ $category->posts_count }}</span></a></li>
                                 @endforeach
                             </ul>
-                            @if(isset($relatedPosts))
-                            <h3 class="sidebar-title">Últimos posts de la misma categoría</h3>
-                            @foreach($relatedPosts as $relatedPost)
-                            <div class="blog-item">
-                                <a class="post-thumb" href="">
-                                    <img src="{{asset('image/' . $relatedPost->image)}}" alt="">
-                                </a>
-                                <div class="content">
-                                    <h5 class="post-title"><a href="{{ route('post', $post->slug) }}">{{$relatedPost->name}}</a></h5>
-                                    <div class="meta">
-                                        <a > {{$relatedPost->user->name}}</a>
-                                        <a ><span class="mai-person"></span> {{$relatedPost->user->tipo}}</a>
-                                        
+                            @if (isset($relatedPosts))
+                                <h3 class="sidebar-title">Últimos posts de la misma categoría</h3>
+                                @foreach ($relatedPosts as $relatedPost)
+                                    <div class="blog-item">
+                                        <a class="post-thumb" href="">
+                                            <img src="{{ asset('image/' . $relatedPost->image) }}" alt="">
+                                        </a>
+                                        <div class="content">
+                                            <h5 class="post-title"><a
+                                                    href="{{ route('post', $post->slug) }}">{{ $relatedPost->name }}</a>
+                                            </h5>
+                                            <div class="meta">
+                                                <a> {{ $relatedPost->user->name }}</a>
+                                                <a><span class="mai-person"></span> {{ $relatedPost->user->tipo }}</a>
+
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            @endforeach
+                                @endforeach
                             @endif
                         </div>
 
@@ -110,4 +103,20 @@
             </div> <!-- .row -->
         </div> <!-- .container -->
     </div> <!-- .page-section -->
+
+    <div class="page-section banner-home bg-image" style="background-image: url(one-health/assets/img/banner-pattern.svg);">
+        <div class="container py-5 py-lg-0">
+            <div class="row align-items-center">
+                <div class="col-lg-4 wow zoomIn">
+                    <div class="img-banner d-none d-lg-block">
+                        <img src="one-health/assets/img/mobile_app.png" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-8 wow fadeInRight">
+                    <h1 class="font-weight-normal mb-3">Haciéndote la vida más fácil</h1>
+
+                </div>
+            </div>
+        </div>
+    </div> <!-- .banner-home -->
 @endsection

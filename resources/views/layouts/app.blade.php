@@ -4,11 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-
-    <title>Santa barbara Centro de salud</title>
+    <meta name="description" content="{{ $business->name }} - {{ $business->description }}">
+    <title>{{ $business->name }}</title>
 
     {!! Html::style('one-health/assets/css/maicons.css') !!}
     {!! Html::style('one-health/assets/css/bootstrap.css') !!}
@@ -16,7 +14,7 @@
     {!! Html::style('one-health/assets/vendor/animate/animate.css') !!}
     {!! Html::style('one-health/assets/css/theme.css') !!}
     @yield('styles')
-    <link rel="shortcut icon" href="{{ asset('melody/images/logo.png') }}" />
+    <link rel="shortcut icon" href="{{ asset('image/' . $business->logo) }}" />
 </head>
 
 <body>
@@ -25,31 +23,30 @@
     <div class="back-to-top"></div>
 
     <header>
-        {{-- <div class="topbar">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 text-sm">
-            <div class="site-info">
-              <a href="#"><span class="mai-call text-primary"></span> +00 123 4455 6666</a>
-              <span class="divider">|</span>
-              <a href="#"><span class="mai-mail text-primary"></span> mail@example.com</a>
-            </div>
-          </div>
-          <div class="col-sm-4 text-right text-sm">
-            <div class="social-mini-button">
-              <a href="#"><span class="mai-logo-facebook-f"></span></a>
-              <a href="#"><span class="mai-logo-twitter"></span></a>
-              <a href="#"><span class="mai-logo-dribbble"></span></a>
-              <a href="#"><span class="mai-logo-instagram"></span></a>
-            </div>
-          </div>
-        </div> <!-- .row -->
-      </div> <!-- .container -->
-    </div> <!-- .topbar --> --}}
+        <div class="topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 text-sm">
+                        <div class="site-info">
+                            <a href="#"><span class="mai-call text-primary"></span> {{ $business->phone }}</a>
+                            <span class="divider">|</span>
+                            <a href="#"><span class="mai-mail text-primary"></span> {{ $business->mail }}</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 text-right text-sm">
+                        <div class="social-mini-button">
+                            <a href="#"><span class="mai-logo-facebook-f"></span></a>
+                            <a href="#"><span class="mai-logo-twitter"></span></a>
+                            <a href="#"><span class="mai-logo-instagram"></span></a>
+                        </div>
+                    </div>
+                </div> <!-- .row -->
+            </div> <!-- .container -->
+        </div> <!-- .topbar -->
 
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
             <div class="container">
-                <img src="{{ asset('melody/images/logo.png') }}" class="navbar-brand" width="56px" alt="">
+                <img src="{{ asset('image/' . $business->logo) }}" class="navbar-brand" width="56px" alt="">
                 <a class="navbar-brand" href="/"><span class="text-primary">Santa barbara </span>Centro de
                     salud</a>
 
@@ -61,26 +58,26 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupport">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ url('/') }}">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('nosotros') }}">Sobre Nosotros</a>
+                        <li class="nav-item {{ request()->is('nosotros') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('nosotros') }}">Sobre nosotros</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->is('medicos') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ url('medicos') }}">Medicos</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->is('blog') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ url('blog') }}">Noticias</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ request()->is('contactos') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ url('contactos') }}">Contactos</a>
                         </li>
                         <span class="divider">|</span>
                         <li class="nav-item">
                             @auth
                                 <a class="btn btn-outline-primary ml-lg-3" href="{{ route('home') }}">Hola,
-                                    {{ Auth::user()->name }} {{ Auth::user()->apellido }}</a>
+                                    {{ Auth::user()->name }}</a>
                             @endauth
 
                             @guest
@@ -104,153 +101,42 @@
     </div>
 
 
-    <div class="bg-light">
-        <div class="page-section py-3 mt-md-n5 custom-index">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-4 py-3 py-md-0">
-                        <div class="card-service wow fadeInUp">
-                            <div class="circle-shape bg-secondary text-white">
-                                <span class="mai-chatbubbles-outline"></span>
-                            </div>
-                            <p><span>Conoce </span>a nuestros doctores</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 py-3 py-md-0">
-                        <div class="card-service wow fadeInUp">
-                            <div class="circle-shape bg-primary text-white">
-                                <span class="mai-shield-checkmark"></span>
-                            </div>
-                            <p><span>Protección</span> Familiar</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 py-3 py-md-0">
-                        <div class="card-service wow fadeInUp">
-                            <div class="circle-shape bg-accent text-white">
-                                <span class="mai-basket"></span>
-                            </div>
-                            <p><span>Farmacias </span>a tu disposición</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- .page-section -->
-
-        <div class="page-section pb-0">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 py-3 wow fadeInUp">
-                        <h1>Bienvenidos a <br> Santa barbara Centro de salud</h1>
-                        <p class="text-grey mb-4">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-                            vero eos et accusam et justo duo dolores et ea rebum. Accusantium aperiam earum ipsa eius,
-                            inventore nemo labore eaque porro consequatur ex aspernatur. Explicabo, excepturi
-                            accusantium! Placeat voluptates esse ut optio facilis!</p>
-                        <a href="about.html" class="btn btn-primary">Leer más</a>
-                    </div>
-                    <div class="col-lg-6 wow fadeInRight" data-wow-delay="400ms">
-                        <div class="img-place custom-img-1">
-                            <img src="one-health/assets/img/bg-doctor.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> <!-- .bg-light -->
-    </div> <!-- .bg-light -->
-
-    <div class="page-section">
-        <div class="container">
-            <h1 class="text-center mb-5 wow fadeInUp">Nuestros medicos</h1>
-
-            <div class="owl-carousel wow fadeInUp" id="doctorSlideshow">
-                @foreach ($medicos as $medico)
-                    <div class="item">
-                        <div class="card-doctor">
-                            <div class="header">
-                                <img src="{{ asset('image/system/medico.png') }}" alt="">
-                                <div class="meta">
-                                    <a href="mailto:{{ $medico->email }}"><span class="mai-mail"></span></a>
-                                    <a href="https://wa.me/{{ $medico->telefono }}/?text=Hola, como estas"><span
-                                            class="mai-logo-whatsapp"></span></a>
-                                </div>
-                            </div>
-                            <div class="body">
-                                <p class="text-xl mb-0">{{ $medico->name }} {{ $medico->apellido }}</p>
-                                <span class="text-sm text-grey">{{ $medico->especialidad->nombre }}</span>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-
-    <div class="page-section bg-light">
-        <div class="container">
-            <h1 class="text-center wow fadeInUp">Ultimas noticias</h1>
-            <div class="row mt-5">
-                @foreach ($posts as $post)
-                    <div class="col-sm-4 py-3">
-                        <div class="card-blog">
-                            <div class="header">
-                                <div class="post-category">
-                                    <a href="{{ route('post', $post->slug) }}">{{ $post->category->name }}</a>
-                                </div>
-                                <a href="{{ route('post', $post->slug) }}" class="post-thumb">
-                                    <img src="{{ asset('image/' . $post->image) }}" alt="">
-                                </a>
-                            </div>
-                            <div class="body">
-                                <h5 class="post-title"><a
-                                        href="{{ route('post', $post->slug) }}">{{ $post->name }}</a></h5>
-                                <div class="site-info">
-                                    <div class="avatar mr-2">
-                                        <div class="avatar-img">
-                                            <img src="{{ asset('melody/images/iscuande.jpg') }}" alt="">
-                                        </div>
-                                        <span>{{ $post->user->name }}</span>
-                                    </div>
-                                    <span class="mai-person"></span> {{ $post->user->tipo }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-                <div class="col-12 text-center mt-4 wow zoomIn">
-                    <a href="{{ url('blog') }}" class="btn btn-primary">Leer más</a>
-                </div>
-
-            </div>
-        </div>
-    </div> <!-- .page-section -->
-
-    <div class="page-section banner-home bg-image"
-        style="background-image: url(one-health/assets/img/banner-pattern.svg);">
-        <div class="container py-5 py-lg-0">
-            <div class="row align-items-center">
-                <div class="col-lg-4 wow zoomIn">
-                    <div class="img-banner d-none d-lg-block">
-                        <img src="one-health/assets/img/mobile_app.png" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-8 wow fadeInRight">
-                    <h1 class="font-weight-normal mb-3">Haciendote la vida mas facil</h1>
-
-                </div>
-            </div>
-        </div>
-    </div> <!-- .banner-home -->
-
+    @yield('content')
 
 
     <footer class="page-footer">
         <div class="footer-bottom-area bg-gray pt-20 pb-20">
             <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Compañia</h5>
+                        <ul class="footer-menu">
+                            <li><a href="#">Nosotros</a></li>
+                            <li><a href="#">Carreras</a></li>
+                            <li><a href="#">Equipo editorial</a></li>
+                            <li><a href="#">Proteccion</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Contactos</h5>
+                        <p class="footer-menu">{{$business->address}}</p>
+                        <a href="#" class="footer-link">{{$business->phone}}</a>
+                        -
+                        <a href="#" class="footer-link">{{$business->mail}}</a>
+
+                        <h5>Redes sociales</h5>
+                        <div class="footer-menu">
+                            <a href="#" target="_blank"><span class="mai-logo-facebook-f"></span></a>
+                            <a href="#" target="_blank"><span class="mai-logo-twitter"></span></a>
+                            <a href="#" target="_blank"><span class="mai-logo-instagram"></span></a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
                 <div class="footer-bottom-wrap">
                     <div class="copyright-text d-flex flex-row justify-content-center">
                         <span class="text-muted text-left d-block d-sm-inline-block">Copyright © 2023.
                             Todos los derechos reservados.&nbsp;</span>
-
                     </div>
                     <div class="copyright-text d-flex flex-row justify-content-center">
                         <span class="text-muted text-right d-block d-sm-inline-block">
@@ -270,6 +156,7 @@
     {!! Html::script('one-health/assets/vendor/owl-carousel/js/owl.carousel.min.js') !!}
     {!! Html::script('one-health/assets/vendor/wow/wow.min.js') !!}
     {!! Html::script('one-health/assets/js/theme.js') !!}
+    {!! Html::script('melody/js/main.js') !!}
     @yield('scripts')
 
 </body>

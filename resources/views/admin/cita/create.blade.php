@@ -8,7 +8,6 @@
 @section('preference')
 @endsection
 @section('content')
-
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
@@ -28,21 +27,17 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Registrar nueva cita</h4>
-
                         </div>
-
-
                         @include('admin.cita._form')
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
 @section('scripts')
     {!! Html::script('melody/js/bootstrap-datepicker.es.js') !!}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#fecha").datepicker({
@@ -51,24 +46,16 @@
                 todayHighlight: true,
                 startDate: new Date()
             });
-
             $('.btn-reservar').hide();
-
-            $(window).resize(function() {
-                if ($(window).width() < 576) {
-
-                    $('.btn-reservar').show();
-                } else {
-                    $('.btn-reservar').hide();
-                }
-            }).trigger('resize');
-
         });
     </script>
     <script>
+        var selectedId;
+        var fechaSelect;
+        var horaSelect;
         (function($) {
             var verticalForm = $("#example-vertical-wizard");
-            verticalForm.children("div").steps({
+            var steps = verticalForm.children("div").steps({
                 headerTag: "h3",
                 bodyTag: "section",
                 transitionEffect: "slideLeft",
@@ -99,7 +86,6 @@
                         }
                     } else if (currentIndex === 1) {
                         var fecha = $("#fecha");
-                        var especialidad_id = $("#especialidad_id");
                         if (fecha.val().trim() === "") {
                             swal({
                                 text: 'Debes completar este campo antes de continuar.',
@@ -121,166 +107,168 @@
                                     especialidad: especialidad_id.val(),
                                 },
                                 success: function(response) {
-                                    if (currentIndex === 1) {
-                                        if (response.data.length === 0) {
-                                            swal({
-                                                text: 'No se encontraron citas para el día seleccionado',
-                                                icon: 'warning',
-                                                button: {
-                                                    text: "OK",
-                                                    value: true,
-                                                    visible: true,
-                                                    className: "btn btn-primary"
-                                                }
-                                            });
-                                            if (currentIndex > newIndex) {
-                                                $('#info-error').attr("hidden", true);
-                                            } else {
-                                                $('#info-error').removeAttr("hidden");
-                                            }
-                                            return false;
-                                        }
-                                    }
-
-                                    if (currentIndex > newIndex) {
-                                        $('#info-ok').attr("hidden", true);
+                                    if (response.data) {
+                                        mostrarMedicos(response);
                                     } else {
-                                        $('#info-ok').removeAttr("hidden");
-                                    }
-
-                                    const tabla = $('#tabla-turnos tbody');
-
-                                    tabla.empty();
-
-                                    const cuposRegistrados = response.cuposRegistrados;
-                                    for (const turno of response.data) {
-                                        const id = turno.id;
-                                        const fecha = turno.fecha;
-                                        const descripcion = turno.descripcion;
-                                        const medico = turno.medico;
-                                        const medico_id = turno.medico_id;
-                                        const newRow = $(`
-                                        <tr>
-                                            <td>${id}</td>
-                                            <td>${fecha}</td>
-                                            <td>${descripcion}</td>
-                                            <td>${medico}</td>
-                                            <td><select class="form-control horas" name="horas"></select></td>
-                                            <td><a class="btn btn-info reservar-link" href="" title="reservar">
-                                                <i class="far fa-check-circle">reservar</i>
-                                            </a></td>
-                                        </tr>
-                                    `);
-
-                                        const horasSelect = newRow.find('.horas');
-                                        const horasArray = turno.horas.split(', ');
-                                        const fechaParts = fecha.split('-');
-                                        const fechaFormateada =
-                                            `${fechaParts[1]}/${fechaParts[2]}/${fechaParts[0]}`;
-
-                                        const fechaActual = new Date().toLocaleDateString(
-                                            'es-ES', {
-                                                month: '2-digit',
-                                                day: '2-digit',
-                                                year: 'numeric'
+                                        swal("No hay citas disponibles",
+                                            "Por favor intente de nuevo",
+                                            "error").then(
+                                            function() {
+                                                location.reload();
                                             });
-                                        const horaActual = new Date().toLocaleTimeString(
-                                            'es-ES', {
-                                                hour: '2-digit',
-                                                minute: '2-digit'
-                                            });
-
-                                        for (const hora of horasArray) {
-                                            if (!cuposRegistrados.includes(hora)) {
-                                                const hora24 = new Date(
-                                                        `${fechaFormateada} ${hora}`)
-                                                    .toLocaleTimeString('es-ES', {
-                                                        hour: '2-digit',
-                                                        minute: '2-digit',
-                                                        hour12: false
-                                                    });
-
-                                                // Si la fecha es diferente de hoy, o si la fecha es hoy pero la hora no ha pasado, agregamos la hora al select
-                                                console.log(fechaFormateada, new Date()
-                                                    .toLocaleDateString('es-ES'));
-                                                if (fechaFormateada !== fechaActual|| hora24 >=
-                                                    horaActual) {
-                                                    horasSelect.append(
-                                                        `<option value="${hora}">${hora}</option>`
-                                                    );
-                                                }
-                                            }
-                                        }
-
-                                        tabla.append(newRow);
-
-
-
                                     }
-
-                                    tabla.on('click', 'a.reservar-link', function(e) {
-                                        e.preventDefault();
-                                        const fila = $(this).closest('tr');
-                                        const idTurno = fila.find('td:nth-child(1)')
-                                            .text();
-                                        const fechaTurno = fila.find('td:nth-child(2)')
-                                            .text();
-                                        const horaSeleccionada = fila.find(
-                                            'select.horas').val();
-
-                                        const token = $('meta[name="csrf-token"]').attr(
-                                            'content');
-                                        $.ajax({
-                                            url: "{{ route('storeCita') }}",
-                                            method: 'POST',
-                                            data: {
-                                                id_turno: idTurno,
-                                                fecha_turno: fechaTurno,
-                                                hora_seleccionada: horaSeleccionada,
-                                            },
-                                            headers: {
-                                                'X-CSRF-TOKEN': token
-                                            },
-                                            success: function(response) {
-                                                if (response.success) {
-                                                    swal("Reserva exitosa!",
-                                                        "La reserva ha sido realizada con éxito.",
-                                                        "success").then(
-                                                        function() {
-                                                            window
-                                                                .location
-                                                                .href =
-                                                                response
-                                                                .redirect_url;
-                                                        });
-                                                } else {
-                                                    swal("Error",
-                                                        "Hubo un error al realizar la reserva.",
-                                                        "error");
-                                                }
-                                            },
-                                            error: function(xhr, status,
-                                                error) {
-                                                console.error(error);
-                                            }
-                                        });
-                                    });
+                                },
+                                error: function() {
+                                    console.log(
+                                        "Error al obtener los médicos desde el servidor.");
                                 }
                             });
                         }
-
+                    } else if (currentIndex === 2) {
+                        selectedId = $("input[name='card']:checked").val();
+                        if (!selectedId) {
+                            swal({
+                                text: 'Debes seleccionar una opción antes de continuar.',
+                                icon: 'warning',
+                                button: {
+                                    text: "OK",
+                                    value: true,
+                                    visible: true,
+                                    className: "btn btn-primary"
+                                }
+                            })
+                            return false;
+                        } else {
+                            $.ajax({
+                                url: "{{ route('get_horarios') }}",
+                                method: 'GET',
+                                data: {
+                                    idTurno: selectedId,
+                                },
+                                success: function(response) {
+                                    response.data.forEach(function(info) {
+                                        fechaSelect = info.fecha;
+                                    });
+                                    mostrarhorarios(response);
+                                },
+                                error: function() {
+                                    console.log(
+                                        "Error al obtener el horario del medico desde el servidor."
+                                    );
+                                }
+                            });
+                        }
                     }
 
                     return true;
                 },
                 onStepChanged: function(event, currentIndex, newIndex) {
-                    $('#info-ok').attr("hidden", true);
-                    $('#info-error').attr("hidden", true);
+                    $('#medicosContainer').empty();
                 },
                 onFinished: function(event, currentIndex) {
-                    window.location.href = "{{ route('citas.index') }}";
+                    const token = $('meta[name="csrf-token"]').attr(
+                        'content');
+                    $.ajax({
+                        url: "{{ route('storeCita') }}",
+                        method: 'POST',
+                        data: {
+                            id_turno: selectedId,
+                            fecha_turno: fechaSelect,
+                            hora_seleccionada: $('#hora').val(),
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': token
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                swal("Reserva exitosa!",
+                                    "La reserva ha sido realizada con éxito.",
+                                    "success").then(
+                                    function() {
+                                        window
+                                            .location
+                                            .href =
+                                            response
+                                            .redirect_url;
+                                    });
+                            } else {
+                                swal("Error",
+                                    "Hubo un error al realizar la reserva.",
+                                    "error");
+                            }
+                        },
+                        error: function(xhr, status,
+                            error) {
+                            console.error(error);
+                        }
+                    });
+
                 }
             });
         })(jQuery);
+
+
+
+        function mostrarMedicos(medicos) {
+            const medicosContainer = $("#medicosContainer");
+            medicos.data.forEach(function(medico) {
+                const html = `
+                <div class="col">
+                    <label>
+                    <input type="radio" id="card${medico.id}" name="card" value="${medico.id}">
+                    <div class="card">
+                        <img class="img-fluid mx-auto" width="64px" src="{{ asset('image/system/medico.png') }}" alt="Title">
+                        <div class="card-body">
+                        <h4 class="card-title">${medico.medico}</h4>
+                        <p class="card-text">${medico.descripcion}</p>
+                        </div>
+                    </div>
+                    </label>
+                </div>
+                `;
+
+                medicosContainer.append(html);
+            });
+        }
+
+        var horasDisponibles = [];
+
+        function mostrarhorarios(horarios) {
+            if (horarios.data.length > 0) {
+                const datosTurno = horarios.data[0];
+                if (datosTurno && datosTurno.horas) {
+                    const horasRegistradas = horarios.cuposRegistrados || [];
+                    const horasDisponiblesOriginal = datosTurno.horas.split(", ");
+
+                    horasDisponibles = horasDisponiblesOriginal.filter(hora => !horasRegistradas.includes(hora));
+
+                    const fechaActual = moment();
+                    const fechaTurno = moment(datosTurno.fecha,
+                        "YYYY-MM-DD");
+
+                    const esHoy = fechaTurno.isSame(fechaActual, "day");
+                    
+                    /* if (esHoy) {
+                        const horaActual = moment().format("h:mm A");
+                        console.log(horasDisponibles);
+                        horasDisponibles = horasDisponibles.filter(hora => {
+                            return moment(hora, "h:mm A").isSameOrAfter(horaActual);
+                        });
+                    } */
+
+                    const selectHora = $("#hora");
+                    selectHora.empty();
+
+                    horasDisponibles.forEach(function(hora) {
+                        const option = `<option value="${hora}">${hora}</option>`;
+                        selectHora.append(option);
+                    });
+                } else {
+                    console.log("No se encontraron horas disponibles.");
+                }
+            } else {
+                console.log("No se encontraron datos de horarios.");
+            }
+        }
     </script>
 @endsection

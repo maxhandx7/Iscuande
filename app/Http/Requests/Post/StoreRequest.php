@@ -24,13 +24,10 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer',
             'category_id' => 'required|integer',
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:posts',
             'Previa' => 'required|string',
             'body' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

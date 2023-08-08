@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="brand-logo  text-center">
-                            <img src="{{ asset('melody/images/logo.png') }}" alt="logo">
+                            <img src="{{asset('image/'.$business->logo)}}" alt="logo">
                         </div>
                         <h1 class="card-title">Registro</h1>
                     </div>

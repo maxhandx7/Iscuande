@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Especialidad;
+use App\Http\Requests\User\StoreRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,14 +31,14 @@ class UserController extends Controller
     }
 
 
-    public function store(Request $request, User $user)
+    public function store(StoreRequest $request, User $user)
     {
-        
+
         try {
             $user->my_store($request);
-            return redirect()->route('users.index')->with('success', 'User credada con éxito');
+            return redirect()->route('users.index')->with('success', 'Usuario credado con éxito');
         } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Ocurrió un error al crear la user');
+            return redirect()->back()->with('error', 'Ocurrió un error al crear lel usuario');
         }
     }
 
@@ -57,9 +58,9 @@ class UserController extends Controller
     {
         try {
             $user->my_update($request);
-            return redirect()->route('users.index')->with('success', 'User modificada');
+            return redirect()->route('users.index')->with('success', 'Usuario modificado');
         } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Ocurrió un error al actualizar la user');
+            return redirect()->back()->with('error', 'Ocurrió un error al actualizar el usuario');
         }
     }
 
@@ -68,12 +69,16 @@ class UserController extends Controller
     {
         try {
             $user->delete();
-            return redirect()->route('users.index')->with('success', 'User eliminada');
+            return redirect()->route('users.index')->with('success', 'Usuario eliminado');
         } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Ocurrió un error al cancelar la user');
+            return redirect()->back()->with('error', 'Ocurrió un error al eliminar el usuario');
         }
     }
 
+    public function showChangePasswordForm()
+    {
+        return view('admin.config.change-password');
+    }
 
-   
+    
 }

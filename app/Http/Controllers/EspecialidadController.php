@@ -27,7 +27,7 @@ class EspecialidadController extends Controller
     }
 
 
-    public function store(StoreRequest $request, Especialidad $especialidad)
+    public function store(Request $request, Especialidad $especialidad)
     {
         try {
             $especialidad->my_store($request);

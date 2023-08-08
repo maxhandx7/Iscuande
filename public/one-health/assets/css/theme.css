@@ -141,7 +141,7 @@ a.bg-dark:hover, a.bg-dark:focus {
 }
 
 .text-primary {
-  color: #392c70 !important;
+  color: #68cdc5 !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
@@ -935,7 +935,7 @@ a.text-dark:hover, a.text-dark:focus {
 .navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .nav-link.active {
   font-weight: 500;
-  color: #392c70;
+  color: #68d6df;
 }
 
 

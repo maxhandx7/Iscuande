@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Editar user')
+@section('title', 'Editar usuario')
 @section('styles')
 @endsection
 
@@ -11,13 +11,12 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                Editar user
+                Editar usuario
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('users.index') }}">users</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Editar user</li>
+                    <li class="breadcrumb-item active" aria-current="page">Editar usuario</li>
                 </ol>
             </nav>
         </div>
@@ -26,9 +25,9 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title">Editar user</h4>
-
+                            <h4 class="card-title">Editar usuario</h4>
                         </div>
+                        @include('alert.message') 
                         {!! Form::model($user, ['route' => ['users.update', $user], 'method' => 'PUT']) !!}
                         @if (Auth::user()->tipo == 'ADMIN')
                         <div class="form-group">
@@ -73,7 +72,7 @@
                             <label for="telefono">Telefono</label>
                             <input id="telefono" type="text"
                                 class="form-control @error('telefono') is-invalid @enderror" name="telefono"
-                                value="{{ old('telefono', $user->telefono) }}" autocomplete="telefono" autofocus>
+                                value="{{ old('telefono', $user->telefono) }}" autocomplete="telefono" >
                         </div>
 
                         <div class="form-group">
@@ -165,11 +164,16 @@
                             </div>
 
                         @endif
+                        
+                       
 
-
+                        
                         <button type="submit" class="btn btn-primary mr-2">Actualizar</button>
-                        <a href="{{ route('users.index') }}" class="btn btn-light mr-2">
+                        <a href="{{ route('home') }}" class="btn btn-light mr-2">
                             cancelar
+                        </a>
+                        <a href="{{ route('password.change') }}" class="btn btn-warning">
+                            Cambiar contraseña
                         </a>
 
                         {!! Form::close() !!}

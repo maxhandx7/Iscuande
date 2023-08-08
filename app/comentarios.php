@@ -6,5 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class comentarios extends Model
 {
-    protected $table = 'comentarios';
+    protected $fillable = [
+        'user_id',
+        'post_id',
+        'nombre',
+        'email',
+        'asunto',
+        'body',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }

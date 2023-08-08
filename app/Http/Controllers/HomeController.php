@@ -23,18 +23,23 @@ class HomeController extends Controller
     public function index()
     {
         $citasMes = DB::table('citas as c')
-            ->selectRaw('MONTH(c.FechaCita) as mes')
+            ->selectRaw('DATE_FORMAT(c.FechaCita, "%Y-%d-%m") as mes')
             ->selectRaw('COUNT(*) as mtotal')
-            ->selectRaw('(SELECT COUNT(*) FROM citas c2 WHERE c2.estado = "ACEPTADA" AND MONTH(c2.FechaCita) >= MONTH(c.FechaCita)) as totalmes')
+            ->selectRaw('(SELECT COUNT(*) FROM citas c2 WHERE c2.estado = "ACEPTADA" AND DATE_FORMAT(c2.FechaCita, "%Y-%m") >= DATE_FORMAT(c.FechaCita, "%Y-%m")) as totalmes')
             ->where('c.estado', '=', 'ACEPTADA')
-            ->groupByRaw('MONTH(c.FechaCita), c.FechaCita')
-            ->orderByRaw('MONTH(c.FechaCita) DESC')
+            ->groupByRaw('DATE_FORMAT(c.FechaCita, "%Y-%d-%m"), c.FechaCita')
+            ->orderByRaw('DATE_FORMAT(c.FechaCita, "%Y-%d-%m") DESC')
             ->limit(12)
             ->get();
 
-        $fechaEspecifica = Carbon::now()->format('Y-m-d');
+        foreach ($citasMes as  $mes) {
+            $partes = explode("-", $mes->mes);
+            $mes->mes = $partes[1];
+        }
 
-        $totalCitasDia = Cita::selectRaw('DATE_FORMAT(FechaCita, "%d/%m/%Y") as dia')
+        
+
+        $totalCitasDia = Cita::selectRaw('DATE_FORMAT(FechaCita, "%m/%d/%Y") as dia')
             ->selectRaw('COUNT(*) as total_citas')
             ->where('estado', 'ACEPTADA')
             ->groupBy('FechaCita')
@@ -57,7 +62,7 @@ class HomeController extends Controller
         $medicosMasAtendidos = User::select('users.id', 'users.name', 'users.apellido')
             ->withCount(['turno as cita_count' => function ($query) {
                 $query->join('citas', 'citas.turno_id', '=', 'turnos.id')
-                ->where('citas.estado', 'ACEPTADA');
+                    ->where('citas.estado', 'ACEPTADA');
             }])
             ->where('tipo', 'MEDICO')
             ->orderBy('cita_count', 'desc')
@@ -72,7 +77,5 @@ class HomeController extends Controller
             'totalCitasPendientes',
             'medicosMasAtendidos'
         ));
-
-        
     }
 }

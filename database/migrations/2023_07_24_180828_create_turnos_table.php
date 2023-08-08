@@ -18,7 +18,7 @@ class CreateTurnosTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('especialidad_id');
             $table->date('fecha');
-            $table->text('descripcion');
+            $table->text('descripcion')->nullable();
             $table->longText('horas');
             $table->timestamps();
             // Definir las relaciones con las tablas de pacientes y médicos

@@ -28,10 +28,9 @@ class StoreRequest extends FormRequest
             'name' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
             'tipo_documento' => 'required|string|max:50',
-            'no_documento' => 'required|string|max:50|unique:users', // Asegúrate de que no_documento sea único en la tabla "usuarios"
-            'telefono' => 'string|max:50',
+            'no_documento' => 'required|string|min:8|unique:users', // Asegúrate de que no_documento sea único en la tabla "usuarios"
             'email' => 'required|email|unique:users', // Asegúrate de que el email sea único en la tabla "usuarios"
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:8',
             'tipo' => 'required|string|max:50',
         ];
     }

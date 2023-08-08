@@ -1,0 +1,19 @@
+.mi-section {
+    overflow: scroll;
+}
+
+[type=radio] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+[type=radio]+.card {
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+[type=radio]:checked+.card {
+    box-shadow: 0 0 0 2px #0d6efd;
+}

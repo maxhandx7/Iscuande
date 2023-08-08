@@ -1,4 +1,4 @@
-@extends('layouts.blog')
+@extends('layouts.pages')
 
 @section('contenido')
     <div class="page-section pt-5">
@@ -43,38 +43,45 @@
                             @endforeach
                         </div>
                     </article> <!-- .blog-details -->
+                    @include('alert.message')
+          
+                        <h3 class="sidebar-title">Comentarios</h3>
+                        @forelse ($comentarios as $comentario)
+                        <div class="blog-item">
+                            <div class="content">
+                                <h5 class="post-title">{{ $comentario->body }}</h5>
+                                <div class="meta">
+                                    <span class="mai-calendar"></span> {{ $comentario->created_at->format('d/m/Y') }}
+                                    <span class="mai-person"></span> {{ $comentario->user->name }}
+                                  </div>
+                            </div>
+                        </div>
+                        @empty
+                            <p>No hay comentarios aún.</p>
+                        @endforelse
 
                     <div class="comment-form-wrap pt-5">
-                        <h3 class="mb-5">Deja un comentario</h3>
-                        <form action="#" class="">
-                            <div class="form-row form-group">
-                                <div class="col-md-6">
-                                    <label for="name">Nombre *</label>
-                                    <input type="text" class="form-control" id="name">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="email">Correo *</label>
-                                    <input type="email" class="form-control" id="email">
-                                </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="message">Mensaje</label>
-                                <textarea name="msg" id="message" cols="30" rows="8" class="form-control"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Post Comment" class="btn btn-primary">
-                            </div>
-                        </form>
+                        <h3 class="mb-5">Deja un comentario</h3>
+                        {!! Form::model($post->id, ['route' => ['comments.store', $post->id], 'method' => 'POST']) !!}
+                        <div class="form-group">
+                            <label for="message">Comentario</label>
+                            <textarea name="body" id="body" cols="30" rows="4" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Comentar noticia" class="btn btn-primary">
+                        </div>
+                        {!! Form::close() !!}
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="sidebar">
-						<div class="sidebar-block">
+                        <div class="sidebar-block">
                             <h3 class="sidebar-title">Categorias</h3>
                             <ul class="categories">
                                 @foreach ($categoriesWithCount as $category)
-                                    <li><a href="#">{{ $category->name }} <span>{{ $category->posts_count }}</span></a></li>
+                                    <li><a href="#">{{ $category->name }}
+                                            <span>{{ $category->posts_count }}</span></a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -128,9 +135,9 @@
                         <div class="sidebar-block">
                             <h3 class="sidebar-title">Etiquetas</h3>
                             <div class="tagcloud">
-                              @foreach($tags as $tag)
-                                <a href="#" class="tag-cloud-link">{{$tag->name}}</a>
-                               @endforeach
+                                @foreach ($tags as $tag)
+                                    <a href="#" class="tag-cloud-link">{{ $tag->name }}</a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -138,7 +145,4 @@
             </div> <!-- .row -->
         </div> <!-- .container -->
     </div> <!-- .page-section -->
-
-
-
 @endsection

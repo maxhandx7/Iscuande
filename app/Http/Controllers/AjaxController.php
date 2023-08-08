@@ -20,30 +20,44 @@ class AjaxController extends Controller
                     ->where('especialidad_id', $request->especialidad)
                     ->get();
 
-                $citas = Cita::get();
-                for ($i = 0; $i < count($citas); $i++) {
-                    $cuposRegistrados =  Cita::where('id', $citas[$i]->id)->pluck('HoracIta')->toArray();
+                if (count($fechas) == 0) {
+                    return false;
                 }
-                
                 $data = array(); // Nuevo array para almacenar la información
                 foreach ($fechas as $fecha) {
                     $medicos = User::where('id', $fecha->user_id)
-                    ->where('tipo', 'MEDICO')
-                    ->get();
+                        ->where('tipo', 'MEDICO')
+                        ->get();
                     foreach ($medicos as $medico) {
-                        $fecha->medico = $medico->name." " .$medico->apellido;
+                        $fecha->medico = $medico->name . " " . $medico->apellido;
                     }
-                    $data[] = $fecha; 
+                    $data[] = $fecha;
                 }
-
-            
                 return response()->json([
                     'data' => $data,
-                    'cuposRegistrados' => isset($cuposRegistrados) ? $cuposRegistrados : "",
                 ]);
             } else {
                 return false;
             }
+        }
+    }
+
+    public function getHorario(Request $request)
+    {
+        if ($request->ajax()) {
+            $turnos = Turno::where('id', $request->idTurno)
+                ->get();
+            foreach ($turnos as $turno) {
+                $citas = Cita::get();
+                for ($i = 0; $i < count($citas); $i++) {
+                    $cuposRegistrados =  Cita::where('turno_id', $turno->id)
+                        ->pluck('HoracIta')->toArray();
+                }
+            }
+            return response()->json([
+                'data' => $turnos,
+                'cuposRegistrados' => isset($cuposRegistrados) ? $cuposRegistrados : "",
+            ]);
         }
     }
 
