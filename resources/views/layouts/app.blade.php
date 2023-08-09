@@ -142,7 +142,7 @@
                         <span class="text-muted text-right d-block d-sm-inline-block">
                             <b> POWERED BY
                                 <a style="text-decoration: none; color:rgb(17, 15, 129);"
-                                    href="https://www.instagram.com/tribie17/" target="_blank">&nbsp;AF</a>
+                                    href="https://www.afdeveloper.com/" target="_blank">&nbsp;AF</a>
                             </b></span>
                     </div>
                 </div>

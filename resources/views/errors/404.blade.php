@@ -2,21 +2,20 @@
 <html lang="es">
 
 
-<!-- Mirrored from www.urbanui.com/melody/template/pages/samples/error-500.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Sep 2018 06:08:54 GMT -->
+<!-- Mirrored from /melody/template/pages/samples/error-500.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Sep 2018 06:08:54 GMT -->
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>AF Admin</title>
   <!-- plugins:css -->
-  {!! Html::style('melody/vendors/iconfonts/font-awesome/css/all.min.css') !!}
   {!! Html::style('melody/vendors/css/vendor.bundle.base.css') !!}
   {!! Html::style('melody/vendors/css/vendor.bundle.addons.css') !!}
   <!-- endinject -->
   <!-- inject:css -->
   {!! Html::style('melody/css/style.css') !!}
   <!-- endinject -->
-  <link rel="shortcut icon" href="../../images/favicon.png" />
+  <link rel="shortcut icon" href="{{asset('image/'.$business->logo)}}" />
 </head>
 
 <body>
@@ -41,7 +40,7 @@
             </div>
             <div class="row mt-5">
               <div class="col-12 mt-xl-2">
-                <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2023 Todos los derechos reservados <b><a style="text-decoration: none; color:white" href="https://www.instagram.com/tribie17/"> AF</a> </b></p>
+                <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2023 Todos los derechos reservados <b><a style="text-decoration: none; color:white" href="https://www.afdeveloper.com/"> AF</a> </b></p>
               </div>
             </div>
           </div>

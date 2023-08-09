@@ -4,10 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-
     <title>Santa barbara Centro de salud</title>
 
     {!! Html::style('one-health/assets/css/maicons.css') !!}
@@ -132,7 +129,7 @@
                         <span class="text-muted text-right d-block d-sm-inline-block">
                             <b> POWERED BY
                                 <a style="text-decoration: none; color:rgb(17, 15, 129);"
-                                    href="https://www.instagram.com/tribie17/" target="_blank">&nbsp;AF</a>
+                                    href="https://www.afdeveloper.com/" target="_blank">&nbsp;AF</a>
                             </b></span>
                     </div>
                 </div>
