@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Santa barbara Centro de salud</title>
+    {!! Html::style('melody/vendors/iconfonts/font-awesome/css/all.min.css') !!}
     {!! Html::style('melody/vendors/css/vendor.bundle.base.css') !!}
     {!! Html::style('melody/vendors/css/vendor.bundle.addons.css') !!}
     {!! Html::style('melody/css/style.css') !!}
@@ -186,7 +187,7 @@
                             Todos los derechos reservados.&nbsp;</span>
                         <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><b><a
                                     style="text-decoration: none; color:rgb(17, 15, 129);"
-                                    href="https://www.afdeveloper.com/">&nbsp;AF</a> </b> <i
+                                    href="https://www.instagram.com/tribie17/">&nbsp;AF</a> </b> <i
                                 class="far fa-heart text-danger"></i>&nbsp;</span>
                     </div>
                 </footer>
