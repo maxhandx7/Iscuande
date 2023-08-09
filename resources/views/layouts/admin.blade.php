@@ -12,7 +12,6 @@
     {!! Html::style('melody/vendors/css/vendor.bundle.addons.css') !!}
     {!! Html::style('melody/css/style.css') !!}
     {!! Html::style('melody/css/main.css') !!}
-    {!! Html::style('http://www.urbanui.com/') !!}
     @yield('styles')
     <link rel="shortcut icon" href="{{asset('image/'.$business->logo)}}" />
 </head>
