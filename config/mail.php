@@ -32,7 +32,7 @@ return [
     |            "postmark", "log", "array"
     |
     */
-
+ 
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
@@ -41,6 +41,8 @@ return [
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
+            'timeout' => null,
+            'auth_mode' => null,
         ],
 
         'ses' => [

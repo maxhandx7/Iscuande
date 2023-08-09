@@ -20,7 +20,6 @@
                     <article class="blog-details">
                         <div class="post-thumb">
                             <img src="{{ asset('image/' . $post->image) }}" alt="">
-
                         </div>
                         <div class="post-meta">
                             <div class="post-author">
@@ -32,10 +31,9 @@
                             </div>
                         </div>
                         <h2 class="post-title h1">{{ $post->name }}</h2>
+                        <p class="text-justify text-uppercase ">{{ $post->Previa }}</p>
                         <div class="post-content">
                             <p>{!! $post->body !!}</p>
-
-
                         </div>
                         <div class="post-tags">
                             @foreach ($post->tags as $tag)

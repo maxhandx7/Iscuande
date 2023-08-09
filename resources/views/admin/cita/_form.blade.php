@@ -55,8 +55,13 @@
             <div class="row justify-content-center align-items-center g-2" >
                 <select id="hora" name="hora" class="form-control">
                 </select>
+                    <div class="dot-opacity-loader" hidden>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                  
             </div>
-
         </section>
     </div>
 </form>

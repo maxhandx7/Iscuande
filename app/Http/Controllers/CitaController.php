@@ -7,13 +7,16 @@ use App\Cupo;
 use App\Especialidad;
 use App\Http\Requests\Cita\StoreRequest;
 use App\Http\Requests\Cita\UpdateRequest;
+use App\Mail\citaCreada;
 use App\Medico;
 use App\Turno;
 use App\User;
 use Carbon\Carbon;
 use Hamcrest\Arrays\IsArray;
+use Hamcrest\Type\IsNumeric;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CitaController extends Controller
 {
@@ -104,12 +107,10 @@ class CitaController extends Controller
             if ($validate->count() > 0) {
                 return response()->json(['success' => false, 'message' => 'Ya se tomó esta reserva']);
             }
-
             $result = $cita->my_store($idTurno, $fechaTurno, $horaSeleccionada);
             if ($result) {
-                return response()->json(['success' => true, 'redirect_url' => route('citas.index')]);
+                return response()->json(['success' => true, 'message' => 'Estado Actualizado', 'cita_id' => $result->id]);
             } else {
-                var_dump($result);
                 return response()->json(['success' => false, 'message' => 'Ocurrió un error al crear la cita']);
             }
         } catch (\Exception $th) {
@@ -134,6 +135,19 @@ class CitaController extends Controller
             return redirect()->route('citas.index')->with('success', 'Cita cancelada');
         } catch (\Exception $th) {
             return redirect()->back()->with('error', 'Ocurrió un error al cancelar la cita');
+        }
+    }
+
+    public function enviarCorreo(Request $request)
+    {
+        if ($request->ajax()) {
+        $cita = Cita::where('id', $request->cita_id)->first();
+        $emailPaciente = $cita->user->email;
+        $nombrePaciente = $cita->user->name." ".$cita->user->apellido;
+        $FechaCita = $cita->FechaCita;
+        $HoraCita = $cita->HoraCita;
+        Mail::to($emailPaciente )->send(new citaCreada($nombrePaciente, $FechaCita, $HoraCita));
+        return "Correo enviado correctamente.";
         }
     }
 }

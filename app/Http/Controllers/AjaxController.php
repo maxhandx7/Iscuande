@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Cita;
+use App\Mail\MiCorreo;
 use App\Turno;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AjaxController extends Controller
 {
@@ -69,10 +71,22 @@ class AjaxController extends Controller
             $cita = new Cita;
             $result = $cita->my_update($request->id, $request->estado);
             if ($result) {
+                $this->enviarCorreo($request->id);
                 return response()->json(['success' => true, 'message' => 'Estado Actualizado']);
             } else {
                 return response()->json(['success' => false, 'message' => 'Ocurrio un error al actualizar estadoo']);
             }
         }
+    }
+
+    public function enviarCorreo($id)
+    {
+        $cita = Cita::where('id', $id)->first();
+        $emailPaciente = $cita->user->email;
+        $nombrePaciente = $cita->user->name." ".$cita->user->apellido;
+        $estado = $cita->estado;
+        Mail::to($emailPaciente )->send(new MiCorreo($nombrePaciente, $estado));
+
+        return "Correo enviado correctamente.";
     }
 }

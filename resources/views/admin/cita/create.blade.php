@@ -30,6 +30,9 @@
                         </div>
                         @include('admin.cita._form')
                     </div>
+                    <a href="{{ route('citas.index') }}" class="btn btn-light mr-2">
+                        cancelar
+                    </a>
                 </div>
             </div>
         </div>
@@ -180,17 +183,30 @@
                             'X-CSRF-TOKEN': token
                         },
                         success: function(response) {
+                            console.log(response.cita_id);
                             if (response.success) {
                                 swal("Reserva exitosa!",
                                     "La reserva ha sido realizada con éxito.",
-                                    "success").then(
-                                    function() {
-                                        window
-                                            .location
-                                            .href =
-                                            response
-                                            .redirect_url;
+                                    "success").then(function() {
+                                    $("#hora").prop("hidden", true);
+                                    $(".dot-opacity-loader").prop("hidden", false);
+                                    $.ajax({
+                                        url: "{{ route('send_email') }}",
+                                        method: 'GET',
+                                        data: {
+                                            cita_id: response.cita_id,
+                                        },
+                                        success: function(response) {
+                                            window.location.href =
+                                                "{{ route('citas.index') }}";
+                                        },
+                                        error: function() {
+                                            console.log(
+                                                "Error al enviar correo"
+                                            );
+                                        }
                                     });
+                                })
                             } else {
                                 swal("Error",
                                     "Hubo un error al realizar la reserva.",
@@ -247,7 +263,7 @@
                         "YYYY-MM-DD");
 
                     const esHoy = fechaTurno.isSame(fechaActual, "day");
-                    
+
                     /* if (esHoy) {
                         const horaActual = moment().format("h:mm A");
                         console.log(horasDisponibles);

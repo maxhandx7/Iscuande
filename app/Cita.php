@@ -36,7 +36,7 @@ class Cita extends Model
             'especialidad_id' => $especialidad->especialidad_id,
             'FechaCita' => $fecha,
             'HoraCita' => $hora,
-        ]);
+        ]); 
     }
 
     public function my_update($id, $estado)

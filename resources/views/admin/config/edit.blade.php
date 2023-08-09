@@ -165,16 +165,18 @@
 
                         @endif
                         
-                       
+                        <div class="form-group">
+                            <a href="{{ route('password.change') }}" class="btn btn-warning btn-block">
+                                Cambiar contraseña
+                            </a>
+                        </div>
 
                         
                         <button type="submit" class="btn btn-primary mr-2">Actualizar</button>
                         <a href="{{ route('home') }}" class="btn btn-light mr-2">
                             cancelar
                         </a>
-                        <a href="{{ route('password.change') }}" class="btn btn-warning">
-                            Cambiar contraseña
-                        </a>
+                        
 
                         {!! Form::close() !!}
                     </div>

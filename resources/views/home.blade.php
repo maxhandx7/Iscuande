@@ -15,6 +15,7 @@
         </div>
 
         @if (Auth::user()->tipo == 'PACIENTE')
+        <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card" style="background-color: #392c70;">
                     <div class="card-body">
@@ -24,6 +25,18 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center">
+                            <a href="{{route('citas.create')}}" class="btn btn-primary">Solicitar cita</a>
+                          </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         @else
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
