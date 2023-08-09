@@ -26,20 +26,17 @@ class CreatePostsTable extends Migration
             $table->timestamps();
 
             //relaciones
-           /* $table->foreign('category_id')
+            $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')
                 ->onDelete('cascade')
-                ->onUpdate('cascade');*/
+                ->onUpdate('cascade');
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
-           
-
 
         });
     }
