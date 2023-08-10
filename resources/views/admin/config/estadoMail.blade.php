@@ -57,11 +57,11 @@
                             <li><strong>{{ $estado }}</strong> </li>
                         </ul>
 
-                        <p>Por favor, si tiene alguna duda comuniquese con el numero <strong>{{$business->phone }}</strong>,o bien al correo
+                        <p>Por favor, si tiene alguna duda comuniquese al numero <strong>{{$business->phone }}</strong>, o bien al correo
                             <strong>{{ $business->mail }}</strong>.</p>
 
 
-                        <p>¡Esperamos verlo pronto!</p>
+                        <p>Este Correo es informativo, favor no responder</p>
 
                         <p>Atentamente,</p>
                         <p>Equipo Médico</p>

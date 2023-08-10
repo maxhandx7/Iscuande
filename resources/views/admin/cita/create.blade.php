@@ -261,7 +261,7 @@
                         "YYYY-DD-MM");
 
                     const esHoy = fechaTurno.isSame(fechaActual, "day");
-                    
+
                     if (esHoy) {
                         const horaActual = moment().format("h:mm A");
                         horasDisponibles = horasDisponibles.filter(hora => {
@@ -271,6 +271,14 @@
 
                     const selectHora = $("#hora");
                     selectHora.empty();
+                    if (horasDisponibles.length == 0) {
+                        swal("Error",
+                            "No se encontraron horas disponibles.",
+                            "error").then(
+                            function() {
+                                location.reload();
+                            });
+                    }
                     horasDisponibles.forEach(function(hora) {
                         const option = `<option value="${hora}">${hora}</option>`;
                         selectHora.append(option);
