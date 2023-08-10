@@ -40,7 +40,7 @@
 @endsection
 @section('scripts')
     {!! Html::script('melody/js/bootstrap-datepicker.es.js') !!}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    {!! Html::script('melody/js/moment.js') !!}
     <script>
         $(document).ready(function() {
             $("#fecha").datepicker({
@@ -87,7 +87,7 @@
                             })
                             return false;
                         }
-                    } else if (currentIndex === 1) {
+                    } else if (currentIndex === 1 && currentIndex < newIndex) {
                         var fecha = $("#fecha");
                         if (fecha.val().trim() === "") {
                             swal({
@@ -127,7 +127,7 @@
                                 }
                             });
                         }
-                    } else if (currentIndex === 2) {
+                    } else if (currentIndex === 2 && currentIndex < newIndex) {
                         selectedId = $("input[name='card']:checked").val();
                         if (!selectedId) {
                             swal({
@@ -166,7 +166,9 @@
                     return true;
                 },
                 onStepChanged: function(event, currentIndex, newIndex) {
-                    $('#medicosContainer').empty();
+                    if (currentIndex == 1 || currentIndex == 0 && currentIndex < newIndex) {
+                        $('#medicosContainer').empty();
+                    }
                 },
                 onFinished: function(event, currentIndex) {
                     const token = $('meta[name="csrf-token"]').attr(
@@ -183,7 +185,6 @@
                             'X-CSRF-TOKEN': token
                         },
                         success: function(response) {
-                            console.log(response.cita_id);
                             if (response.success) {
                                 swal("Reserva exitosa!",
                                     "La reserva ha sido realizada con éxito.",
@@ -223,12 +224,10 @@
             });
         })(jQuery);
 
-
-
         function mostrarMedicos(medicos) {
-            const medicosContainer = $("#medicosContainer");
+            var medicosContainer = $("#medicosContainer");
             medicos.data.forEach(function(medico) {
-                const html = `
+                var html = `
                 <div class="col">
                     <label>
                     <input type="radio" id="card${medico.id}" name="card" value="${medico.id}">
@@ -242,7 +241,6 @@
                     </label>
                 </div>
                 `;
-
                 medicosContainer.append(html);
             });
         }
@@ -260,30 +258,32 @@
 
                     const fechaActual = moment();
                     const fechaTurno = moment(datosTurno.fecha,
-                        "YYYY-MM-DD");
+                        "YYYY-DD-MM");
 
                     const esHoy = fechaTurno.isSame(fechaActual, "day");
-
-                    /* if (esHoy) {
+                    
+                    if (esHoy) {
                         const horaActual = moment().format("h:mm A");
-                        console.log(horasDisponibles);
                         horasDisponibles = horasDisponibles.filter(hora => {
-                            return moment(hora, "h:mm A").isSameOrAfter(horaActual);
+                            return moment(hora, "h:mm A").isSameOrAfter(moment(horaActual, "h:mm A"));
                         });
-                    } */
+                    }
 
                     const selectHora = $("#hora");
                     selectHora.empty();
-
                     horasDisponibles.forEach(function(hora) {
                         const option = `<option value="${hora}">${hora}</option>`;
                         selectHora.append(option);
                     });
                 } else {
-                    console.log("No se encontraron horas disponibles.");
+                    swal("Error",
+                        "No se encontraron horas disponibles.",
+                        "error");
                 }
             } else {
-                console.log("No se encontraron datos de horarios.");
+                swal("Error",
+                    "No se encontraron horas disponibles.",
+                    "error");
             }
         }
     </script>
