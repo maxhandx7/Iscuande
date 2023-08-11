@@ -121,7 +121,11 @@ class CitaController extends Controller
 
     public function show(Cita $cita)
     {
-        return view('admin.cita.show', compact('cita'));
+        
+        $cita->fecha_formateada = Carbon::createFromFormat('Y-d-m', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+        $citas_user = Cita::where('user_id', $cita->user_id)->get();
+        
+        return view('admin.cita.show', compact('cita', 'citas_user'));
     }
 
 

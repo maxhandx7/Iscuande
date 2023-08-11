@@ -57,10 +57,6 @@
                             <li><strong>{{ $estado }}</strong> </li>
                         </ul>
 
-                        <p>Por favor, si tiene alguna duda comuniquese al numero <strong>{{$business->phone }}</strong>, o bien al correo
-                            <strong>{{ $business->mail }}</strong>.</p>
-
-
                         <p>Este Correo es informativo, favor no responder</p>
 
                         <p>Atentamente,</p>
@@ -71,5 +67,4 @@
         </div>
     </div>
 </body>
-
 </html>

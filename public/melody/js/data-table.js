@@ -1,7 +1,8 @@
+
 (function ($) {
   'use strict';
   $(function () {
-    $('#order-listing').DataTable({
+     $('#order-listing').DataTable({
       responsive: true,
       "order": [[ 0, "desc" ]],
       "aLengthMenu": [

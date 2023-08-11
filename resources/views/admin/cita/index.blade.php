@@ -29,8 +29,7 @@
                             <span>Fecha de consulta: <b> </b></span>
                             <div class="form-group">
                                 <form id="filtrar-citas">
-                                    <input type="date" name="filterFecha" id="filterFecha" class="form-control"
-                                        >
+                                    <input type="date" name="filterFecha" id="filterFecha" class="form-control">
                                     <input type="submit" class="btn btn-link" value="consultar">
                                 </form>
                             </div>
@@ -51,11 +50,10 @@
                             <table id="order-listing" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>id</th>
                                         <th>Nombre</th>
-                                        <th>Medico</th>
+                                        <th>documento</th>
                                         <th>Fecha</th>
-                                        <th>Hora</th>
                                         <th style="width: 200px;">Estado</th>
                                         @if (Auth::user()->tipo == 'PACIENTE')
                                             <th>Acciones</th>
@@ -67,15 +65,11 @@
                                     @foreach ($citas as $cita)
                                         <tr>
                                             <td>{{ $cita->id }}</td>
-                                            <td> {{ $cita->user->name . ' ' . $cita->user->apellido }} </td>
-
-                                            <td>Dr.{{ ' ' . $cita->turno->user->name . ' ' . $cita->turno->user->apellido }}
+                                            <td><a
+                                                    href="{{ route('citas.show', $cita) }}">{{ $cita->user->name . ' ' . $cita->user->apellido }}</a>
                                             </td>
-
+                                            <td>{{ $cita->user->no_documento }}</td>
                                             <td> {{ $cita->fecha_formateada }} </td>
-
-                                            <td> {{ $cita->HoraCita }} </td>
-
                                             @if (Auth::user()->tipo == 'ADMIN' || Auth::user()->tipo == 'MEDICO')
                                                 <td>
                                                     <div class="editable-form" data-pk="{{ $cita->id }}">
@@ -122,7 +116,7 @@
                 '<button type="button" class="btn btn-default btn-sm editable-cancel">' +
                 '<i class="fa fa-fw fa-times"></i>' +
                 '</button>';
-                    
+
             $('.editable-text').editable({
                 source: [{
                         value: 'PENDIENTE',
@@ -168,11 +162,9 @@
                     filterFecha: filterFecha.val(),
                 },
                 success: function(response) {
-                    
+
                 }
-
             });
-
         });
     </script>
 @endsection

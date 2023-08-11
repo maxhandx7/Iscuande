@@ -35,6 +35,6 @@ class MiCorreo extends Mailable
      */
     public function build()
     {
-        return $this->view('admin.config.estadoMail');
+        return $this->subject('Actualización de estado')->view('admin.config.estadoMail');
     }
 }

@@ -85,7 +85,7 @@ class AjaxController extends Controller
         $emailPaciente = $cita->user->email;
         $nombrePaciente = $cita->user->name." ".$cita->user->apellido;
         $estado = $cita->estado;
-        Mail::to($emailPaciente )->send(new MiCorreo($nombrePaciente, $estado));
+        Mail::to($emailPaciente)->send(new MiCorreo($nombrePaciente, $estado));
 
         return "Correo enviado correctamente.";
     }
