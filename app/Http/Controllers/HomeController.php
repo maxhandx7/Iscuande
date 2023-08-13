@@ -22,6 +22,8 @@ class HomeController extends Controller
 
     public function index()
     {
+        Carbon::setLocale('es');
+
         $citasMes = DB::table('citas as c')
             ->selectRaw('MONTH(c.FechaCita) as mes')
             ->selectRaw('COUNT(*) as mtotal')
@@ -31,6 +33,11 @@ class HomeController extends Controller
             ->orderByRaw('MONTH(c.FechaCita) DESC')
             ->limit(12)
             ->get();
+
+        foreach ($citasMes as $mes) {
+            
+           $mes->mes = Carbon::createFromFormat('m', $mes->mes)->isoFormat('MMMM');
+        }
 
         $totalCitasDia = Cita::selectRaw('DATE_FORMAT(FechaCita, "%d/%m/%Y") as dia')
             ->selectRaw('COUNT(*) as total_citas')

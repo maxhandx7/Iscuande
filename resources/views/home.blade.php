@@ -111,10 +111,7 @@
                 type: 'line',
                 data: {
                     labels: [<?php foreach ($citasMes as $reg) {
-                        setlocale(LC_TIME, 'es_ES', 'Spanish_Spain', 'Spanish');
-                        $mes_traducido = strftime('%B', mktime(0, 0, 0, $reg->mes, 1));
-                    
-                        echo '"' . $mes_traducido . '",';
+                        echo '"' . $reg->mes . '",';
                     } ?>],
                     datasets: [{
                         label: 'Citas Mes',
