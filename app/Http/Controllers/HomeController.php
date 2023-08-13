@@ -35,10 +35,9 @@ class HomeController extends Controller
             ->get();
 
         foreach ($citasMes as $mes) {
-            
-           $mes->mes = Carbon::createFromFormat('m', $mes->mes)->isoFormat('MMMM');
+            $mes->mes = Carbon::createFromFormat('m', $mes->mes)->isoFormat('MMMM');
         }
-        dd($citasMes);
+
         $totalCitasDia = Cita::selectRaw('DATE_FORMAT(FechaCita, "%d/%m/%Y") as dia')
             ->selectRaw('COUNT(*) as total_citas')
             ->where('estado', 'ACEPTADA')
