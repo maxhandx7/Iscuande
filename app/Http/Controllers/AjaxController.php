@@ -14,14 +14,15 @@ class AjaxController extends Controller
     public function getTurnos(Request $request)
     {
         if ($request->ajax()) {
-            $fecha_objeto = date_create_from_format('m/d/Y', $request->fecha);
+            $fecha_objeto = date_create_from_format('d/m/Y', $request->fecha);
 
             if ($fecha_objeto) {
                 $fecha_formateada = date_format($fecha_objeto, 'Y-m-d');
                 $fechas = Turno::where('fecha', $fecha_formateada)
                     ->where('especialidad_id', $request->especialidad)
                     ->get();
-
+                /* var_dump($fecha_formateada);
+                die; */
                 if (count($fechas) == 0) {
                     return false;
                 }

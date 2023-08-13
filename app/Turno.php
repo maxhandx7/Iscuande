@@ -83,10 +83,11 @@ class Turno extends Model
 
     public function formatear_fecha($fecha)
     {
-        $fecha_original = $fecha;
-        $fecha_objeto = date_create($fecha_original);
+        $date = Carbon::createFromFormat('d/m/Y', $fecha);
+        $formattedDate = $date->format('Y-m-d');
+        $fecha_objeto = date_create($formattedDate);
+        
         $fecha_formateada = date_format($fecha_objeto, "Y-m-d");
-
         return $fecha_formateada;
     }
 }

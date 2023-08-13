@@ -33,14 +33,14 @@ class CitaController extends Controller
         if ($tipo == 'ADMIN') {
             Carbon::setLocale('es');
             if (isset($request->filterFecha)) {
-                $carbonFecha = Carbon::createFromFormat('Y-m-d', $request->filterFecha);
-                $fechaFormateada = $carbonFecha->format('Y-d-m');
+                $carbonFecha = Carbon::createFromFormat('Y-m-d', $request->filterFecha)->setTimezone('America/bogota');
+                $fechaFormateada = $carbonFecha->format('Y-m-d');
             }
 
             $fechaActual = Carbon::now()->format('Y-d-m');
             $citas = Cita::where('FechaCita', isset($fechaFormateada) ? $fechaFormateada : $fechaActual)->get();
             foreach ($citas as $cita) {
-                $cita->fecha_formateada = Carbon::createFromFormat('Y-d-m', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+                $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
             }
             return view('admin.cita.index', compact('citas'));
         }
@@ -51,7 +51,7 @@ class CitaController extends Controller
             foreach ($turnos as $turno) {
                 $citasDeTurno = Cita::where('turno_id', $turno->id)->get();
                 foreach ($citasDeTurno as $cita) {
-                    $cita->fecha_formateada = Carbon::createFromFormat('Y-d-m', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+                    $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
                     $citas[] = $cita;
                 }
             }
@@ -59,10 +59,10 @@ class CitaController extends Controller
             return view('admin.cita.index', compact('citas'));
         } else {
             $citas = Cita::where('user_id', $id)
-                ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-d-m'))
+                ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-m-d'))
                 ->get();
             foreach ($citas as $cita) {
-                $cita->fecha_formateada = Carbon::createFromFormat('Y-d-m', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+                $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
             }
             return view('admin.cita.index', compact('citas'));
         }
@@ -122,7 +122,7 @@ class CitaController extends Controller
     public function show(Cita $cita)
     {
         
-        $cita->fecha_formateada = Carbon::createFromFormat('Y-d-m', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+        $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
         $citas_user = Cita::where('user_id', $cita->user_id)->get();
         
         return view('admin.cita.show', compact('cita', 'citas_user'));

@@ -41,9 +41,9 @@
                                 <div class="border-bottom text-center pb-4">
                                     <h3>{{ $cita->user->name . ' ' . $cita->user->apellido }}</h3>
                                     <div class="d-flex justify-content-between">
-                                        <p class="text-muted">
+                                        {{-- <p class="text-muted">
                                             {{ $cita->user->no_documento }}
-                                        </p>
+                                        </p> --}}
                                     </div>
                                 </div>
                                 <div class="border-bottom py-4">
@@ -57,6 +57,45 @@
                                             id="list-messages-list" data-toggle="list" href="#list-messages" user="tab"
                                             aria-controls="messages">Historial</a>
                                     </div>
+                                </div>
+
+                                <div class="py-4">
+                                    <p class="clearfix">
+                                        <span class="float-left">
+                                            Paciente
+                                        </span>
+                                        <span class="float-right text-muted">
+                                            {{ $cita->user->name }} {{ $cita->user->apellido }}
+                                        </span>
+                                    </p>
+
+                                    <p class="clearfix">
+                                        <span class="float-left">
+                                            Documento
+                                        </span>
+                                        <span class="float-right text-muted">
+                                            {{ $cita->user->tipo_documento }}. {{ $cita->user->no_documento }}
+                                        </span>
+                                    </p>
+
+                                    <p class="clearfix">
+                                        <span class="float-left">
+                                            Correo electrónico
+                                        </span>
+                                        <span class="float-right text-muted">
+                                            {{ $cita->user->email }}
+                                        </span>
+                                    </p>
+
+
+                                    <p class="clearfix">
+                                        <span class="float-left">
+                                            Telefono
+                                        </span>
+                                        <span class="float-right text-muted">
+                                            {{ $cita->user->telefono }}
+                                        </span>
+                                    </p>
                                 </div>
                             </div>
                             <div class="col-lg-8 pl-lg-5">
@@ -74,45 +113,12 @@
                                             <div class="d-flex align-items-start profile-feed-item">
 
                                                 <div class="form-group col-md-6">
-                                                    <strong><i class="fa fa-user mr-1"></i>Paciente</strong>
-                                                    <p class="text-muted">
-
-                                                        {{ $cita->user->name }} {{ $cita->user->apellido }}
-                                                    </p>
-                                                    <hr>
-                                                    <strong><i class="fab fa fa-id-card mr-1"></i>Tipo de documento</strong>
-                                                    <p class="text-muted">
-                                                        {{ $cita->user->tipo_documento }}
-                                                    </p>
-                                                    <hr>
-                                                    <strong><i class="far fa-id-card mr-1"></i>Numero de documento</strong>
-                                                    <p class="text-muted">
-                                                        {{ $cita->user->no_documento }}
-                                                    </p>
-                                                    <hr>
-                                                    <strong>
-                                                        <i class="fas fa-envelope mr-1"></i>
-                                                        Correo electrónico</strong>
-                                                    <p class="text-muted">
-                                                        {{ $cita->user->email }}
-                                                    </p>
-
-                                                    <hr>
-                                                    <strong>
-                                                        <i class="fas fa-phone mr-1"></i>
-                                                        Telefono</strong>
-                                                    <p class="text-muted">
-                                                        {{ $cita->user->telefono }}
-                                                    </p>
-
-                                                </div>
-
-                                                <div class="form-group col-md-6">
                                                     <strong>
                                                         <i class="fas fa-user-md mr-1"></i>
                                                         Medico</strong>
                                                     <p class="text-muted">
-                                                        Dr. {{ $cita->turno->user->name . ' ' . $cita->turno->user->apellido }}
+                                                        Dr.
+                                                        {{ $cita->turno->user->name . ' ' . $cita->turno->user->apellido }}
                                                     </p>
                                                     <hr>
                                                     <strong>
@@ -122,7 +128,10 @@
                                                         {{ $cita->turno->user->especialidad->nombre }}
                                                     </p>
 
-                                                    <hr>
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                              
                                                     <strong>
                                                         <i class="fas fa-calendar mr-1"></i>
                                                         Fecha</strong>
@@ -150,7 +159,7 @@
                                         aria-labelledby="list-messages-list">
                                         <div class="d-flex justify-content-between">
                                             <div>
-                                                <h4>Historial de {{$cita->user->name}}</h4>
+                                                <h4>Historial de {{ $cita->user->name }}</h4>
                                             </div>
                                         </div>
 
@@ -167,21 +176,21 @@
                                                                 <th>Hora</th>
                                                             </tr>
                                                         </thead>
-                                                         <tbody>
-                                                    @if (is_array($citas_user) || is_object($citas_user))
-                                                        @foreach ($citas_user as $user)
-                                                            <tr>
-                                                                <th scope="row">
-                                                                    {{ $user->id }}</th>
-                                                                <td>Dr. {{$user->turno->user->name }}</td>
-                                                                <td> {{ $user->FechaCita }}</td>
-                                                                <td> {{ $user->HoraCita }}</td>
+                                                        <tbody>
+                                                            @if (is_array($citas_user) || is_object($citas_user))
+                                                                @foreach ($citas_user as $user)
+                                                                    <tr>
+                                                                        <th scope="row">
+                                                                            {{ $user->id }}</th>
+                                                                        <td>Dr. {{ $user->turno->user->name }}</td>
+                                                                        <td> {{ $user->FechaCita }}</td>
+                                                                        <td> {{ $user->HoraCita }}</td>
 
 
-                                                            </tr>
-                                                        @endforeach
-                                                    @endif
-                                                </tbody>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @endif
+                                                        </tbody>
                                                     </table>
                                                 </div>
                                             </div>
