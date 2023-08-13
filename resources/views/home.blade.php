@@ -111,6 +111,7 @@
                 type: 'line',
                 data: {
                     labels: [<?php foreach ($citasMes as $reg) {
+                        
                         echo '"' . $reg->mes . '",';
                     } ?>],
                     datasets: [{

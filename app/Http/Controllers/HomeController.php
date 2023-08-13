@@ -24,25 +24,23 @@ class HomeController extends Controller
     {
         Carbon::setLocale('es');
 
-        $citasMes = DB::table('citas as c')
-            ->selectRaw('MONTH(c.FechaCita) as mes')
-            ->selectRaw('COUNT(*) as mtotal')
-            ->selectRaw('(SELECT COUNT(*) FROM citas c2 WHERE c2.estado = "ACEPTADA" AND MONTH(c2.FechaCita) >= MONTH(c.FechaCita)) as totalmes')
-            ->where('c.estado', '=', 'ACEPTADA')
-            ->groupByRaw('MONTH(c.FechaCita), c.FechaCita')
-            ->orderByRaw('MONTH(c.FechaCita) ASC')
-            ->limit(12)
-            ->get();
+        $citasMes = Cita::selectRaw('MONTH(FechaCita) as mes, COUNT(*) as mtotal')
+        ->where('estado', 'ACEPTADA')
+        ->groupBy(DB::raw('MONTH(FechaCita)'))
+        ->orderBy('mes', 'DESC')
+        ->limit(12)
+        ->get();
 
         foreach ($citasMes as $mes) {
             $mes->mes = Carbon::createFromFormat('m', $mes->mes)->isoFormat('MMMM');
         }
-
+        
         $totalCitasDia = Cita::selectRaw('DATE_FORMAT(FechaCita, "%d/%m/%Y") as dia')
             ->selectRaw('COUNT(*) as total_citas')
             ->where('estado', 'ACEPTADA')
             ->groupBy('FechaCita')
-            ->orderBy('FechaCita', 'ASC')
+            ->orderBy('FechaCita', 'DESC')
+            ->limit(7)
             ->get();
 
 
