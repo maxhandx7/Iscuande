@@ -42,7 +42,7 @@ class HomeController extends Controller
             ->selectRaw('COUNT(*) as total_citas')
             ->where('estado', 'ACEPTADA')
             ->groupBy('FechaCita')
-            ->orderBy('FechaCita', 'desc')
+            ->orderBy('FechaCita', 'ASC')
             ->get();
 
 
