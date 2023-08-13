@@ -8,6 +8,7 @@ use App\Http\Requests\Turno\StoreRequest;
 use App\Http\Requests\Turno\UpdateRequest;
 use App\Medico;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TurnoController extends Controller
@@ -20,8 +21,10 @@ class TurnoController extends Controller
     public function index()
     {
         $turnos = Turno::get();
-
-
+        foreach ($turnos as $turno) {
+            $carbonFecha = Carbon::createFromFormat('Y-m-d', $turno->fecha)->setTimezone('America/Bogota');
+            $turno->fecha = $carbonFecha->format('d-m-Y');
+        }
         return view('admin.turno.index', compact('turnos'));
     }
 
