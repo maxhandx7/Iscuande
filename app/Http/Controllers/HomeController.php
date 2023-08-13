@@ -30,7 +30,7 @@ class HomeController extends Controller
             ->selectRaw('(SELECT COUNT(*) FROM citas c2 WHERE c2.estado = "ACEPTADA" AND MONTH(c2.FechaCita) >= MONTH(c.FechaCita)) as totalmes')
             ->where('c.estado', '=', 'ACEPTADA')
             ->groupByRaw('MONTH(c.FechaCita), c.FechaCita')
-            ->orderByRaw('MONTH(c.FechaCita) DESC')
+            ->orderByRaw('MONTH(c.FechaCita) ASC')
             ->limit(12)
             ->get();
 
@@ -38,7 +38,7 @@ class HomeController extends Controller
             
            $mes->mes = Carbon::createFromFormat('m', $mes->mes)->isoFormat('MMMM');
         }
-
+        dd($citasMes);
         $totalCitasDia = Cita::selectRaw('DATE_FORMAT(FechaCita, "%d/%m/%Y") as dia')
             ->selectRaw('COUNT(*) as total_citas')
             ->where('estado', 'ACEPTADA')
