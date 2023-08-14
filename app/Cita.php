@@ -26,14 +26,12 @@ class Cita extends Model
         return $this->belongsTo(Turno::class);
     }
 
-    public function my_store($id, $fecha, $hora)
+    public function my_store($id, $fecha, $hora, $especialidad)
     {
-        $especialidad = Turno::where('id', $id)->first();
-
         return self::create([
             'user_id' => Auth::user()->id,
             'turno_id' => intval($id),
-            'especialidad_id' => $especialidad->especialidad_id,
+            'especialidad_id' => $especialidad,
             'FechaCita' => $fecha,
             'HoraCita' => $hora,
         ]); 

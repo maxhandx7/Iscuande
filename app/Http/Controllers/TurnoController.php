@@ -22,7 +22,7 @@ class TurnoController extends Controller
     {
         $turnos = Turno::get();
         foreach ($turnos as $turno) {
-            $carbonFecha = Carbon::createFromFormat('Y-m-d', $turno->fecha)->setTimezone('America/Bogota');
+            $carbonFecha = Carbon::createFromFormat('Y-m-d', $turno->fecha);
             $turno->fecha = $carbonFecha->format('d-m-Y');
         }
         return view('admin.turno.index', compact('turnos'));

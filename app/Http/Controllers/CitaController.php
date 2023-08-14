@@ -33,7 +33,7 @@ class CitaController extends Controller
         if ($tipo == 'ADMIN') {
             Carbon::setLocale('es');
             if (isset($request->filterFecha)) {
-                $carbonFecha = Carbon::createFromFormat('Y-m-d', $request->filterFecha)->setTimezone('America/bogota');
+                $carbonFecha = Carbon::createFromFormat('Y-m-d', $request->filterFecha);
                 $fechaFormateada = $carbonFecha->format('Y-m-d');
             }
 
@@ -98,6 +98,8 @@ class CitaController extends Controller
             $fechaTurno = $request->input('fecha_turno');
             $horaSeleccionada = $request->input('hora_seleccionada');
 
+            $especialidad = Turno::where('id', $idTurno)->first();
+
             $validate = Cita::where('FechaCita', $fechaTurno)
                 ->where('HoraCita', $horaSeleccionada)
                 ->where('turno_id', $idTurno)
@@ -108,23 +110,24 @@ class CitaController extends Controller
             }
 
             $validateFecha = Cita::where('user_id', Auth::user()->id)
+                ->where('especialidad_id', $especialidad->especialidad_id)
                 ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-m-d'))
                 ->first();
 
-                
+
             if ($validateFecha != null) {
                 $Fecha = Carbon::createFromFormat('Y-m-d', $validateFecha->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
                 return response()->json([
                     'success' => false, 'message' =>
                     'Sr(a) ' . $validateFecha->user->name . ' ' . $validateFecha->user->apellido .
-                        ' ya tiene una cita asignada' . ' para el ' .
+                        ' ya tiene una cita asignada' . ' de '. $validateFecha->turno->user->especialidad->nombre . ' para el ' .
                         $Fecha . ' a las ' .
                         $validateFecha->HoraCita
                 ]);
-            }
+            } 
 
             $cita = new Cita;
-            $result = $cita->my_store($idTurno, $fechaTurno, $horaSeleccionada);
+            $result = $cita->my_store($idTurno, $fechaTurno, $horaSeleccionada, $especialidad->especialidad_id);
             if ($result) {
                 return response()->json(['success' => true, 'message' => 'Estado Actualizado', 'cita_id' => $result->id]);
             } else {
