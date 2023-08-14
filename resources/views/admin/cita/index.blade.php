@@ -55,8 +55,9 @@
                                         <th>documento</th>
                                         <th>Fecha</th>
                                         <th style="width: 200px;">Estado</th>
+                                        <th>Ver</th>
                                         @if (Auth::user()->tipo == 'PACIENTE')
-                                            <th>Acciones</th>
+                                            <th>Cancelar</th>
                                         @endif
                                     </tr>
                                 </thead>
@@ -81,12 +82,16 @@
                                             @else
                                                 <td>{{ $cita->estado }}</td>
                                             @endif
+                                            <td><a class="btn btn-info" href="{{ route('citas.show', $cita) }}"
+                                                title="Ver">
+                                                <i class="far fa-eye"></i>
+                                            </a></td>
                                             @if (Auth::user()->tipo == 'PACIENTE' && $cita->estado != 'ACEPTADA')
                                                 <td>
                                                     {!! Form::open(['route' => ['citas.destroy', $cita], 'method' => 'DELETE', 'id' => 'delete-form']) !!}
                                                     <button class="btn btn-danger delete-confirm" type="submit"
                                                         title="Eliminar" onclick="return confirmDelete()">
-                                                        <i class="far fa-trash-alt">Cancelar</i>
+                                                        <i class="far fa-trash-alt"></i>
                                                     </button>
                                                     {!! Form::close() !!}
                                                 </td>

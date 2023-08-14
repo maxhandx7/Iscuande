@@ -16,7 +16,7 @@
     resetToastPosition();
     $.toast({
       heading: 'Info',
-      text: 'And these were just the basic demos! Scroll down to check further details on how to customize the output.',
+      text: 'Fecha establecida',
       showHideTransition: 'slide',
       icon: 'info',
       loaderBg: '#46c35f',

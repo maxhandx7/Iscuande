@@ -43,7 +43,7 @@
     {!! Html::script('melody/js/moment.js') !!}
     <script>
         $(document).ready(function() {
-            $("#fecha").datepicker({
+            $("#datepicker-popup").datepicker({
                 language: 'es',
                 enableOnReadonly: true,
                 todayHighlight: true,

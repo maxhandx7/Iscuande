@@ -24,17 +24,12 @@
         </section>
         <h3>Fechas</h3>
         <section>
-            <h4>Fechas</h4>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="especialidad_id">Fecha de Cita</label>
-                        <div id="datepicker-popup" class="input-group date datepicker">
+                        <div id="datepicker-popup" class="datepicker">
                             <input type="text" class="form-control" id="fecha"
-                                placeholder="buscar fecha disponible" name="fecha" autocomplete="off">
-                            <span class="input-group-addon input-group-append border-left">
-                                <span class="far fa-calendar input-group-text"></span>
-                            </span>
+                                placeholder="buscar fecha disponible" name="fecha" autocomplete="off" hidden>
                         </div>
                     </div>
                 </div>
