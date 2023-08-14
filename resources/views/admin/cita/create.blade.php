@@ -209,8 +209,8 @@
                                     });
                                 })
                             } else {
-                                swal("Error",
-                                    "Hubo un error al realizar la reserva.",
+                                    swal("Error",
+                                    response.message,
                                     "error");
                             }
                         },

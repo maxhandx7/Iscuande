@@ -64,6 +64,7 @@ class CitaController extends Controller
             foreach ($citas as $cita) {
                 $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
             }
+
             return view('admin.cita.index', compact('citas'));
         }
     }
@@ -96,17 +97,33 @@ class CitaController extends Controller
             $idTurno = $request->input('id_turno');
             $fechaTurno = $request->input('fecha_turno');
             $horaSeleccionada = $request->input('hora_seleccionada');
-            
+
             $validate = Cita::where('FechaCita', $fechaTurno)
                 ->where('HoraCita', $horaSeleccionada)
                 ->where('turno_id', $idTurno)
                 ->get();
 
-            $cita = new Cita;
-
             if ($validate->count() > 0) {
                 return response()->json(['success' => false, 'message' => 'Ya se tomó esta reserva']);
             }
+
+            $validateFecha = Cita::where('FechaCita', $fechaTurno)
+                ->where('user_id', Auth::user()->id)
+                ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-m-d'))
+                ->first();
+
+            if ($validateFecha->count() > 0) {
+                $Fecha = Carbon::createFromFormat('Y-m-d', $validateFecha->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+                return response()->json([
+                    'success' => false, 'message' =>
+                    'Sr(a) ' . $validateFecha->user->name . ' ' . $validateFecha->user->apellido .
+                        ' ya tiene una cita asignada' . ' para el ' .
+                        $Fecha . ' a las ' .
+                        $validateFecha->HoraCita
+                ]);
+            }
+
+            $cita = new Cita;
             $result = $cita->my_store($idTurno, $fechaTurno, $horaSeleccionada);
             if ($result) {
                 return response()->json(['success' => true, 'message' => 'Estado Actualizado', 'cita_id' => $result->id]);
@@ -121,10 +138,10 @@ class CitaController extends Controller
 
     public function show(Cita $cita)
     {
-        
+
         $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
         $citas_user = Cita::where('user_id', $cita->user_id)->get();
-        
+
         return view('admin.cita.show', compact('cita', 'citas_user'));
     }
 
@@ -145,13 +162,13 @@ class CitaController extends Controller
     public function enviarCorreo(Request $request)
     {
         if ($request->ajax()) {
-        $cita = Cita::where('id', $request->cita_id)->first();
-        $emailPaciente = $cita->user->email;
-        $nombrePaciente = $cita->user->name." ".$cita->user->apellido;
-        $FechaCita = $cita->FechaCita;
-        $HoraCita = $cita->HoraCita;
-        Mail::to($emailPaciente )->send(new citaCreada($nombrePaciente, $FechaCita, $HoraCita));
-        return "Correo enviado correctamente.";
+            $cita = Cita::where('id', $request->cita_id)->first();
+            $emailPaciente = $cita->user->email;
+            $nombrePaciente = $cita->user->name . " " . $cita->user->apellido;
+            $FechaCita = $cita->FechaCita;
+            $HoraCita = $cita->HoraCita;
+            Mail::to($emailPaciente)->send(new citaCreada($nombrePaciente, $FechaCita, $HoraCita));
+            return "Correo enviado correctamente.";
         }
     }
 }
