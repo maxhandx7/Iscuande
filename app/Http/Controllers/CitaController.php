@@ -107,12 +107,12 @@ class CitaController extends Controller
                 return response()->json(['success' => false, 'message' => 'Ya se tomó esta reserva']);
             }
 
-            $validateFecha = Cita::where('FechaCita', $fechaTurno)
-                ->where('user_id', Auth::user()->id)
+            $validateFecha = Cita::where('user_id', Auth::user()->id)
                 ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-m-d'))
                 ->first();
 
-            if ($validateFecha->count() > 0) {
+                
+            if ($validateFecha != null) {
                 $Fecha = Carbon::createFromFormat('Y-m-d', $validateFecha->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
                 return response()->json([
                     'success' => false, 'message' =>

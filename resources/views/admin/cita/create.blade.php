@@ -185,6 +185,7 @@
                             'X-CSRF-TOKEN': token
                         },
                         success: function(response) {
+                            console.log(response);
                             if (response.success) {
                                 swal("Reserva exitosa!",
                                     "La reserva ha sido realizada con éxito.",
