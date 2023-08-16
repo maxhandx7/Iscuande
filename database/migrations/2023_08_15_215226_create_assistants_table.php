@@ -16,8 +16,8 @@ class CreateAssistantsTable extends Migration
         Schema::create('assistants', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->longText('directivas');
-            $table->longText('principios');
+            $table->longText('directivas')->nullable();
+            $table->longText('principios')->nullable();
             $table->timestamps();
         });
     }

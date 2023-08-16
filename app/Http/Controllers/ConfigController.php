@@ -19,7 +19,7 @@ class ConfigController extends Controller
 
     public function index()
     {
-        $comentarios = comentarios::where('asunto', '!=', 'nn')->get();
+        $comentarios = comentarios::get();
         return view('admin.config.index', compact('comentarios'));
     }
 
@@ -45,6 +45,17 @@ class ConfigController extends Controller
             return redirect()->route('configs.edit', Auth::user()->id)->with('success', '¡Contraseña cambiada exitosamente!');
         } else {
             return back()->withErrors(['current_password' => 'La contraseña actual no coincide con nuestros registros.']);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $comentario = comentarios::find($id);
+            $comentario->delete();
+            return redirect()->route('configs.index')->with('success', 'Comentario eliminado');
+        } catch (\Exception $th) {
+            return redirect()->back()->with('error', 'Ocurrió un error al eliminar el comentario');
         }
     }
 }

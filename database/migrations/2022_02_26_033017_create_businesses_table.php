@@ -17,9 +17,9 @@ class CreateBusinessesTable extends Migration
             $table->id();
 
             $table->string('name');
-            $table->string('description');
-            $table->mediumText('mision');
-            $table->mediumText('vision');
+            $table->string('description')->nullable();
+            $table->mediumText('mision')->nullable();
+            $table->mediumText('vision')->nullable();
             $table->string('logo');
             $table->string('mail');
             $table->string('address');

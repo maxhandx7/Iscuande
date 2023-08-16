@@ -93,7 +93,7 @@
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input type="text" class="form-control" name="nombre" id="nombre"
-                            value="{{ $assistant->nombre }}" aria-describedby="helpId">
+                            value="{{ $assistant->nombre }}" aria-describedby="helpId" required>
                     </div>
 
 
