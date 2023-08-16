@@ -13,7 +13,7 @@ class BlogController extends Controller
     public function blog()
     {
 
-        $posts = Post::orderBy('id', 'DESC')->where('status', 'PUBLISHED')->paginate(3);
+        $posts = Post::orderBy('id', 'DESC')->where('status', 'PUBLISHED')->paginate(4);
         $categoriesWithCount = Category::select('categories.id', 'categories.slug', 'categories.name', DB::raw('COUNT(posts.id) as posts_count'))
             ->leftJoin('posts', 'categories.id', '=', 'posts.category_id')
             ->groupBy('categories.id', 'categories.name', 'categories.slug')
