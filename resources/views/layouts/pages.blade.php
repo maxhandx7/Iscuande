@@ -142,7 +142,6 @@
     {!! Html::script('one-health/assets/vendor/owl-carousel/js/owl.carousel.min.js') !!}
     {!! Html::script('one-health/assets/vendor/wow/wow.min.js') !!}
     {!! Html::script('one-health/assets/js/theme.js') !!}
-    {!! Html::script('melody/js/main.js') !!}
     @yield('scripts')
     <script>
         window.addEventListener("DOMContentLoaded", () => {

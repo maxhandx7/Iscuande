@@ -5,6 +5,6 @@
 
     <div class="form-group">
         <label for="body">Descripcion</label>
-        <textarea name="body" id="body" class="form-control" required></textarea>
+        <textarea name="body" id="body" class="form-control"></textarea>
         
     </div>

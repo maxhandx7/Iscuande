@@ -38,7 +38,7 @@
                                         <div class="site-info">
                                             <div class="avatar mr-2">
                                                 <div class="avatar-img">
-                                                    <img src="{{asset('image/'.$business->logo)}}" alt="">
+                                                    <img src="{{ asset('image/' . $business->logo) }}" alt="">
                                                 </div>
                                                 <span>{{ $post->user->name }}</span>
                                             </div>
@@ -51,7 +51,7 @@
                     </div> <!-- .row -->
                     <div class="col-12 my-5">
                         <nav aria-label="Page Navigation">
-                            {{ $posts->render() }}
+                            {{ $posts->links('pagination::bootstrap-4') }}
                         </nav>
                     </div>
                 </div>

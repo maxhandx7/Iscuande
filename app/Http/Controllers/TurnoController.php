@@ -20,7 +20,8 @@ class TurnoController extends Controller
 
     public function index()
     {
-        $turnos = Turno::get();
+        $turnos = Turno::whereDate('fecha', '>=', Carbon::today()->format('Y-m-d'))
+        ->get();
         foreach ($turnos as $turno) {
             $carbonFecha = Carbon::createFromFormat('Y-m-d', $turno->fecha);
             $turno->fecha = $carbonFecha->format('d-m-Y');
