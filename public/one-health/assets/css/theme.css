@@ -1278,12 +1278,12 @@ a.text-dark:hover, a.text-dark:focus {
 .circle-shape {
   flex-shrink: 0;
   padding: 0;
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   line-height: 64px;
   border-radius: 50%;
   text-align: center;
-  font-size: 32px;
+  font-size: 48px;
 }
 
 #doctorSlideshow .owl-nav {

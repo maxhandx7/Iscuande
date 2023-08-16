@@ -6,6 +6,7 @@
 @endsection
 @section('preference')
 @endsection
+@include('assistent.assistent')
 @section('content')
     <div class="bg-light">
         <div class="page-section py-3 mt-md-n5 custom-index">

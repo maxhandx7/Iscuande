@@ -52,6 +52,13 @@
                             
                             <p class="text-muted">{{$business->phone}}</p>
                             <hr> 
+                            
+                            <strong><i class="fas fa-align-left mr-1"></i> Misión</strong>
+
+                            <p class="text-muted">
+                                {{$business->mision}}
+                            </p>
+                            <hr>
                         </div>
                         <div class="form-group col-md-6">
                             <strong><i class="far fa-address-card mr-1"></i> NIT</strong>
@@ -66,6 +73,7 @@
 
                             <p class="text-muted">{{$business->created_at}}</p>
                             <hr>
+                            
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -75,6 +83,13 @@
                                     <img style="width:50px ; height:50px ;" src="{{asset('image/'.$business->logo)}}" class="rounded float-left" alt="logo">
                                 </div>
                             </div>
+                            <hr>
+                            
+                            <strong><i class="fas fa-align-left mr-1"></i> Visión</strong>
+
+                            <p class="text-muted">
+                                {{$business->vision}}
+                            </p>
                             <hr>
                         </div>
                     </div>
@@ -120,6 +135,16 @@
                 <div class="form-group">
                     <label for="description">Descripción</label>
                     <textarea class="form-control" name="description" id="description" rows="3">{{$business->description}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="mision">Misión</label>
+                    <textarea class="form-control" name="mision" id="mision" rows="3">{{$business->mision}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="vision">Visión</label>
+                    <textarea class="form-control" name="vision" id="vision" rows="3">{{$business->vision}}</textarea>
                 </div>
 
                 <div class="form-group">

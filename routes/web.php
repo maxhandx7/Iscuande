@@ -31,6 +31,8 @@ Route::resource('business', 'BusinessController')->names('business')->only([
     'index', 'update'
 ]);
 
+Route::resource('assistants', 'AssistantController')->names('assistants');
+
 
 Route::post('storeCita', 'CitaController@storeCita')->name('storeCita');
 Route::post('update_status', 'AjaxController@updateStatus')->name('update_status');

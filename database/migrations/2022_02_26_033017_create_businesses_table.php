@@ -18,6 +18,8 @@ class CreateBusinessesTable extends Migration
 
             $table->string('name');
             $table->string('description');
+            $table->mediumText('mision');
+            $table->mediumText('vision');
             $table->string('logo');
             $table->string('mail');
             $table->string('address');

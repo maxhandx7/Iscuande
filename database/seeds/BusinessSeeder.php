@@ -15,6 +15,8 @@ class BusinessSeeder extends Seeder
         Business::create([
             'name'=>'AF',
             'description'=>'AF',
+            'mision' => '',
+            'vision' => '',
             'logo'=>'logo.svg',
             'mail'=>'alancarabali@gmail.com',
             'address'=>'Cra. 26c #109-14',

@@ -3,17 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Cita;
-use App\Cupo;
 use App\Especialidad;
-use App\Http\Requests\Cita\StoreRequest;
-use App\Http\Requests\Cita\UpdateRequest;
 use App\Mail\citaCreada;
-use App\Medico;
 use App\Turno;
 use App\User;
 use Carbon\Carbon;
-use Hamcrest\Arrays\IsArray;
-use Hamcrest\Type\IsNumeric;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -49,7 +43,9 @@ class CitaController extends Controller
             $citas = [];
 
             foreach ($turnos as $turno) {
-                $citasDeTurno = Cita::where('turno_id', $turno->id)->get();
+                $citasDeTurno = Cita::where('turno_id', $turno->id)
+                ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-m-d'))
+                ->get();
                 foreach ($citasDeTurno as $cita) {
                     $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
                     $citas[] = $cita;

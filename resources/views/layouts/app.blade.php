@@ -119,10 +119,10 @@
                     </div>
                     <div class="col-md-6">
                         <h5>Contactos</h5>
-                        <p class="footer-menu">{{$business->address}}</p>
-                        <a href="#" class="footer-link">{{$business->phone}}</a>
+                        <p class="footer-menu">{{ $business->address }}</p>
+                        <a href="#" class="footer-link">{{ $business->phone }}</a>
                         -
-                        <a href="#" class="footer-link">{{$business->mail}}</a>
+                        <a href="#" class="footer-link">{{ $business->mail }}</a>
 
                         <h5>Redes sociales</h5>
                         <div class="footer-menu">
@@ -149,16 +149,25 @@
             </div>
         </div>
     </footer>
-
-
     {!! Html::script('one-health/assets/js/jquery-3.5.1.min.js') !!}
     {!! Html::script('one-health/assets/js/bootstrap.bundle.min.js') !!}
     {!! Html::script('one-health/assets/vendor/owl-carousel/js/owl.carousel.min.js') !!}
     {!! Html::script('one-health/assets/vendor/wow/wow.min.js') !!}
     {!! Html::script('one-health/assets/js/theme.js') !!}
-    {!! Html::script('melody/js/main.js') !!}
     @yield('scripts')
-
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+                    setTimeout(function() {
+                        var successMessage = document.getElementById('success-message');
+                        if (successMessage) {
+                            successMessage.style.opacity = '0';
+                            setTimeout(function() {
+                                successMessage.style.display = 'none';
+                            }, 1000);
+                        }
+                    }, 5000);
+                });
+    </script>
 </body>
 
 </html>

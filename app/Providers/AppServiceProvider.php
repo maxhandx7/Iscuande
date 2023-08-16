@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Assistant;
 use App\Business;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
@@ -35,8 +36,11 @@ class AppServiceProvider extends ServiceProvider
         } else {
             $saludo = 'Buenas noches,';
         }
+        $assistant = Assistant::get();
+        $assistant = Assistant::where('id', 1)->firstOrFail();
         $business = Business::get();
         $business = Business::where('id', 1)->firstOrFail();
+        view()->share('assistant', $assistant);
         view()->share('business', $business);
         view()->share('saludo', $saludo);
     }

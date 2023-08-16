@@ -144,7 +144,19 @@
     {!! Html::script('one-health/assets/js/theme.js') !!}
     {!! Html::script('melody/js/main.js') !!}
     @yield('scripts')
-
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+                    setTimeout(function() {
+                        var successMessage = document.getElementById('success-message');
+                        if (successMessage) {
+                            successMessage.style.opacity = '0';
+                            setTimeout(function() {
+                                successMessage.style.display = 'none';
+                            }, 1000);
+                        }
+                    }, 5000);
+                });
+    </script>
 </body>
 
 </html>

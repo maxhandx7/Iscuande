@@ -33,7 +33,7 @@
               </div>
               <div class="col-12 py-2 wow fadeInUp">
                 <label for="subject">Asunto</label>
-                <input type="text" id="asunto" name="asunto" class="form-control" placeholder="Describa el asunto">
+                <input type="text" id="asunto" name="asunto" class="form-control" placeholder="Describa el asunto" required>
               </div>
               <div class="col-12 py-2 wow fadeInUp">
                 <label for="message">Mensaje</label>
