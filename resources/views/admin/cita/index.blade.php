@@ -54,6 +54,7 @@
                                         <th>Nombre</th>
                                         <th>documento</th>
                                         <th>Fecha</th>
+                                        <th>Hora</th>
                                         <th style="width: 200px;">Estado</th>
                                         <th>Ver</th>
                                         @if (Auth::user()->tipo == 'PACIENTE')
@@ -71,6 +72,7 @@
                                             </td>
                                             <td>{{ $cita->user->no_documento }}</td>
                                             <td> {{ $cita->fecha_formateada }} </td>
+                                            <td> {{ $cita->HoraCita }} </td>
                                             @if (Auth::user()->tipo == 'ADMIN' || Auth::user()->tipo == 'MEDICO')
                                                 <td>
                                                     <div class="editable-form" data-pk="{{ $cita->id }}">
@@ -111,6 +113,8 @@
 @section('scripts')
     {!! Html::script('melody/js/data-table.js') !!}
     {!! Html::script('melody/js/toastDemo.js') !!}
+    {!! Html::script('melody/responsive/js/responsive.bootstrap4.min.js') !!}
+    {!! Html::script('melody/responsive/js/responsive.min.js') !!}
     <script>
         $(document).ready(function() {
             $.fn.editable.defaults.mode = 'inline';

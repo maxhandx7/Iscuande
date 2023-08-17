@@ -228,6 +228,7 @@
         function mostrarMedicos(medicos) {
             var medicosContainer = $("#medicosContainer");
             medicos.data.forEach(function(medico) {
+                console.log(medico);
                 var html = `
                 <div class="col">
                     <label>
@@ -236,6 +237,7 @@
                         <img class="img-fluid mx-auto" width="64px" src="{{ asset('image/system/medico.png') }}" alt="Title">
                         <div class="card-body">
                         <h4 class="card-title">${medico.medico}</h4>
+                        <p class="card-text">${medico.fecha}</p>
                         <p class="card-text">${medico.descripcion}</p>
                         </div>
                     </div>

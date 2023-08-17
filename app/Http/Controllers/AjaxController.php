@@ -6,6 +6,7 @@ use App\Cita;
 use App\Mail\MiCorreo;
 use App\Turno;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -20,9 +21,10 @@ class AjaxController extends Controller
                 $fecha_formateada = date_format($fecha_objeto, 'Y-m-d');
                 $fechas = Turno::where('fecha', $fecha_formateada)
                     ->where('especialidad_id', $request->especialidad)
+                    ->orWhere('fecha', '>', $fecha_formateada)
+                    ->orderBy('fecha', 'asc')
                     ->get();
-                /* var_dump($fecha_formateada);
-                die; */
+
                 if (count($fechas) == 0) {
                     return false;
                 }
@@ -33,6 +35,7 @@ class AjaxController extends Controller
                         ->get();
                     foreach ($medicos as $medico) {
                         $fecha->medico = $medico->name . " " . $medico->apellido;
+                        $fecha->fecha = Carbon::createFromFormat('Y-m-d', $fecha->fecha)->isoFormat('D [de] MMMM [de] YYYY');
                     }
                     $data[] = $fecha;
                 }

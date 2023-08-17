@@ -12,6 +12,7 @@
     {!! Html::style('melody/vendors/css/vendor.bundle.addons.css') !!}
     {!! Html::style('melody/css/style.css') !!}
     {!! Html::style('melody/css/main.css') !!}
+    {!! Html::style('melody/responsive/css/responsive.min.css') !!}
     @yield('styles')
     <link rel="shortcut icon" href="{{asset('image/'.$business->logo)}}" />
 </head>
