@@ -38,11 +38,12 @@ class Turno extends Model
     public function my_update($request)
     {
 
-        $especialidad = User::where('id', $request->medico_id)->first();
-
-
+        $especialidad = User::where('id', $request->user_id)
+        ->where('tipo', 'MEDICO')
+        ->first();
+        
         $this->update([
-            'user_id' => $request->medico_id,
+            'user_id' => $request->user_id,
             'especialidad_id' => $especialidad->especialidad_id,
             'descripcion' => $request->descripcion,
         ]);
