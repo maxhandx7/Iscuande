@@ -128,6 +128,14 @@
                                                         {{ $cita->turno->user->especialidad->nombre }}
                                                     </p>
 
+                                                    <hr>
+                                                    <strong>
+                                                        <i class="fas fa-align-left mr-1"></i>
+                                                        Descripcion</strong>
+                                                    <p class="text-muted">
+                                                        {{ $cita->turno->descripcion }}
+                                                    </p>
+
                                                 </div>
 
                                                 <div class="form-group col-md-6">
