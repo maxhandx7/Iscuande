@@ -11,8 +11,11 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+
 class TurnoController extends Controller
 {
+    public $hora;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -20,12 +23,23 @@ class TurnoController extends Controller
 
     public function index()
     {
+
+
         $turnos = Turno::whereDate('fecha', '>=', Carbon::today()->format('Y-m-d'))
-        ->get();
+            ->get();
+
+
         foreach ($turnos as $turno) {
             $carbonFecha = Carbon::createFromFormat('Y-m-d', $turno->fecha);
             $turno->fecha = $carbonFecha->format('d-m-Y');
-        }
+            $horasArray = explode(', ', $turno->horas);
+            $primeraHora = reset($horasArray);
+            $ultimaHora = end($horasArray);
+            $horaCombinada = $primeraHora . " - " . $ultimaHora;
+            $turno->horas = $horaCombinada;
+            
+        }   
+
         return view('admin.turno.index', compact('turnos'));
     }
 
@@ -64,6 +78,13 @@ class TurnoController extends Controller
             ->where('citas.turno_id', $turno->id)
             ->where('users.tipo', 'PACIENTE')
             ->get();
+
+            $horasArray = explode(', ', $turno->horas);
+            $primeraHora = reset($horasArray);
+            $ultimaHora = end($horasArray);
+            $horaCombinada = $primeraHora . " - " . $ultimaHora;
+            $turno->horas = $horaCombinada;
+            
         return view('admin.turno.show', compact('turno', 'citas'));
     }
 

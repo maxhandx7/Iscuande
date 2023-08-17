@@ -41,6 +41,7 @@
                                         <th>Id</th>
                                         <th>Medico</th>
                                         <th>Fecha</th>
+                                        <th>Horario</th>
                                         <th style="width: 100px;">Acciones</th>
                                     </tr>
                                 </thead>
@@ -53,7 +54,7 @@
 
                                             <td> {{ $turno->fecha }} </td>
 
-
+                                            <td>{{ $turno->horas }}</td>
 
                                             <td style="width: 180px;">
                                                 {!! Form::open(['route' => ['turnos.destroy', $turno], 'method' => 'DELETE', 'id' => 'delete-form']) !!}
