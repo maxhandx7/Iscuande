@@ -44,7 +44,7 @@
                         <div class="card-body">
                             <h4 class="card-title">
                                 <i class="fa fa-medkit"></i>
-                                Medicos mejor valorados
+                                ranking medico
                             </h4>
                             <canvas id="citas_medicos" height="100"></canvas>
                             <div id="orders-chart-legend" class="orders-chart-legend"></div>
