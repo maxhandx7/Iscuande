@@ -31,7 +31,7 @@ class CitaController extends Controller
                 $fechaFormateada = $carbonFecha->format('Y-m-d');
             }
 
-            $fechaActual = Carbon::now()->format('Y-d-m');
+            $fechaActual = Carbon::now()->format('Y-m-d');
             $citas = Cita::where('FechaCita', isset($fechaFormateada) ? $fechaFormateada : $fechaActual)->get();
             foreach ($citas as $cita) {
                 $cita->fecha_formateada = Carbon::createFromFormat('Y-m-d', $cita->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
