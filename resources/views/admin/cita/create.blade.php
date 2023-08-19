@@ -261,7 +261,7 @@
 
                     const fechaActual = moment();
                     const fechaTurno = moment(datosTurno.fecha,
-                        "YYYY-DD-MM");
+                        "YYYY-MM-DD");
 
                     const esHoy = fechaTurno.isSame(fechaActual, "day");
 
