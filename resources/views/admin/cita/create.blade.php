@@ -185,7 +185,6 @@
                             'X-CSRF-TOKEN': token
                         },
                         success: function(response) {
-                            console.log(response);
                             if (response.success) {
                                 swal("Reserva exitosa!",
                                     "La reserva ha sido realizada con éxito.",
@@ -228,7 +227,6 @@
         function mostrarMedicos(medicos) {
             var medicosContainer = $("#medicosContainer");
             medicos.data.forEach(function(medico) {
-                console.log(medico);
                 var html = `
                 <div class="col">
                     <label>
@@ -276,7 +274,7 @@
                     selectHora.empty();
                     if (horasDisponibles.length == 0) {
                         swal("Error",
-                            "No se encontraron horas disponibles.",
+                            "No hay cupos disponibles.",
                             "error").then(
                             function() {
                                 location.reload();
@@ -288,12 +286,12 @@
                     });
                 } else {
                     swal("Error",
-                        "No se encontraron horas disponibles.",
+                        "No hay cupos disponibles.",
                         "error");
                 }
             } else {
                 swal("Error",
-                    "No se encontraron horas disponibles.",
+                    "No hay cupos disponibles.",
                     "error");
             }
         }
