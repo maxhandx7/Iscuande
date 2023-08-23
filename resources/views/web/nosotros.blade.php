@@ -59,7 +59,8 @@
                 {{$business->mision}}
               </div>
             </div>
-            <div class="col-lg-8 wow fadeInUp">
+            <br>
+            <div class="col-lg-8 wow fadeInUp mt-5">
               <h1 class="text-left mb-3">Visión</h1>
               <div class="text-lg">
                 {{$business->vision}}
