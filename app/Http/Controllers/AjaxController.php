@@ -19,24 +19,23 @@ class AjaxController extends Controller
 
             if ($fecha_objeto) {
                 $fecha_formateada = date_format($fecha_objeto, 'Y-m-d');
-                $fechas = Turno::where('fecha', $fecha_formateada)
-                    ->where('especialidad_id', $request->especialidad)
-                    ->orWhere('fecha', '>', $fecha_formateada)
-                    ->orderBy('fecha', 'asc')
+                $fechas = Turno::where('especialidad_id', $request->especialidad)
+                    ->where('fecha', '>=', $fecha_formateada)
+                    ->orderBy('fecha', 'asc') 
                     ->get();
-
+               
                 if (count($fechas) == 0) {
                     return false;
                 }
+
                 $data = array(); // Nuevo array para almacenar la información
                 foreach ($fechas as $fecha) {
-                    $medicos = User::where('id', $fecha->user_id)
+                    $medico = User::where('id', $fecha->user_id)
                         ->where('tipo', 'MEDICO')
-                        ->get();
-                    foreach ($medicos as $medico) {
-                        $fecha->medico = $medico->name . " " . $medico->apellido;
-                        $fecha->fecha = Carbon::createFromFormat('Y-m-d', $fecha->fecha)->isoFormat('D [de] MMMM [de] YYYY');
-                    }
+                        ->first();
+                    $fecha->medico = $medico->name . " " . $medico->apellido;
+                    $fecha->fecha = Carbon::createFromFormat('Y-m-d', $fecha->fecha)->isoFormat('D [de] MMMM [de] YYYY');
+
                     $data[] = $fecha;
                 }
                 return response()->json([
@@ -87,7 +86,7 @@ class AjaxController extends Controller
     {
         $cita = Cita::where('id', $id)->first();
         $emailPaciente = $cita->user->email;
-        $nombrePaciente = $cita->user->name." ".$cita->user->apellido;
+        $nombrePaciente = $cita->user->name . " " . $cita->user->apellido;
         $estado = $cita->estado;
         Mail::to($emailPaciente)->send(new MiCorreo($nombrePaciente, $estado));
 

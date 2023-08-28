@@ -110,6 +110,7 @@
                                     especialidad: especialidad_id.val(),
                                 },
                                 success: function(response) {
+                                    console.log(response);
                                     if (response.data) {
                                         mostrarMedicos(response);
                                     } else {
