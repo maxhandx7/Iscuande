@@ -88,6 +88,11 @@
                                                     <strong> <i class="fa fa-users mr-1"> </i>Tipo de usuario </strong>
                                                     <p class="text-muted"> {{ $user->tipo }} </p>
                                                     <hr>
+                                                    @if ($user->tipo == 'MEDICO')
+                                                    <strong> <i class="fa fa-stethoscope mr-1"> </i>Especialidad </strong>
+                                                    <p class="text-muted"> {{ $user->especialidad->nombre }}  </p>
+                                                    <hr>   
+                                                    @endif
                                                     <strong> <i class="fas fa-check mr-1"> Estado </i> </strong>
                                                     <p class="text-muted"> {{ $user->estado }} </p>
                                                     <hr>
