@@ -26,7 +26,7 @@
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="/">Panel administrador</a></li>
+                    <li class="breadcrumb-item"><a href="/home">Panel administrador</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('citas.index') }}">Citas</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ $cita->fecha }}</li>
                 </ol>

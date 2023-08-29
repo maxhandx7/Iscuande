@@ -15,7 +15,7 @@
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="/">Panel administrador</a></li>
+                    <li class="breadcrumb-item"><a href="/home">Panel administrador</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Publicaciones</li>
                 </ol>
             </nav>
