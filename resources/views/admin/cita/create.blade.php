@@ -2,7 +2,6 @@
 @section('title', 'Nueva cita')
 @section('styles')
 @endsection
-
 @section('options')
 @endsection
 @section('preference')
@@ -123,7 +122,8 @@
                                 },
                                 error: function() {
                                     console.log(
-                                        "Error al obtener los médicos desde el servidor.");
+                                        "Error al obtener los médicos desde el servidor."
+                                    );
                                 }
                             });
                         }
@@ -209,7 +209,7 @@
                                     });
                                 })
                             } else {
-                                    swal("Error",
+                                swal("Error",
                                     response.message,
                                     "error");
                             }
