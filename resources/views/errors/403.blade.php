@@ -41,7 +41,7 @@
             </div>
             <div class="row mt-5">
               <div class="col-12 mt-xl-2">
-                <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2023 Todos los derechos reservados <b><a style="text-decoration: none; color:white" href="https://www.afdeveloper.com/"> AF</a> </b></p>
+                <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2023 Todos los derechos reservados <b><a style="text-decoration: none; color:white" href="https://www.afdeveloper.com/" target="_blank"> AF</a> </b></p>
               </div>
             </div>
           </div>

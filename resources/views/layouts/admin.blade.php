@@ -194,7 +194,7 @@
                             Todos los derechos reservados.&nbsp;</span>
                         <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><b><a
                                     style="text-decoration: none; color:rgb(17, 15, 129);"
-                                    href="https://www.instagram.com/tribie17/">&nbsp;AF</a> </b> <i
+                                    href="https://afdeveloper.com/" target="_blank">&nbsp;AF</a> </b> <i
                                 class="far fa-heart text-danger"></i>&nbsp;</span>
                     </div>
                 </footer>

@@ -33,7 +33,7 @@
             
           </div>
           <div class="col-lg-6 register-half-bg d-flex flex-row">
-            <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2023 Todos los derechos reservados <a href="https://www.afdeveloper.com/">AF</a></p>
+            <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2023 Todos los derechos reservados <a href="https://www.afdeveloper.com/" target="_blank">AF</a></p>
           </div>
         </div>
       </div>
