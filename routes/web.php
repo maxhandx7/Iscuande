@@ -59,6 +59,9 @@ Route::group(['middleware' => 'user.status'], function () {
     Route::post('login', 'Auth\LoginController@login');
 });
 
+Route::get('auth/google', 'Auth\LoginController@redirectToGoogle');
+Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleCallback');
+
 
 
 

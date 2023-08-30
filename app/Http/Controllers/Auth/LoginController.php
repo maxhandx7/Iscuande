@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -27,6 +29,11 @@ class LoginController extends Controller
         return User::USERNAME_FIELD;
     }
 
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
     /**
      * Where to redirect users after login.
      *
@@ -41,5 +48,29 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+            //create a user using socialite driver google
+            $user = Socialite::driver('google')->user();
+            // if the user exits, use that user and login
+            $finduser = User::where('email', $user->email)->first();
+
+            if ($finduser) {
+                if ($finduser->google_id == "") {
+                    $finduser->google_id = $user->id;
+                    $finduser->save();
+                } 
+                Auth::login($finduser);
+                return redirect('/home');
+
+            } else {
+                return redirect('/login')->with('info', 'Para iniciar sesión con una cuenta de Google tiene que estar registrado');
+            }
+        } catch (\Exception  $e) {
+            return redirect('/login')->with('error', 'Hubo un error al iniciar sesión '). $e->getMessage();
+        }
     }
 }

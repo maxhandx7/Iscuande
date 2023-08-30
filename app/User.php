@@ -14,7 +14,7 @@ class User extends Authenticatable
     const USERNAME_FIELD = 'no_documento';
 
     protected $fillable = [
-        'especialidad_id', 'name', 'apellido', 'tipo_documento', 'no_documento', 'telefono', 'email', 'password',  'tipo', 'estado', 
+        'especialidad_id', 'name', 'apellido', 'tipo_documento', 'no_documento', 'telefono', 'email', 'password',  'tipo', 'estado', 'google_id',
     ];
 
 
