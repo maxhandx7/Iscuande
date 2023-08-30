@@ -22,6 +22,7 @@ class BusinessSeeder extends Seeder
             'address'=>'Cra. 26c #109-14',
             'phone' => '3145561727',
             'nit'=>'1143982071',
+            'configurations' => '',
         ]);
     }
 }

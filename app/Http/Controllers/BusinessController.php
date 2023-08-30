@@ -31,10 +31,23 @@ class BusinessController extends Controller
                 ]);
                 return redirect()->route('business.index')->with('success', 'Se ha actualizado la empresa');
             }
-
+            $business = Business::find(auth()->user()->id);
+            $configurations = $business->configurations ?? [];
+            $validatedData = $request->validate([
+                'show_letter' => 'nullable',
+                'facebook' => 'nullable',
+                'thead' => 'nullable',
+                'twitter' => 'nullable',
+                'instagram' => 'nullable',
+            ]);
+            $configurations['show_letter'] = isset($validatedData['show_letter']) ? $validatedData['show_letter'] : false;
+            $configurations['thead'] = isset($validatedData['thead']) ? $validatedData['thead'] : false;
+            $configurations['facebook'] = isset($validatedData['facebook']) ? $validatedData['facebook'] : false;
+            $configurations['twitter'] = isset($validatedData['twitter']) ? $validatedData['twitter'] : false;
+            $configurations['instagram'] = isset($validatedData['instagram']) ? $validatedData['instagram'] : false;
+            $business->configurations = $configurations;
             $business->update($request->all());
             return redirect()->route('business.index')->with('success', 'Se ha actualizado la empresa');
-
         } catch (\Exception $th) {
             return redirect()->back()->with('error', 'Ocurrió un error al actualizar la empresa');
         }

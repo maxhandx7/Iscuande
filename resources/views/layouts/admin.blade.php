@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Santa barbara Centro de salud</title>
+    <title>{{$business->name}}</title>
     {!! Html::style('melody/vendors/iconfonts/font-awesome/css/all.min.css') !!}
     {!! Html::style('melody/vendors/css/vendor.bundle.base.css') !!}
     {!! Html::style('melody/vendors/css/vendor.bundle.addons.css') !!}

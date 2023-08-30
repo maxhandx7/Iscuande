@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Santa barbara Centro de salud</title>
+    <title>{{ $business->name }}</title>
 
     {!! Html::style('one-health/assets/css/maicons.css') !!}
     {!! Html::style('one-health/assets/css/bootstrap.css') !!}
@@ -13,7 +13,7 @@
     {!! Html::style('one-health/assets/vendor/animate/animate.css') !!}
     {!! Html::style('one-health/assets/css/theme.css') !!}
     @yield('styles')
-    <link rel="shortcut icon" href="{{asset('image/'.$business->logo)}}" />
+    <link rel="shortcut icon" href="{{ asset('image/' . $business->logo) }}" />
 </head>
 
 <body>
@@ -24,32 +24,41 @@
     <header>
         <div class="topbar">
             <div class="container">
-              <div class="row">
-                <div class="col-sm-8 text-sm">
-                  <div class="site-info">
-                    <a href="#"><span class="mai-call text-primary"></span> {{$business->phone}}</a>
-                    <span class="divider">|</span>
-                    <a href="#"><span class="mai-mail text-primary"></span> {{$business->mail}}</a>
-                  </div>
-                </div>
-                <div class="col-sm-4 text-right text-sm">
-                  <div class="social-mini-button">
-                    <a href="#"><span class="mai-logo-facebook-f"></span></a>
-                    <a href="#"><span class="mai-logo-twitter"></span></a>
-                    <a href="#"><span class="mai-logo-instagram"></span></a>
-                  </div>
-                </div>
-              </div> <!-- .row -->
+                <div class="row">
+                    <div class="col-sm-8 text-sm">
+                        <div class="site-info">
+                            <a href="#"><span class="mai-call text-primary"></span> {{ $business->phone }}</a>
+                            <span class="divider">|</span>
+                            <a href="#"><span class="mai-mail text-primary"></span> {{ $business->mail }}</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 text-right text-sm">
+                        <div class="social-mini-button">
+                            @if ($business->configurations['facebook'])
+                                <a href="{{ $business->configurations['facebook'] }}" target="_blank"><span
+                                        class="mai-logo-facebook-f"></span></a>
+                            @endif
+
+                            @if ($business->configurations['twitter'])
+                                <a href="{{$business->configurations['twitter']}}" target="_blank"><span class="mai-logo-twitter"></span></a>
+                            @endif
+
+                            @if ($business->configurations['instagram'])
+                                <a href="{{$business->configurations['instagram']}}" target="_blank"><span class="mai-logo-instagram"></span></a>
+                            @endif
+                        </div>
+                    </div>
+                </div> <!-- .row -->
             </div> <!-- .container -->
-          </div> <!-- .topbar -->
+        </div> <!-- .topbar -->
 
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
             <div class="container">
-                <img src="{{asset('image/'.$business->logo)}}" class="navbar-brand" width="56px" alt="">
-                <a class="navbar-brand" href="/"><span class="text-primary">Santa barbara </span>Centro de
-                    salud</a>
-
-
+                <img src="{{ asset('image/' . $business->logo) }}" class="navbar-brand" width="56px" alt="">
+                @if ($business->configurations['show_letter'])
+                    <a class="navbar-brand" href="/"><span class="text-primary">Santa Bárbara </span>Centro de
+                        Salud</a>
+                @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport"
                     aria-controls="navbarSupport" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -87,7 +96,7 @@
                 </div> <!-- .navbar-collapse -->
             </div> <!-- .container -->
         </nav>
-</header>
+    </header>
 
     @yield('contenido')
 
@@ -106,17 +115,32 @@
                     </div>
                     <div class="col-md-6">
                         <h5>Contactos</h5>
-                        <p class="footer-menu">{{$business->address}}</p>
-                        <a href="#" class="footer-link">{{$business->phone}}</a>
+                        <p class="footer-menu">{{ $business->address }}</p>
+                        <a href="#" class="footer-link">{{ $business->phone }}</a>
                         -
-                        <a href="#" class="footer-link">{{$business->mail}}</a>
+                        <a href="#" class="footer-link">{{ $business->mail }}</a>
 
-                        <h5>Redes sociales</h5>
-                        <div class="footer-menu">
-                            <a href="#" target="_blank"><span class="mai-logo-facebook-f"></span></a>
-                            <a href="#" target="_blank"><span class="mai-logo-twitter"></span></a>
-                            <a href="#" target="_blank"><span class="mai-logo-instagram"></span></a>
-                        </div>
+                        @if (
+                            $business->configurations['facebook'] ||
+                                $business->configurations['twitter'] ||
+                                $business->configurations['instagram']
+                        )
+                            <h5>Redes sociales</h5>
+                            <div class="footer-menu">
+                                @if (isset($business->configurations['facebook']))
+                                    <a href="{{ $business->configurations['facebook'] }}" target="_blank"><span
+                                            class="mai-logo-facebook-f"></span></a>
+                                @endif
+
+                                @if (isset($business->configurations['twitter']))
+                                    <a href="{{$business->configurations['twitter']}}" target="_blank"><span class="mai-logo-twitter"></span></a>
+                                @endif
+
+                                @if (isset($business->configurations['instagram']))
+                                    <a href="{{$business->configurations['instagram']}}" target="_blank"><span class="mai-logo-instagram"></span></a>
+                                @endif
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <hr>
@@ -145,16 +169,16 @@
     @yield('scripts')
     <script>
         window.addEventListener("DOMContentLoaded", () => {
+            setTimeout(function() {
+                var successMessage = document.getElementById('success-message');
+                if (successMessage) {
+                    successMessage.style.opacity = '0';
                     setTimeout(function() {
-                        var successMessage = document.getElementById('success-message');
-                        if (successMessage) {
-                            successMessage.style.opacity = '0';
-                            setTimeout(function() {
-                                successMessage.style.display = 'none';
-                            }, 1000);
-                        }
-                    }, 5000);
-                });
+                        successMessage.style.display = 'none';
+                    }, 1000);
+                }
+            }, 5000);
+        });
     </script>
 </body>
 
