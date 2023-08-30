@@ -93,42 +93,83 @@ class CitaController extends Controller
             $idTurno = $request->input('id_turno');
             $fechaTurno = $request->input('fecha_turno');
             $horaSeleccionada = $request->input('hora_seleccionada');
+            $idPaciente = $request->input('idPaciente');
 
-            $especialidad = Turno::where('id', $idTurno)->first();
+            if (!$idPaciente) {
+                $especialidad = Turno::where('id', $idTurno)->first();
 
-            $validate = Cita::where('FechaCita', $fechaTurno)
-                ->where('HoraCita', $horaSeleccionada)
-                ->where('turno_id', $idTurno)
-                ->get();
+                $validate = Cita::where('FechaCita', $fechaTurno)
+                    ->where('HoraCita', $horaSeleccionada)
+                    ->where('turno_id', $idTurno)
+                    ->get();
+    
+                if ($validate->count() > 0) {
+                    return response()->json(['success' => false, 'message' => 'Ya se tomó esta reserva']);
+                }
+    
+                $validateFecha = Cita::where('user_id', Auth::user()->id)
+                    ->where('especialidad_id', $especialidad->especialidad_id)
+                    ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-m-d'))
+                    ->first();
+    
+    
+                if ($validateFecha != null) {
+                    $Fecha = Carbon::createFromFormat('Y-m-d', $validateFecha->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+                    return response()->json([
+                        'success' => false, 'message' =>
+                        'Sr(a) ' . $validateFecha->user->name . ' ' . $validateFecha->user->apellido .
+                            ' ya tiene una cita asignada' . ' de '. $validateFecha->turno->user->especialidad->nombre . ' para el ' .
+                            $Fecha . ' a las ' .
+                            $validateFecha->HoraCita
+                    ]);
+                } 
+    
+                $cita = new Cita;
+                $result = $cita->my_store($idTurno, $fechaTurno, $horaSeleccionada, $especialidad->especialidad_id, $idPaciente);
+                if ($result) {
+                    return response()->json(['success' => true, 'message' => 'Estado Actualizado', 'cita_id' => $result->id]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'Ocurrió un error al crear la cita']);
+                }
+            }else {
+                $especialidad = Turno::where('id', $idTurno)->first();
 
-            if ($validate->count() > 0) {
-                return response()->json(['success' => false, 'message' => 'Ya se tomó esta reserva']);
+                $validate = Cita::where('FechaCita', $fechaTurno)
+                    ->where('HoraCita', $horaSeleccionada)
+                    ->where('turno_id', $idTurno)
+                    ->get();
+    
+                if ($validate->count() > 0) {
+                    return response()->json(['success' => false, 'message' => 'Ya se tomó esta reserva']);
+                }
+    
+                $validateFecha = Cita::where('user_id', $idPaciente)
+                    ->where('especialidad_id', $especialidad->especialidad_id)
+                    ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-m-d'))
+                    ->first();
+    
+    
+                if ($validateFecha != null) {
+                    $Fecha = Carbon::createFromFormat('Y-m-d', $validateFecha->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
+                    return response()->json([
+                        'success' => false, 'message' =>
+                        'Sr(a) ' . $validateFecha->user->name . ' ' . $validateFecha->user->apellido .
+                            ' ya tiene una cita asignada' . ' de '. $validateFecha->turno->user->especialidad->nombre . ' para el ' .
+                            $Fecha . ' a las ' .
+                            $validateFecha->HoraCita
+                    ]);
+                } 
+    
+                $cita = new Cita;
+                $result = $cita->my_store($idTurno, $fechaTurno, $horaSeleccionada, $especialidad->especialidad_id, $idPaciente);
+                if ($result) {
+                    return response()->json(['success' => true, 'message' => 'Estado Actualizado', 'cita_id' => $result->id]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'Ocurrió un error al crear la cita']);
+                }
             }
 
-            $validateFecha = Cita::where('user_id', Auth::user()->id)
-                ->where('especialidad_id', $especialidad->especialidad_id)
-                ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-m-d'))
-                ->first();
-
-
-            if ($validateFecha != null) {
-                $Fecha = Carbon::createFromFormat('Y-m-d', $validateFecha->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
-                return response()->json([
-                    'success' => false, 'message' =>
-                    'Sr(a) ' . $validateFecha->user->name . ' ' . $validateFecha->user->apellido .
-                        ' ya tiene una cita asignada' . ' de '. $validateFecha->turno->user->especialidad->nombre . ' para el ' .
-                        $Fecha . ' a las ' .
-                        $validateFecha->HoraCita
-                ]);
-            } 
-
-            $cita = new Cita;
-            $result = $cita->my_store($idTurno, $fechaTurno, $horaSeleccionada, $especialidad->especialidad_id);
-            if ($result) {
-                return response()->json(['success' => true, 'message' => 'Estado Actualizado', 'cita_id' => $result->id]);
-            } else {
-                return response()->json(['success' => false, 'message' => 'Ocurrió un error al crear la cita']);
-            }
+           
         } catch (\Exception $th) {
             return response()->json(['success' => false, 'message' => $th]);
         }
@@ -169,5 +210,26 @@ class CitaController extends Controller
             Mail::to($emailPaciente)->send(new citaCreada($nombrePaciente, $FechaCita, $HoraCita));
             return "Correo enviado correctamente.";
         }
+    }
+
+
+    public function createAdmin()
+    {
+
+        $turnos = Turno::get();
+        $especialidades = Especialidad::get();
+        $medicos = User::where('tipo', 'MEDICO')
+            ->get();
+        $pacientes = User::where('tipo', 'PACIENTE')
+            ->get();
+        $cuposRegistrados = Cita::pluck('HoracIta')->toArray();
+        $horasFaltantes = [];
+        foreach ($turnos as $cupo) {
+            $horasCadena = $cupo->horas;
+            $horasArray = explode(', ', $horasCadena);
+            $horasFaltantes = array_diff($horasArray, $cuposRegistrados);
+        }
+
+        return view('admin.cita.createAdmin', compact('turnos', 'especialidades', 'medicos', 'pacientes'));
     }
 }

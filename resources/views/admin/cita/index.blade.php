@@ -36,11 +36,17 @@
                         @endif
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Citas</h4>
-                            @if (Auth::user()->tipo !== 'MEDICO')
+                            @if (Auth::user()->tipo !== 'MEDICO' && Auth::user()->tipo !== 'ADMIN')
                                 <div class="btn-group">
                                     <a href=" {{ route('citas.create') }} " class="btn btn-success" type="button">
                                         <i class="fa fa-plus"></i>
                                         Solicitar cita</a>
+                                </div>
+                                @else
+                                <div class="btn-group">
+                                    <a href=" {{ route('createAdmin') }} " class="btn btn-success" type="button">
+                                        <i class="fa fa-plus"></i>
+                                        crear cita</a>
                                 </div>
                             @endif
                         </div>

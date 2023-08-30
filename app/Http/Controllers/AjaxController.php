@@ -21,9 +21,9 @@ class AjaxController extends Controller
                 $fecha_formateada = date_format($fecha_objeto, 'Y-m-d');
                 $fechas = Turno::where('especialidad_id', $request->especialidad)
                     ->where('fecha', '>=', $fecha_formateada)
-                    ->orderBy('fecha', 'asc') 
+                    ->orderBy('fecha', 'asc')
                     ->get();
-               
+
                 if (count($fechas) == 0) {
                     return false;
                 }
@@ -91,5 +91,20 @@ class AjaxController extends Controller
         Mail::to($emailPaciente)->send(new MiCorreo($nombrePaciente, $estado));
 
         return "Correo enviado correctamente.";
+    }
+
+
+    public function getPacientes(Request $request)
+    {
+        if ($request->ajax()) {
+            $result = User::where('no_documento', $request->paciente)->first();
+            if ($result) {
+                return response()->json([
+                    'data' => $result,
+                ]);
+            } else {
+                return false;
+            }
+        }
     }
 }

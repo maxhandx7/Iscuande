@@ -26,15 +26,25 @@ class Cita extends Model
         return $this->belongsTo(Turno::class);
     }
 
-    public function my_store($id, $fecha, $hora, $especialidad)
+    public function my_store($id, $fecha, $hora, $especialidad, $idPaciente)
     {
-        return self::create([
-            'user_id' => Auth::user()->id,
-            'turno_id' => intval($id),
-            'especialidad_id' => $especialidad,
-            'FechaCita' => $fecha,
-            'HoraCita' => $hora,
-        ]); 
+        if (!$idPaciente) {
+            return self::create([
+                'user_id' => Auth::user()->id,
+                'turno_id' => intval($id),
+                'especialidad_id' => $especialidad,
+                'FechaCita' => $fecha,
+                'HoraCita' => $hora,
+            ]);
+        } else {
+            return self::create([
+                'user_id' => $idPaciente,
+                'turno_id' => intval($id),
+                'especialidad_id' => $especialidad,
+                'FechaCita' => $fecha,
+                'HoraCita' => $hora,
+            ]);
+        }
     }
 
     public function my_update($id, $estado)

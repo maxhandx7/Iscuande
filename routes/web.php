@@ -42,6 +42,7 @@ Route::post('cambiarContrasena', 'ConfigController@updatePassword')->name('updat
 
 Route::get('change_status/posts/{post}', 'PostController@change_status')->name('change.status.posts');
 Route::get('get_turnos', 'AjaxController@getTurnos')->name('get_turnos');
+Route::get('get_paciente', 'AjaxController@getPacientes')->name('get_paciente');
 Route::get('get_horarios', 'AjaxController@getHorario')->name('get_horarios');
 Route::get('send_email', 'CitaController@enviarCorreo')->name('send_email');
 Route::get('filter_fecha', 'CitaController@index')->name('filter_fecha');
@@ -50,6 +51,7 @@ Route::get('post/{slug}', 'BlogController@post')->name('post');
 Route::get('category/{slug}','BlogController@category')->name('category');
 Route::get('etiquetas/{slug}','BlogController@tag')->name('tag');
 Route::get('/cambiar-contrasena', 'UserController@showChangePasswordForm')->name('password.change');
+Route::get('createAdmin', 'CitaController@createAdmin')->name('createAdmin');
 
 Auth::routes();
 
