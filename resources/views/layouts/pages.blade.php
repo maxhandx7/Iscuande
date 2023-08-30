@@ -127,16 +127,16 @@
                         )
                             <h5>Redes sociales</h5>
                             <div class="footer-menu">
-                                @if (isset($business->configurations['facebook']))
+                                @if ($business->configurations['facebook'])
                                     <a href="{{ $business->configurations['facebook'] }}" target="_blank"><span
                                             class="mai-logo-facebook-f"></span></a>
                                 @endif
 
-                                @if (isset($business->configurations['twitter']))
+                                @if ($business->configurations['twitter'])
                                     <a href="{{$business->configurations['twitter']}}" target="_blank"><span class="mai-logo-twitter"></span></a>
                                 @endif
 
-                                @if (isset($business->configurations['instagram']))
+                                @if ($business->configurations['instagram'])
                                     <a href="{{$business->configurations['instagram']}}" target="_blank"><span class="mai-logo-instagram"></span></a>
                                 @endif
                             </div>
