@@ -200,7 +200,7 @@
                         }
                     }
                     var especialidad_id = $("#especialidad_id");
-                    if (currentIndex === 1) {
+                    if (currentIndex === 1 && currentIndex < newIndex) {
                         if (especialidad_id.val() === null) {
                             swal({
                                 text: 'Debes completar este campo antes de continuar.',
