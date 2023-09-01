@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cita;
+use App\Post;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -65,6 +66,8 @@ class HomeController extends Controller
             ->orderBy('cita_count', 'desc')
             ->get();
 
+        $posts = Post::orderBy('id', 'DESC')->where('status', 'PUBLISHED')->paginate(4);
+
 
         return view('home', compact(
             'citasMes',
@@ -72,7 +75,8 @@ class HomeController extends Controller
             'totalCitasAceptadas',
             'totalCitasRechazadas',
             'totalCitasPendientes',
-            'medicosMasAtendidos'
+            'medicosMasAtendidos',
+            'posts'
         ));
     }
 }

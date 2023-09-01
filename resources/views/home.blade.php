@@ -7,36 +7,67 @@
 @section('preference')
 @endsection
 @section('content')
+    <style>
+        .card {
+            width: 300px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        .card-img-top {
+            object-fit: cover;
+            height: 200px;
+        }
+    </style>
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
                 Panel administrador
             </h3>
         </div>
-
         @if (Auth::user()->tipo == 'PACIENTE')
-        <div class="row">
-            <div class="col-md-12 grid-margin stretch-card">
-                <div class="card" style="background-color: #392c70;">
-                    <div class="card-body">
-                        <h4 class="card-title" style="color: #fff">{{$saludo}} bienvenido a <strong>{{$business->name}}</strong>
-                        </h4>
-                        <img class="card-img-top" src="{{ asset('melody/images/iscuande.jpg') }}" alt="Title">
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ $saludo }} bienvenido a
+                                <strong>{{ $business->name }}</strong>
+                            </h4>
+                            <hr>
+                            <h5>Ultimas Noticias</h5>
+                            <div class="owl-carousel owl-theme loop">
+                                @foreach ($posts as $post)
+                                    <div class="item">
+                                        <div class="col-md-4">
+                                            <div class="card mb-3">
+                                                <a href="{{ route('post', $post->slug) }}"><img class="card-img-top"
+                                                        src="{{ asset('image/' . $post->image) }}" alt="Title"></a>
+                                                <div class="card-body">
+                                                    <a href="{{ route('post', $post->slug) }}">
+                                                        <h4 class="card-title">{{ $post->name }}</h4>
+                                                    </a>
+                                                    <p class="card-text">{{ $post->Previa }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-12 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-center">
-                            <a href="{{route('citas.create')}}" class="btn btn-primary">Solicitar cita</a>
-                          </div>
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-center">
+                                <a href="{{ route('citas.create') }}" class="btn btn-primary">Solicitar cita</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
         @else
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
@@ -103,6 +134,7 @@
 
 @section('scripts')
     {!! Html::script('melody/js/data-table.js') !!}
+    {!! Html::script('melody/js/owl-carousel.js') !!}
     <script>
         $(function() {
             var varCompra = document.getElementById('aceptadas').getContext('2d');
@@ -111,7 +143,6 @@
                 type: 'line',
                 data: {
                     labels: [<?php foreach ($citasMes as $reg) {
-                        
                         echo '"' . $reg->mes . '",';
                     } ?>],
                     datasets: [{
