@@ -24,7 +24,6 @@ class TurnoController extends Controller
     public function index()
     {
 
-
         $turnos = Turno::whereDate('fecha', '>=', Carbon::today()->format('Y-m-d'))
             ->get();
 

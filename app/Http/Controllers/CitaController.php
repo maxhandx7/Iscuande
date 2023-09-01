@@ -215,7 +215,7 @@ class CitaController extends Controller
 
     public function createAdmin()
     {
-
+        $this->authorize('admin-only');
         $turnos = Turno::get();
         $especialidades = Especialidad::get();
         $medicos = User::where('tipo', 'MEDICO')

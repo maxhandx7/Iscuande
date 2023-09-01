@@ -70,6 +70,7 @@ class AjaxController extends Controller
 
     public function updateStatus(Request $request)
     {
+        $this->authorize('admin-only');
         if ($request->ajax()) {
             $cita = new Cita;
             $result = $cita->my_update($request->id, $request->estado);
@@ -96,6 +97,7 @@ class AjaxController extends Controller
 
     public function getPacientes(Request $request)
     {
+        $this->authorize('admin-only');
         if ($request->ajax()) {
             $result = User::where('no_documento', $request->paciente)->first();
             if ($result) {

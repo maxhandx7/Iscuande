@@ -39,7 +39,10 @@
                             <thead>
                                 <tr>
                                     <th>Usuario</th>
+                                    <th>Tipo de documento</th>
+                                    <th>documento</th>
                                     <th>Rol</th>
+
                                     <th style="width: 100px;">Acciones</th>
                                 </tr>
                             </thead>
@@ -56,9 +59,9 @@
                                         ." ".
                                         $user->apellido }} </a></td>
                                     @endif
-
+                                    <td> {{$user->tipo_documento }} </td>
                                     
-
+                                    <td> {{$user->no_documento }} </td>
                                     <td> {{$user->tipo }} </td>
 
 

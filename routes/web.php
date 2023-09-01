@@ -19,21 +19,20 @@ Route::get('nosotros/', 'WebController@nosotros');
 Route::get('medicos/', 'WebController@medicos');
 Route::get('contactos/', 'WebController@contactos');
 
+Route::resource('citas', 'CitaController')->names('citas'); 
+Route::middleware(['can:admin-only'])->group(function () {
 Route::resource('users', 'UserController')->names('users');
 Route::resource('especialidads', 'EspecialidadController')->names('especialidads');
-Route::resource('citas', 'CitaController')->names('citas'); 
 Route::resource('turnos', 'TurnoController')->names('turnos');
 Route::resource('categories', 'CategoryController')->names('categories');
 Route::resource('posts', 'PostController')->names('posts');
 Route::resource('tags', 'TagController')->names('tags');
-Route::resource('configs', 'ConfigController')->names('configs');
 Route::resource('business', 'BusinessController')->names('business')->only([
     'index', 'update'
 ]);
-
 Route::resource('assistants', 'AssistantController')->names('assistants');
-
-
+});
+Route::resource('configs', 'ConfigController')->names('configs');
 Route::post('storeCita', 'CitaController@storeCita')->name('storeCita');
 Route::post('update_status', 'AjaxController@updateStatus')->name('update_status');
 Route::post('contacts', 'WebController@store')->name('contacts');

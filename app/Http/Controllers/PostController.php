@@ -19,6 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        $this->authorize('admin-only');
         $posts = Post::get();
         return view('admin.post.index', compact('posts'));
     }

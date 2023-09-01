@@ -11,6 +11,7 @@ class AssistantController extends Controller
 {
     public function index()
     {
+        $this->authorize('admin-only');
         $assistant = Assistant::get();
         $assistant = Assistant::where('id', 1)->firstOrFail();
 
@@ -36,6 +37,7 @@ class AssistantController extends Controller
 
     public function update(Request $request, Assistant $assistant)
     {
+        $this->authorize('admin-only');
         try {
             $datosJsonPrincipios = json_encode($request->principios);
             $datosJsonDirectivas = json_encode($request->directivas);

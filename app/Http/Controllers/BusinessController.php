@@ -13,12 +13,14 @@ class BusinessController extends Controller
     }
     public function index()
     {
+        $this->authorize('admin-only');
         $business = Business::get();
         $business = Business::where('id', 1)->firstOrFail();
         return view('admin.business.index', compact('business'));
     }
     public function update(UpdateRequest $request, Business $business)
     {
+        $this->authorize('admin-only');
         try {
             if ($request->hasFile('picture')) {
                 $file = $request->file('picture');
