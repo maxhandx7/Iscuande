@@ -38,16 +38,13 @@
                             <div class="owl-carousel owl-theme loop">
                                 @foreach ($posts as $post)
                                     <div class="item">
-                                        <div class="col-md-4">
-                                            <div class="card mb-3">
-                                                <a href="{{ route('post', $post->slug) }}"><img class="card-img-top"
-                                                        src="{{ asset('image/' . $post->image) }}" alt="Title"></a>
-                                                <div class="card-body">
-                                                    <a href="{{ route('post', $post->slug) }}">
-                                                        <h4 class="card-title">{{ $post->name }}</h4>
-                                                    </a>
-                                                    <p class="card-text">{{ $post->Previa }}</p>
-                                                </div>
+                                        <div class="card mb-3">
+                                            <a href="{{ route('post', $post->slug) }}"><img class="card-img-top"
+                                                    src="{{ asset('image/' . $post->image) }}" alt="Title"></a>
+                                            <div class="card-body">
+                                                <a href="{{ route('post', $post->slug) }}">
+                                                    <h4 class="card-title">{{ $post->name }}</h4>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
