@@ -39,10 +39,10 @@
                                 @foreach ($posts as $post)
                                     <div class="item">
                                         <div class="card mb-3">
-                                            <a href="{{ route('post', $post->slug) }}"><img class="card-img-top"
+                                            <a href="{{ route('post', $post->slug) }}" target="_blank"><img class="card-img-top"
                                                     src="{{ asset('image/' . $post->image) }}" alt="Title"></a>
                                             <div class="card-body">
-                                                <a href="{{ route('post', $post->slug) }}">
+                                                <a href="{{ route('post', $post->slug) }}" target="_blank">
                                                     <h4 class="card-title">{{ $post->name }}</h4>
                                                 </a>
                                             </div>
