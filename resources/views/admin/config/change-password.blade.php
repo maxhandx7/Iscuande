@@ -16,7 +16,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('configs.edit', Auth::user()->id) }}">Editar usuario</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('configs.edit', Auth::user()->id) }}">Editar usuario</a>
+                    </li>
                     <li class="breadcrumb-item active" aria-current="page">Cambiar contraseña</li>
                 </ol>
             </nav>
@@ -30,19 +31,38 @@
                         </div>
                         {!! Form::open(['route' => 'update_password', 'method' => 'POST']) !!}
 
-                        <div  class="form-group">
+                        <div class="form-group">
                             <label for="current_password">Contraseña actual</label>
-                            <input id="current_password" type="password" name="current_password" class="form-control" required>
+                            <input id="current_password" type="password" name="current_password"
+                                class="form-control @error('current_password') is-invalid @enderror" required>
+                            @error('current_password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
-                        <div  class="form-group">
+                        <div class="form-group">
                             <label for="password">Nueva Contraseña</label>
-                            <input id="password" type="password" name="password" class="form-control" required>
+                            <input id="password" type="password" name="password"
+                                class="form-control @error('password') is-invalid @enderror" required>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
-                        <div  class="form-group">
+                        <div class="form-group">
                             <label for="password_confirmation">Confirmar Nueva Contraseña</label>
-                            <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required>
+                            <input id="password_confirmation" type="password"
+                                class="form-control @error('password_confirmation') is-invalid @enderror"
+                                name="password_confirmation" required>
+                            @error('password_confirmation')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <button type="submit" class="btn btn-primary mr-2">Actualizar</button>
