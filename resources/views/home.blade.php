@@ -8,12 +8,12 @@
 @endsection
 @section('content')
     <div class="content-wrapper">
+        @if (Auth::user()->tipo == 'PACIENTE')
         <div class="page-header">
             <h3 class="page-title">
-                Panel administrador
+                Panel del paciente
             </h3>
         </div>
-        @if (Auth::user()->tipo == 'PACIENTE')
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
@@ -22,13 +22,23 @@
                                 <strong>{{ $business->name }}</strong>
                             </h4>
                             <hr>
+                            <div class="d-flex justify-content-center">
+                                <a href="{{ route('citas.create') }}" class="btn btn-primary">Solicitar cita</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
                             <h5>Ultimas Noticias</h5>
                             <div class="owl-carousel owl-theme loop">
                                 @foreach ($posts as $post)
                                     <div class="item">
                                         <div class="card mb-2">
-                                            <a href="{{ route('post', $post->slug) }}" target="_blank"><img class="card-img-top"
-                                                    src="{{ asset('image/' . $post->image) }}" height="170px" alt="Title"></a>
+                                            <a href="{{ route('post', $post->slug) }}" target="_blank"><img
+                                                    class="card-img-top" src="{{ asset('image/' . $post->image) }}"
+                                                    height="170px" alt="Title"></a>
                                             <div class="card-body">
                                                 <a href="{{ route('post', $post->slug) }}" target="_blank">
                                                     <h4 class="card-title">{{ $post->name }}</h4>
@@ -41,19 +51,13 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-12 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center">
-                                <a href="{{ route('citas.create') }}" class="btn btn-primary">Solicitar cita</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         @else
+        <div class="page-header">
+            <h3 class="page-title">
+                Panel administrador
+            </h3>
+        </div>
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">

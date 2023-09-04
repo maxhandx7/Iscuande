@@ -2,13 +2,11 @@
 @section('title', 'Gestión de citas')
 @section('styles')
 @endsection
-
 @section('options')
 @endsection
 @section('preference')
 @endsection
 @section('content')
-
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
@@ -16,7 +14,11 @@
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
+                    @if (Auth::user()->tipo != 'PACIENTE')
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
+                    @else
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel del paciente</a></li>
+                    @endif
                     <li class="breadcrumb-item active" aria-current="page">Citas</li>
                 </ol>
             </nav>
@@ -42,7 +44,7 @@
                                         <i class="fa fa-plus"></i>
                                         Solicitar cita</a>
                                 </div>
-                                @else
+                            @else
                                 <div class="btn-group">
                                     <a href=" {{ route('createAdmin') }} " class="btn btn-success" type="button">
                                         <i class="fa fa-plus"></i>
@@ -91,9 +93,9 @@
                                                 <td>{{ $cita->estado }}</td>
                                             @endif
                                             <td><a class="btn btn-info" href="{{ route('citas.show', $cita) }}"
-                                                title="Ver">
-                                                <i class="far fa-eye"></i>
-                                            </a></td>
+                                                    title="Ver">
+                                                    <i class="far fa-eye"></i>
+                                                </a></td>
                                             @if (Auth::user()->tipo == 'PACIENTE' && $cita->estado != 'ACEPTADA')
                                                 <td>
                                                     {!! Form::open(['route' => ['citas.destroy', $cita], 'method' => 'DELETE', 'id' => 'delete-form']) !!}

@@ -14,9 +14,12 @@
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
+                    @if (Auth::user()->tipo != 'PACIENTE')
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('citas.index') }}">citas</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Nueva cita</li>
+                    @else
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel del paciente</a></li>
+                    @endif
+                    <li class="breadcrumb-item active" aria-current="page">Citas</li>
                 </ol>
             </nav>
         </div>
