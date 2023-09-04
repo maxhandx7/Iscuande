@@ -7,18 +7,6 @@
 @section('preference')
 @endsection
 @section('content')
-    <style>
-        .card {
-            width: 300px;
-            margin: 0 auto;
-            margin-bottom: 20px;
-        }
-
-        .card-img-top {
-            object-fit: cover;
-            height: 200px;
-        }
-    </style>
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
@@ -38,9 +26,9 @@
                             <div class="owl-carousel owl-theme loop">
                                 @foreach ($posts as $post)
                                     <div class="item">
-                                        <div class="card mb-3">
+                                        <div class="card mb-2">
                                             <a href="{{ route('post', $post->slug) }}" target="_blank"><img class="card-img-top"
-                                                    src="{{ asset('image/' . $post->image) }}" alt="Title"></a>
+                                                    src="{{ asset('image/' . $post->image) }}" height="170px" alt="Title"></a>
                                             <div class="card-body">
                                                 <a href="{{ route('post', $post->slug) }}" target="_blank">
                                                     <h4 class="card-title">{{ $post->name }}</h4>
