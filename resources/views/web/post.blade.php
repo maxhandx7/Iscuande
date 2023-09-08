@@ -26,6 +26,10 @@
                                 <span class="text-grey">Publicado por</span> <a href="#">{{ $post->user->name }}</a>
                             </div>
                             <span class="divider">|</span>
+                            <div class="post-date">
+                                <a href="#">{{ $post->created_at->isoFormat('D [de] MMMM [de] YYYY')}}</a>
+                              </div>
+                              <span class="divider">|</span>
                             <div>
                                 <a href="#">{{ $post->category->name }}</a>
                             </div>

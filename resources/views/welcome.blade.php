@@ -44,13 +44,13 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 py-3 wow fadeInUp">
-                        <h1>Bienvenidos a <br> {{$business->name}}</h1>
-                        <p class="text-grey mb-4">{{$business->description}}</p>
+                        <h1>Bienvenidos a <br> {{ $business->name }}</h1>
+                        <p class="text-grey mb-4">{{ $business->description }}</p>
                         <a href="{{ url('nosotros') }}" class="btn btn-primary">Leer más</a>
                     </div>
                     <div class="col-lg-6 wow fadeInRight" data-wow-delay="400ms">
                         <div class="img-place custom-img-1">
-                            <img src="one-health/assets/img/bg-doctor.png" alt="">
+                            <img src="{{ asset('one-health/assets/img/bg-doctor.png') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -106,11 +106,12 @@
                                 <div class="site-info">
                                     <div class="avatar mr-2">
                                         <div class="avatar-img">
-                                            <img src="{{ asset('melody/images/iscuande.jpg') }}" alt="">
+                                            <img src="{{ asset('image/' . $business->logo) }}" alt="">
                                         </div>
                                         <span>{{ $post->user->name }}</span>
                                     </div>
                                     <span class="mai-person"></span> {{ $post->user->tipo }}
+                                    <span class="mai-time"></span> 1 week ago
                                 </div>
                             </div>
                         </div>
