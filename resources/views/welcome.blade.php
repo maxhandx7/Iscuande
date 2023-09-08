@@ -111,7 +111,6 @@
                                         <span>{{ $post->user->name }}</span>
                                     </div>
                                     <span class="mai-person"></span> {{ $post->user->tipo }}
-                                    <span class="mai-time"></span> 1 week ago
                                 </div>
                             </div>
                         </div>
