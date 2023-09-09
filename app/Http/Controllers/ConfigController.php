@@ -19,12 +19,14 @@ class ConfigController extends Controller
 
     public function index()
     {
+        $this->authorize('admin-only');
         $comentarios = comentarios::get();
         return view('admin.config.index', compact('comentarios'));
     }
 
     public function edit($id)
     {
+
         $user = User::find($id);
         $especialidades = Especialidad::get();
         return view('admin.config.edit', compact('user', 'especialidades'));
@@ -41,7 +43,6 @@ class ConfigController extends Controller
             $user->update([
                 'password' => Hash::make($request->password)
             ]);
-
             return redirect()->route('configs.edit', Auth::user()->id)->with('success', '¡Contraseña cambiada exitosamente!');
         } else {
             return back()->withErrors(['current_password' => 'La contraseña actual no coincide con nuestros registros.']);
@@ -50,6 +51,7 @@ class ConfigController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('admin-only');
         try {
             $comentario = comentarios::find($id);
             $comentario->delete();
