@@ -101,8 +101,8 @@
     <div class="page-hero bg-image overlay-dark" style="background-image: url(one-health/assets/img/bg_image_1.jpg);">
         <div class="hero-section">
             <div class="container text-center wow zoomIn">
-                <span class="subhead">Hagamos tu vida más feliz</span>
-                <h1 class="display-4">Vida saludable</h1>
+                <span class="subhead">Hagamos tu vida más feliz y</span>
+                <h1 class="display-4">Saludable</h1>
                 <a href="{{ route('citas.index') }}" class="btn btn-primary">Sacar cita</a>
             </div>
         </div>

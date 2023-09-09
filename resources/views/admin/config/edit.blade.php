@@ -104,7 +104,7 @@
                                 <label for="estado">Estado</label>
                                 <select id="estado"
                                     class="form-control js-example-basic-single @error('estado') is-invalid @enderror"
-                                    name="estado" required autocomplete="estado" autofocus>
+                                    name="estado" required autocomplete="estado" autofocus disabled>
                                     @foreach (['ACTIVO', 'INACTIVO'] as $option)
                                         <option value="{{ $option }}"
                                             @if ($user->estado === $option) selected @endif>{{ $option }}</option>

@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="name">Nombre (*)</label>
-    <input type="text" name="name" id="name" class="form-control @error('email') is-invalid @enderror" placeholder="Nombre de la publicacion">
+    <input type="text" name="name" id="name" class="form-control @error('email') is-invalid @enderror" placeholder="Nombre de la publicación">
     @error('name')
         <span class="text-danger">{{ $message }}</span>
     @enderror

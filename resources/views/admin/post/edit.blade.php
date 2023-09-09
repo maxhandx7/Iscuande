@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Editar publicacion')
+@section('title', 'Editar publicación')
 @section('styles')
 @endsection
 
@@ -12,13 +12,13 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                Editar publicacion
+                Editar publicación
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="/home">Panel de administrador</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('posts.index') }}">Publicaciones</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Editar publicacion</li>
+                    <li class="breadcrumb-item active" aria-current="page">Editar publicación</li>
                 </ol>
             </nav>
         </div>
@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Nombre (*)</label>
-                            <input type="text" name="name" id="name" class="form-control @error('email') is-invalid @enderror" value="{{ old('name', $post->name) }}" placeholder="Nombre de la publicacion">
+                            <input type="text" name="name" id="name" class="form-control @error('email') is-invalid @enderror" value="{{ old('name', $post->name) }}" placeholder="Nombre de la publicación">
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -92,7 +92,7 @@
             <div class="col-12 grid-margin">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Imágen de la publicacion</h4>
+                        <h4 class="card-title">Imágen de la publicación</h4>
                         <input id="picture" name="picture" type="file" class="dropify" />
                     </div>
                 </div>

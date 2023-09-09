@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Nueva publicacion')
+@section('title', 'Nueva publicación')
 @section('styles')
 @endsection
 
@@ -12,13 +12,13 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                Nueva publicacion
+                Nueva publicación
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="/home">Panel de administrador</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('posts.index') }}">Publicaciones</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Nueva publicacion</li>
+                    <li class="breadcrumb-item active" aria-current="page">Nueva publicación</li>
                 </ol>
             </nav>
         </div>
@@ -65,7 +65,7 @@
             <div class="col-12 grid-margin">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Imágen de la publicacion</h4>
+                        <h4 class="card-title">Imágen de la publicación</h4>
                         <input id="picture" name="picture" type="file" class="dropify" />
                     </div>
                 </div>

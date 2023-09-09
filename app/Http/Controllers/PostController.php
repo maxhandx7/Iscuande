@@ -125,7 +125,7 @@ class PostController extends Controller
             ]);
             return redirect()->route('posts.index')->with('success', 'Publicacion modificada');
         } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Ocurrió un error al modificar la publicacion.');
+            return redirect()->back()->with('error', 'Ocurrió un error al modificar la publicación.');
         }
     }
 
@@ -141,7 +141,7 @@ class PostController extends Controller
             $post->delete();
             return redirect()->route('posts.index')->with('success', 'Publicacion eliminada');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Ocurrió un error al eliminar la publicacion.');
+            return redirect()->back()->with('error', 'Ocurrió un error al eliminar la publicación.');
         }
     }
 
