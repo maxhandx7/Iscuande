@@ -26,7 +26,10 @@ class ConfigController extends Controller
 
     public function edit($id)
     {
-
+        $validate = Auth::user()->id;
+        if ($validate != $id) {
+            return back()->with('error', 'No esta permitido hacer eso');
+        }
         $user = User::find($id);
         $especialidades = Especialidad::get();
         return view('admin.config.edit', compact('user', 'especialidades'));

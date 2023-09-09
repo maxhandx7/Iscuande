@@ -85,7 +85,7 @@
                                 <label for="tipo">Tipo de usuario</label>
                                 <select id="tipo"
                                     class="form-control js-example-basic-single @error('tipo') is-invalid @enderror"
-                                    name="tipo" required autocomplete="tipo" autofocus>
+                                    name="tipo" required autocomplete="tipo" autofocus disabled>
                                     @foreach (['PACIENTE', 'ADMIN', 'MEDICO'] as $option)
                                         <option value="{{ $option }}"
                                             @if ($user->tipo === $option) selected @endif>{{ $option }}</option>
@@ -154,7 +154,7 @@
                                 <label for="telefono">Telefono</label>
                                 <input id="telefono" type="text"
                                     class="form-control @error('telefono') is-invalid @enderror" name="telefono"
-                                    value="{{ old('telefono', $user->telefono) }}" autocomplete="telefono" autofocus>
+                                    value="{{ old('telefono', $user->telefono) }}" autocomplete="telefono" >
                             </div>
     
                             <div class="form-group">

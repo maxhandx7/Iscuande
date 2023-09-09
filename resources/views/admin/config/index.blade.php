@@ -49,7 +49,9 @@
 
                                             <td> {{ $comentario->asunto }} </td>
 
-                                            <td> {{ $comentario->body }} </td>
+                                            <td>
+                                                <p class="text-justify">{{ $comentario->body }} </p>
+                                            </td>
                                             <td>
                                                 {!! Form::open(['route' => ['configs.destroy', $comentario], 'method' => 'DELETE', 'id' => 'delete-form']) !!}
                                                 <button class="btn btn-danger delete-confirm" type="submit"

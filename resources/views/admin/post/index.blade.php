@@ -52,21 +52,25 @@
                                             <td class="py-1">
                                                 <img src="{{ asset('image/' . $post->image) }}" alt="image" />
                                             </td>
-                                            <td> <a href="{{ route('post', $post->slug) }}" Target="_blank"> {{ $post->name }} </a></td>
+                                            <td> <a href="{{ route('post', $post->slug) }}" Target="_blank">
+                                                    {{ $post->name }} </a></td>
 
-                                            <td>{{ $post->Previa }}</td>
+                                            <td>
+                                                <p class="text-justify">{{ $post->Previa }}</p>
+                                            </td>
                                             <td>{{ $post->category->name }}</td>
                                             @if ($post->status == 'PUBLISHED')
                                                 <td>
-                                                    <a class="badge badge-success" href="{{ route('change.status.posts', $post)}}"
-                                                        title="Activado">
+                                                    <a class="badge badge-success"
+                                                        href="{{ route('change.status.posts', $post) }}" title="Activado">
                                                         Publicado<i class="fa fa-check"></i>
                                                     </a>
 
                                                 </td>
                                             @else
                                                 <td>
-                                                    <a class="badge badge-danger" href="{{ route('change.status.posts', $post)}}"
+                                                    <a class="badge badge-danger"
+                                                        href="{{ route('change.status.posts', $post) }}"
                                                         title="Desactivado">
                                                         Privado
                                                     </a>
@@ -74,7 +78,7 @@
                                                 </td>
                                             @endif
 
-                                            
+
 
                                             <td style="width: 100px;">
                                                 {!! Form::open(['route' => ['posts.destroy', $post], 'method' => 'DELETE', 'id' => 'delete-form']) !!}
