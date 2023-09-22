@@ -89,9 +89,10 @@
                                                     <p class="text-muted"> {{ $user->tipo }} </p>
                                                     <hr>
                                                     @if ($user->tipo == 'MEDICO')
-                                                    <strong> <i class="fa fa-stethoscope mr-1"> </i>Especialidad </strong>
-                                                    <p class="text-muted"> {{ $user->especialidad->nombre }}  </p>
-                                                    <hr>   
+                                                        <strong> <i class="fa fa-stethoscope mr-1"> </i>Especialidad
+                                                        </strong>
+                                                        <p class="text-muted"> {{ $user->especialidad->nombre }} </p>
+                                                        <hr>
                                                     @endif
                                                     <strong> <i class="fas fa-check mr-1"> Estado </i> </strong>
                                                     <p class="text-muted"> {{ $user->estado }} </p>
@@ -135,7 +136,7 @@
                                                                             {{ $cita->id }}
                                                                         </th>
                                                                         <td>{{ $cita->turno->user->name }}</td>
-                                                                        
+
                                                                         <td>{{ $cita->turno->user->especialidad->nombre }}
                                                                         </td>
                                                                         <td>{{ $cita->FechaCita }}</td>
@@ -176,14 +177,19 @@
                                                         <tbody>
                                                             @if (is_array($user->turno) || is_object($user->turno))
                                                                 @foreach ($user->turno as $turno)
+                                                                    @php
+                                                                        $horasArray = explode(', ', $turno->horas);
+                                                                        $primeraHora = reset($horasArray);
+                                                                        $ultimaHora = end($horasArray);
+                                                                        $horaCombinada = $primeraHora . ' - ' . $ultimaHora;
+                                                                        $turno->horas = $horaCombinada;
+                                                                    @endphp
                                                                     <tr>
                                                                         <th scope="row">
                                                                             {{ $turno->id }}</th>
                                                                         <td> {{ $turno->fecha }}</td>
                                                                         <td> {{ $turno->descripcion }}</td>
                                                                         <td> {{ $turno->horas }}</td>
-
-
                                                                     </tr>
                                                                 @endforeach
                                                             @endif
