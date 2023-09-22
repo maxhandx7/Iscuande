@@ -79,6 +79,4 @@ class UserController extends Controller
     {
         return view('admin.config.change-password');
     }
-
-    
 }

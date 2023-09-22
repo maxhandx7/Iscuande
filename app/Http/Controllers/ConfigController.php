@@ -63,4 +63,33 @@ class ConfigController extends Controller
             return redirect()->back()->with('error', 'Ocurrió un error al eliminar el comentario');
         }
     }
+
+
+    public function update(Request $request, User $user)
+    {
+        try {
+            $user = Auth::user();
+            if (Auth::user()->tipo == "PACIENTE") {
+                $user->update([
+                    'telefono' => $request->telefono,
+                    'email' => $request->email,
+                ]);
+            } else {
+                $user->update([
+                    'especialidad_id' => $request->especialidad_id,
+                    'name' => $request->name,
+                    'apellido' => $request->apellido,
+                    'tipo_documento' => $request->tipo_documento,
+                    'no_documento' => $request->no_documento,
+                    'telefono' => $request->telefono,
+                    'email' => $request->email,
+                    'tipo' => $request->tipo,
+                    'estado' => $request->estado,
+                ]);
+            }
+            return redirect()->back()->with('success', 'Usuario modificado');
+        } catch (\Exception $th) {
+            return redirect()->back()->with('error', 'Ocurrió un error al actualizar el usuario');
+        }
+    }
 }
