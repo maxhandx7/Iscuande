@@ -37,7 +37,7 @@ Route::post('storeCita', 'CitaController@storeCita')->name('storeCita');
 Route::post('update_status', 'AjaxController@updateStatus')->name('update_status');
 Route::post('contacts', 'WebController@store')->name('contacts');
 Route::post('/posts/{post_id}/comments', 'CommentController@store')->name('comments.store');
-Route::post('config.updateUser', 'CommentController@store')->name('comments.store');
+Route::post('cambiarContrasena', 'ConfigController@updatePassword')->name('update_password');
 
 Route::get('change_status/posts/{post}', 'PostController@change_status')->name('change.status.posts');
 Route::get('get_turnos', 'AjaxController@getTurnos')->name('get_turnos');
