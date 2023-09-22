@@ -21715,7 +21715,7 @@ input:focus {
   font-family: "PTSans", sans-serif;
   font-weight: 400;
   padding: 0;
-  width: 255px;
+  width: auto;
   z-index: 11;
   transition: width 0.25s ease, background 0.25s ease;
   -webkit-transition: width 0.25s ease, background 0.25s ease;
@@ -22031,7 +22031,7 @@ input:focus {
     top: 70px;
     bottom: 0;
     overflow: auto;
-    right: -255px;
+    right: -500px;
     -webkit-transition: all 0.25s ease-out;
     -o-transition: all 0.25s ease-out;
     transition: all 0.25s ease-out;
