@@ -34,7 +34,8 @@
                         <div class="form-group">
                             <label for="name">Nombre</label>
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                                name="name" value="{{ old('name', $user->name) }}" required autocomplete="name" autofocus>
+                                name="name" value="{{ old('name', $user->name) }}" required autocomplete="name"
+                                autofocus>
                         </div>
 
                         <div class="form-group">
@@ -49,9 +50,8 @@
                                 class="form-control js-example-basic-single @error('tipo_documento') is-invalid @enderror"
                                 name="tipo_documento" name="tipo_documento" required autocomplete="tipo_documento"
                                 autofocus>
-                                <option value="{{$user->tipo_documento}}"
-                                    selected >
-                                     {{$user->tipo_documento}}</option>
+                                <option value="{{ $user->tipo_documento }}" selected>
+                                    {{ $user->tipo_documento }}</option>
                                 <option value="cc">Cedula</option>
                                 <option value="ce">Cedula de extranjeria</option>
                                 <option value="nit">Nit</option>
@@ -63,7 +63,8 @@
                             <label for="no_documento">N° documento</label>
                             <input id="no_documento" type="number"
                                 class="form-control @error('no_documento') is-invalid @enderror" name="no_documento"
-                                value="{{ old('no_documento', $user->no_documento) }}" required autocomplete="no_documento" autofocus>
+                                value="{{ old('no_documento', $user->no_documento) }}" required autocomplete="no_documento"
+                                autofocus>
 
                         </div>
 
@@ -82,10 +83,12 @@
 
                         <div class="form-group">
                             <label for="tipo">Tipo de usuario</label>
-                            <select id="tipo" class="form-control js-example-basic-single @error('tipo') is-invalid @enderror"
+                            <select id="tipo"
+                                class="form-control js-example-basic-single @error('tipo') is-invalid @enderror"
                                 name="tipo" required autocomplete="tipo" autofocus>
                                 @foreach (['PACIENTE', 'ADMIN', 'MEDICO'] as $option)
-                                    <option value="{{ $option }}" @if($user->tipo === $option) selected @endif>{{ $option }}</option>
+                                    <option value="{{ $option }}" @if ($user->tipo === $option) selected @endif>
+                                        {{ $option }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -99,10 +102,12 @@
 
                         <div class="form-group">
                             <label for="estado">Estado</label>
-                            <select id="estado" class="form-control js-example-basic-single @error('estado') is-invalid @enderror"
+                            <select id="estado"
+                                class="form-control js-example-basic-single @error('estado') is-invalid @enderror"
                                 name="estado" required autocomplete="estado" autofocus>
                                 @foreach (['ACTIVO', 'INACTIVO'] as $option)
-                                    <option value="{{ $option }}" @if($user->estado === $option) selected @endif>{{ $option }}</option>
+                                    <option value="{{ $option }}" @if ($user->estado === $option) selected @endif>
+                                        {{ $option }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -126,8 +131,10 @@
         $(document).ready(function() {
             var especialidad_id = $('#especialidad_id');
             var isEspecialidadesLoaded =
-            false; // Variable para verificar si las especialidades ya han sido cargadas
-            
+                false; // Variable para verificar si las especialidades ya han sido cargadas
+            if (($('#tipo').val() == 'MEDICO')) {
+                mostrarMedicos();
+            }
             $("#tipo").on('change', function() {
                 if ($('#tipo').val() == 'MEDICO') {
                     mostrarMedicos();
@@ -142,8 +149,9 @@
                     $('.especialidad_id').removeAttr('hidden');
                     especialidad_id.children('option:not(:first)').remove();
                     @foreach ($especialidades as $especialidad)
-                        var option = $('<option></option>').val('{{ $especialidad->id }}').text(
-                            '{{ $especialidad->nombre }}');
+                        var option = $('<option @if ($user->especialidad_id === $especialidad->id) selected @endif></option>').val(
+                            '{{ $especialidad->id }}').text(
+                            '{{ $especialidad->nombre }}').attr('value', '{{ $especialidad->id }}');
                         especialidad_id.append(option);
                     @endforeach
                     isEspecialidadesLoaded = true; // Marcar las especialidades como cargadas
@@ -155,7 +163,7 @@
                 especialidad_id.children('option').remove();
                 $('.especialidad_id').attr("hidden", true);
                 isEspecialidadesLoaded =
-                false; // Reiniciar la variable para volver a cargar las especialidades cuando sea necesario
+                    false; // Reiniciar la variable para volver a cargar las especialidades cuando sea necesario
             }
 
 

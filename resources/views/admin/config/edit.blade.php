@@ -85,7 +85,7 @@
                                 <label for="tipo">Tipo de usuario</label>
                                 <select id="tipo"
                                     class="form-control js-example-basic-single @error('tipo') is-invalid @enderror"
-                                    name="tipo" required autocomplete="tipo" autofocus >
+                                    name="tipo" required autocomplete="tipo" autofocus readonly>
                                     @foreach (['PACIENTE', 'ADMIN', 'MEDICO'] as $option)
                                         <option value="{{ $option }}"
                                             @if ($user->tipo === $option) selected @endif>{{ $option }}</option>
@@ -104,7 +104,7 @@
                                 <label for="estado">Estado</label>
                                 <select id="estado"
                                     class="form-control js-example-basic-single @error('estado') is-invalid @enderror"
-                                    name="estado" required autocomplete="estado" autofocus>
+                                    name="estado" required autocomplete="estado" autofocus readonly>
                                     @foreach (['ACTIVO', 'INACTIVO'] as $option)
                                         <option value="{{ $option }}"
                                             @if ($user->estado === $option) selected @endif>{{ $option }}</option>
