@@ -181,6 +181,13 @@
                                 <span class="menu-title">PQRS</span>
                             </a>
                         </li>
+
+                        <li class="nav-item {{ Request::segment(1) === 'reports' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('reports') }}">
+                                <i class="fa fa-download menu-icon"></i>
+                                <span class="menu-title">Reportes</span>
+                            </a>
+                        </li>
                     @endif
                 </ul>
             </nav>

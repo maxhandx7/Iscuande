@@ -14,7 +14,7 @@
     {!! Html::style('one-health/assets/vendor/animate/animate.css') !!}
     {!! Html::style('one-health/assets/css/theme.css') !!}
     @yield('styles')
-    <link rel="shortcut icon" href="{{ asset('image/' . $business->logo) }}" />
+    <link rel="shortcut icon" href="{{asset('image/'.$business->logo)}}" />
 </head>
 
 <body>

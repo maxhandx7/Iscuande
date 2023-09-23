@@ -19,7 +19,7 @@
   <!-- inject:css -->
   {!! Html::style('melody/css/style.css') !!}
   <!-- endinject -->
-  <link rel="shortcut icon" href="melody/images/logo.png" />
+  <link rel="shortcut icon" href="{{asset('image/'.$business->logo)}}" />
 </head>
 
 <body>

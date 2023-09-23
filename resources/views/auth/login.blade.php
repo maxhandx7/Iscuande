@@ -50,8 +50,8 @@
                     Mantenerme registrado
                 </label>
             </div>
-
-            {{--  <a href="#" class="auth-link text-black">Forgot password?</a>  --}}
+            |
+            <a href="password/reset" class="auth-link text-black">Ha olvidado su contraseña?</a>
         </div>
         <div class="my-3">
             <div class="d-flex justify-content-center align-items-center mt-3">

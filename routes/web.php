@@ -51,6 +51,9 @@ Route::get('category/{slug}','BlogController@category')->name('category');
 Route::get('etiquetas/{slug}','BlogController@tag')->name('tag');
 Route::get('/cambiar-contrasena', 'UserController@showChangePasswordForm')->name('password.change');
 Route::get('createAdmin', 'CitaController@createAdmin')->name('createAdmin');
+Route::get('reports', 'ReportController@index')->name('reports');
+Route::get('reports/user', 'ReportController@user')->name('reports.user');
+Route::get('exportar', 'ReportController@exportUser')->name('exportar');
 
 Auth::routes();
 
