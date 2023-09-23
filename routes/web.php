@@ -53,7 +53,7 @@ Route::get('/cambiar-contrasena', 'UserController@showChangePasswordForm')->name
 Route::get('createAdmin', 'CitaController@createAdmin')->name('createAdmin');
 Route::get('reports', 'ReportController@index')->name('reports');
 Route::get('reports/user', 'ReportController@user')->name('reports.user');
-Route::get('exportar', 'ReportController@exportUser')->name('exportar');
+Route::post('exportar', 'ReportController@exportUser')->name('exportar');
 
 Auth::routes();
 
