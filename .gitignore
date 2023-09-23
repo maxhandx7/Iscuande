@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
-/public/image
+public/image/1692202220_caracoltv.brightspotcdn.webp
+public/image/1692202244_cogfm-fuerzas-militares-salvan-la-vida-de-dos-menores-de-edad-y-una-mujer-en-santa-barbara-de-iscuande-26.jpg
+public/image/1693411864_logo.png
 /storage/*.key
 /vendor
 .env
