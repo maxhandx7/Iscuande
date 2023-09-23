@@ -55,9 +55,9 @@
                                     ." ".
                                     $user->apellido }} </td>
                                     @else
-                                    <td><a href="{{route('users.show',$user)}}"> {{$user->name
+                                    <td> {{$user->name
                                         ." ".
-                                        $user->apellido }} </a></td>
+                                        $user->apellido }} </td>
                                     @endif
                                     <td> {{$user->tipo_documento }} </td>
                                     
@@ -98,4 +98,6 @@
 @endsection
 @section('scripts')
 {!! Html::script('melody/js/data-table.js') !!}
+{!! Html::script('melody/responsive/js/responsive.bootstrap4.min.js') !!}
+{!! Html::script('melody/responsive/js/responsive.min.js') !!}
 @endsection

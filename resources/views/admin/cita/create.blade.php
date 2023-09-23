@@ -27,9 +27,6 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h4 class="card-title">Registrar nueva cita</h4>
-                        </div>
                         @include('admin.cita._form')
                     </div>
                     <a href="{{ route('citas.index') }}" class="btn btn-light mr-2">
@@ -45,6 +42,8 @@
     {!! Html::script('melody/js/moment.js') !!}
     <script>
         $(document).ready(function() {
+            $('body').addClass('sidebar-icon-only');
+            $(window).scrollTop(120);
             $("#datepicker-popup").datepicker({
                 language: 'es',
                 enableOnReadonly: true,

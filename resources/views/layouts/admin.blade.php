@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{$business->name}}</title>
+    <title>{{ $business->name }}</title>
     {!! Html::style('melody/vendors/iconfonts/font-awesome/css/all.min.css') !!}
     {!! Html::style('melody/vendors/css/vendor.bundle.base.css') !!}
     {!! Html::style('melody/vendors/css/vendor.bundle.addons.css') !!}
@@ -14,7 +14,7 @@
     {!! Html::style('melody/css/main.css') !!}
     {!! Html::style('melody/responsive/css/responsive.min.css') !!}
     @yield('styles')
-    <link rel="shortcut icon" href="{{asset('image/'.$business->logo)}}" />
+    <link rel="shortcut icon" href="{{ asset('image/' . $business->logo) }}" />
 </head>
 
 <body>
@@ -39,12 +39,6 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
-                    <li class="nav-item d-none d-lg-flex">
-                    </li>
-                    <li class="nav-item dropdown d-none d-lg-flex">
-                    </li>
-                    <li class="nav-item dropdown">
-                    </li>
                     <li class="nav-item dropdown">
                         <button onclick="cambiarTema()" class="btn btn-rounded"><i id="dl-icon"
                                 class="fa fa-moon"></i></button>
@@ -53,7 +47,7 @@
 
                         <a class="nav-link dropdown-toggle" href="/" data-toggle="dropdown" id="profileDropdown">
 
-                            {{ Auth::user()->name." ". Auth::user()->apellido }}
+                            {{ Auth::user()->name . ' ' . Auth::user()->apellido }}
 
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
@@ -66,12 +60,12 @@
                                 Configuración
                             </a>
                             @if (Auth::user()->tipo == 'ADMIN')
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('business.index') }}" data-toggle="tooltip"
-                                data-placement="top" title="" data-original-title="Logout">
-                                <i class="fas fa-briefcase text-primary"></i>
-                                {{ $business->name }}
-                            </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('business.index') }}" data-toggle="tooltip"
+                                    data-placement="top" title="" data-original-title="Logout">
+                                    <i class="fas fa-briefcase text-primary"></i>
+                                    {{ $business->name }}
+                                </a>
                             @endif
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ url('/') }}" data-toggle="tooltip"

@@ -22265,7 +22265,7 @@ input:focus {
 }
 
 .navbar.default-layout-navbar .navbar-menu-wrapper .navbar-nav .nav-item {
-  margin-left: 1rem;
+  margin-left: 0rem;
   margin-right: 1rem;
 }
 

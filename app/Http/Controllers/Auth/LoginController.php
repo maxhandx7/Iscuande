@@ -70,7 +70,7 @@ class LoginController extends Controller
                 return redirect('/login')->with('info', 'Para iniciar sesión con una cuenta de Google tiene que estar registrado');
             }
         } catch (\Exception  $e) {
-            return redirect('/login')->with('error', 'Hubo un error al iniciar sesión '). $e->getMessage();
+            return redirect('/login')->with('error', 'Hubo un error al iniciar sesión con Google');
         }
     }
 }

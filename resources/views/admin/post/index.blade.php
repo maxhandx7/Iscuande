@@ -107,4 +107,6 @@
 @endsection
 @section('scripts')
     {!! Html::script('melody/js/data-table.js') !!}
+    {!! Html::script('melody/responsive/js/responsive.bootstrap4.min.js') !!}
+    {!! Html::script('melody/responsive/js/responsive.min.js') !!}
 @endsection

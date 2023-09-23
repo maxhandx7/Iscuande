@@ -24,9 +24,6 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <h4 class="card-title">Registrar nueva cita</h4>
-                        </div>
                         <form id="example-form" action="#"></form>
 
 
@@ -122,6 +119,8 @@
     {!! Html::script('melody/js/moment.js') !!}
     <script>
         $(document).ready(function() {
+            $('body').addClass('sidebar-icon-only');
+            $(window).scrollTop(125);
             $("#datepicker-popup").datepicker({
                 language: 'es',
                 enableOnReadonly: true,
@@ -177,10 +176,10 @@
                                     if (response.data) {
                                         idPaciente = response.data.id;
                                         swal("Datos del paciente!",
-                                        response.data.name + " " +
-                                        response.data.apellido + " \n" + 
-                                        response.data.tipo_documento + ". " +
-                                        response.data.no_documento,
+                                            response.data.name + " " +
+                                            response.data.apellido + " \n" +
+                                            response.data.tipo_documento + ". " +
+                                            response.data.no_documento,
                                             "success");
                                     } else {
                                         swal("No se encontro al paciente",
