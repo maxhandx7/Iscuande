@@ -16119,6 +16119,8 @@ input[type="button"].btn-block {
 }
 
 .card {
+  width: 215px;
+  height: auto;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -33530,7 +33532,7 @@ div.tagsinput span.tag a {
   background: #ffffff;
   display: block;
   margin: 0.5em;
-  min-height: 24em;
+  min-height: 28em;
   overflow: hidden;
   position: relative;
   width: auto;
