@@ -7,6 +7,12 @@
 @section('preference')
 @endsection
 @section('content')
+<style>
+    .card{
+        width: 215px !important;
+        height: auto !important;
+    }
+</style>
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">

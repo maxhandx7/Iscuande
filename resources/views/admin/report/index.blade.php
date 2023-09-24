@@ -111,7 +111,7 @@
                                 <span>Se pueden exportar los informes de los turnos en el sistema en formato Excel.</span>
                             </div>
 
-                            <a href="#">Entrar</a>
+                            <a href="{{ route('reports.turno') }}">Entrar</a>
 
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                                 <span>Se pueden exportar los informes de las citas en el sistema en formato Excel.</span>
                             </div>
 
-                            <a href="#">Entrar</a>
+                            <a href="{{ route('reports.cita') }}">Entrar</a>
 
                         </div>
                     </div>

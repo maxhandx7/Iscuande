@@ -28,9 +28,11 @@
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Gestión de reporte de usuarios</h4>
                         </div>
-                        {!! Form::open(['route' => 'exportar', 'method' => 'POST']) !!}
+                        {!! Form::open(['route' => 'exportar.user', 'method' => 'POST']) !!}
                         <span class="text-danger">Los campos con (*) son obligatorios</span>
                         <hr>
+                        @include('alert.message')
+                        <br>
                         <div class="form-group">
                             <label for="tipo">Tipo de busqueda *</label>
                             <select id="tipo"

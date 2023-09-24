@@ -16119,8 +16119,6 @@ input[type="button"].btn-block {
 }
 
 .card {
-  width: 215px;
-  height: auto;
   position: relative;
   display: flex;
   flex-direction: column;

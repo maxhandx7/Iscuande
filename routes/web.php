@@ -38,6 +38,9 @@ Route::post('update_status', 'AjaxController@updateStatus')->name('update_status
 Route::post('contacts', 'WebController@store')->name('contacts');
 Route::post('/posts/{post_id}/comments', 'CommentController@store')->name('comments.store');
 Route::post('cambiarContrasena', 'ConfigController@updatePassword')->name('update_password');
+Route::post('exportar.user', 'ReportController@exportUser')->name('exportar.user');
+Route::post('exportar.turno', 'ReportController@exportTurno')->name('exportar.turno');
+Route::post('exportar.cita', 'ReportController@exportCita')->name('exportar.cita');
 
 Route::get('change_status/posts/{post}', 'PostController@change_status')->name('change.status.posts');
 Route::get('get_turnos', 'AjaxController@getTurnos')->name('get_turnos');
@@ -53,7 +56,9 @@ Route::get('/cambiar-contrasena', 'UserController@showChangePasswordForm')->name
 Route::get('createAdmin', 'CitaController@createAdmin')->name('createAdmin');
 Route::get('reports', 'ReportController@index')->name('reports');
 Route::get('reports/user', 'ReportController@user')->name('reports.user');
-Route::post('exportar', 'ReportController@exportUser')->name('exportar');
+Route::get('reports/turno', 'ReportController@turno')->name('reports.turno');
+Route::get('reports/cita', 'ReportController@cita')->name('reports.cita');
+
 
 Auth::routes();
 
