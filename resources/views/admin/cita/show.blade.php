@@ -40,10 +40,10 @@
                             <div class="col-lg-4">
                                 <div class="border-bottom text-center pb-4">
                                     <h3>{{ $cita->user->name . ' ' . $cita->user->apellido }}</h3>
-                                    <div class="d-flex justify-content-between">
-                                        {{-- <p class="text-muted">
+                                    <div class="text-center">
+                                        <p class="text-muted ">
                                             {{ $cita->user->no_documento }}
-                                        </p> --}}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="border-bottom py-4">
@@ -139,7 +139,7 @@
                                                 </div>
 
                                                 <div class="form-group col-md-6">
-                                              
+
                                                     <strong>
                                                         <i class="fas fa-calendar mr-1"></i>
                                                         Fecha</strong>
@@ -187,14 +187,14 @@
                                                         <tbody>
                                                             @if (is_array($citas_user) || is_object($citas_user))
                                                                 @foreach ($citas_user as $user)
-                                                                    <tr>
-                                                                        <th scope="row">
-                                                                            {{ $user->id }}</th>
-                                                                        <td>Dr. {{ $user->turno->user->name }}</td>
-                                                                        <td> {{ $user->FechaCita }}</td>
-                                                                        <td> {{ $user->HoraCita }}</td>
-
-
+                                                                    @if ($user->estado == 'ACEPTADA')
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                {{ $user->id }}</th>
+                                                                            <td>Dr. {{ $user->turno->user->name }}</td>
+                                                                            <td> {{ $user->FechaCita }}</td>
+                                                                            <td> {{ $user->HoraCita }}</td>
+                                                                    @endif
                                                                     </tr>
                                                                 @endforeach
                                                             @endif

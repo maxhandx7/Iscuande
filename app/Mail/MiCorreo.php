@@ -3,10 +3,8 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
 
 class MiCorreo extends Mailable
 {
@@ -35,6 +33,9 @@ class MiCorreo extends Mailable
      */
     public function build()
     {
-        return $this->subject('Actualización de estado')->view('admin.config.estadoMail');
+        return $this->subject('Actualización de estado')->view('admin.config.estadoMail') ->withSwiftMessage(function ($message) {
+            $message->getHeaders()
+                ->addTextHeader('X-Gmail-Labels', 'Notificaciones');
+        });
     }
 }

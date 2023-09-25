@@ -106,13 +106,12 @@ class CitaController extends Controller
                 if ($validate->count() > 0) {
                     return response()->json(['success' => false, 'message' => 'Ya se tomó esta reserva']);
                 }
-    
                 $validateFecha = Cita::where('user_id', Auth::user()->id)
                     ->where('especialidad_id', $especialidad->especialidad_id)
+                    ->Where('estado', '=', 'PENDIENTE')
                     ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-m-d'))
                     ->first();
-    
-    
+                    
                 if ($validateFecha != null) {
                     $Fecha = Carbon::createFromFormat('Y-m-d', $validateFecha->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
                     return response()->json([
@@ -133,7 +132,7 @@ class CitaController extends Controller
                 }
             }else {
                 $especialidad = Turno::where('id', $idTurno)->first();
-
+                
                 $validate = Cita::where('FechaCita', $fechaTurno)
                     ->where('HoraCita', $horaSeleccionada)
                     ->where('turno_id', $idTurno)
@@ -143,12 +142,12 @@ class CitaController extends Controller
                     return response()->json(['success' => false, 'message' => 'Ya se tomó esta reserva']);
                 }
     
-                $validateFecha = Cita::where('user_id', $idPaciente)
+                $validateFecha = Cita::where('user_id', Auth::user()->id)
                     ->where('especialidad_id', $especialidad->especialidad_id)
+                    ->Where('estado', '=', 'PENDIENTE')
                     ->whereDate('FechaCita', '>=', Carbon::today()->format('Y-m-d'))
                     ->first();
-    
-    
+
                 if ($validateFecha != null) {
                     $Fecha = Carbon::createFromFormat('Y-m-d', $validateFecha->FechaCita)->isoFormat('D [de] MMMM [de] YYYY');
                     return response()->json([

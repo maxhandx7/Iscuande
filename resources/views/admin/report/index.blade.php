@@ -143,5 +143,9 @@
 
 @endsection
 @section('scripts')
-
+    <script>
+        $(document).ready(function() {
+            $('body').addClass('sidebar-icon-only');
+        });
+    </script>
 @endsection

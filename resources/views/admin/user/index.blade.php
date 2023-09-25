@@ -38,6 +38,7 @@
                         <table id="order-listing" class="table table-striped">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Usuario</th>
                                     <th>Tipo de documento</th>
                                     <th>documento</th>
@@ -51,10 +52,12 @@
 
                                 <tr>
                                     @if ($user->tipo == 'ADMIN')
+                                    <td> {{$user->id }} </td>
                                     <td>{{$user->name
                                     ." ".
                                     $user->apellido }} </td>
                                     @else
+                                    <td> {{$user->id }} </td>
                                     <td> {{$user->name
                                         ." ".
                                         $user->apellido }} </td>

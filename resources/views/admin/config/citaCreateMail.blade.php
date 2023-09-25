@@ -54,7 +54,10 @@
         
         <p>¡Esperamos verlo pronto!</p>
         
-        <p>Atentamente,<br>Equipo Médico</p>
+        <p>Atentamente,<br>{{$business->name}}</p>
+        <span>{{$business->address}}</span><br>
+        <span>{{$business->phone}}</span><br>
+        <span>{{$business->mail}}</span>
     </div>
 </body>
 </html>

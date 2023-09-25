@@ -36,6 +36,9 @@ class citaCreada extends Mailable
      */
     public function build()
     {
-        return $this->view('admin.config.citaCreateMail');
+        return $this->view('admin.config.citaCreateMail')->subject('Nueva cita creada')->withSwiftMessage(function ($message) {
+            $message->getHeaders()
+                ->addTextHeader('X-Gmail-Labels', 'Notificaciones');
+        });
     }
 }

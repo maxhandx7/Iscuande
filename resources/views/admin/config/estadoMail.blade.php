@@ -59,12 +59,15 @@
 
                         <p>Este Correo es informativo, favor no responder</p>
 
-                        <p>Atentamente,</p>
-                        <p>Equipo Médico</p>
+                        <p>Atentamente,<br>{{ $business->name }}</p>
+                        <span>{{ $business->address }}</span><br>
+                        <span>{{ $business->phone }}</span><br>
+                        <span>{{ $business->mail }}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>
