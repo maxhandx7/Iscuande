@@ -6,6 +6,7 @@ use App\Assistant;
 use App\Business;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Config;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,6 +41,9 @@ class AppServiceProvider extends ServiceProvider
         $assistant = Assistant::where('id', 1)->firstOrFail();
         $business = Business::get();
         $business = Business::where('id', 1)->firstOrFail();
+        if ($business->name) {
+            Config::set('app.name', $business->name);
+        }
         view()->share('assistant', $assistant);
         view()->share('business', $business);
         view()->share('saludo', $saludo);

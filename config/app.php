@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Santa barbara Centro de salud'),
+
+
+    'name' => config('app.app_name', 'AF DEVELOPER'),
 
     /*
     |--------------------------------------------------------------------------
