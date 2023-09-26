@@ -58,6 +58,7 @@ Route::get('reports', 'ReportController@index')->name('reports');
 Route::get('reports/user', 'ReportController@user')->name('reports.user');
 Route::get('reports/turno', 'ReportController@turno')->name('reports.turno');
 Route::get('reports/cita', 'ReportController@cita')->name('reports.cita');
+Route::get('/search', 'SearchController@show')->name('search');
 
 
 Auth::routes();

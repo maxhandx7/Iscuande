@@ -34,6 +34,19 @@
                     <li class="nav-item nav-search d-none d-md-flex">
                         <div class="nav-link">
                             <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                </div>
+                                <form id="search-form" action="{{ route('search') }}" method="GET">
+                                    <input type="text" class="form-control @error('query') is-invalid @enderror"
+                                        name="query" id="query" placeholder="Buscar en la biblioteca"
+                                        aria-label="Search" required>
+                                    @error('query')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </form>
                             </div>
                         </div>
                     </li>
@@ -187,6 +200,13 @@
             </nav>
             @yield('preference')
             <div class="main-panel">
+                <div id="loader-container" hidden>
+                    <div class="dot-opacity-loader">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
                 @yield('content')
                 <!-- main-panel ends -->
                 <footer class="footer">

@@ -9,11 +9,12 @@
 @section('content')
     <div class="content-wrapper">
         @if (Auth::user()->tipo == 'PACIENTE')
-        <div class="page-header">
-            <h3 class="page-title">
-                Panel del paciente
-            </h3>
-        </div>
+            <div class="page-header">
+                <h3 class="page-title">
+                    Panel del paciente
+                </h3>
+                @include('alert.message')
+            </div>
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
@@ -53,11 +54,12 @@
                 </div>
             </div>
         @else
-        <div class="page-header">
-            <h3 class="page-title">
-                Panel administrador
-            </h3>
-        </div>
+            <div class="page-header">
+                <h3 class="page-title">
+                    Panel administrador
+                </h3>
+                @include('alert.message')
+            </div>
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">

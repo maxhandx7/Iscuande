@@ -21,11 +21,11 @@ window.addEventListener("DOMContentLoaded", () => {
     setTimeout(function () {
         var successMessage = document.getElementById('success-message');
         if (successMessage) {
-        successMessage.style.opacity = '0';
-        setTimeout(function () {
-            successMessage.style.display = 'none';
-        }, 1000);
-    }
+            successMessage.style.opacity = '0';
+            setTimeout(function () {
+                successMessage.style.display = 'none';
+            }, 1000);
+        }
     }, 5000);
 
     const temaGuardado = localStorage.getItem("tema");
@@ -40,6 +40,21 @@ window.addEventListener("DOMContentLoaded", () => {
 function confirmDelete() {
     return confirm('¿Estás seguro de que deseas eliminar este registro?');
 }
+
+$(document).ready(function () {
+    // Maneja el envío del formulario
+    $("#search-form").submit(function () {
+        // Muestra el loader cuando se envía el formulario
+        $(".dot-opacity-loader").prop("hidden", false);
+        $("#loader-container").fadeIn(200);
+    });
+
+    // Puedes ocultar el loader en otra parte de tu código cuando hayas completado la acción de carga
+    // Por ejemplo, después de recibir una respuesta de la solicitud AJAX
+    // $("#loader-container").fadeOut(200);
+});
+
+
 
 
 
