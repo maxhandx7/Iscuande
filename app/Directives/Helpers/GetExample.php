@@ -8,6 +8,6 @@ class GetExample extends HelperBase
 {
     public function outPut($input)
     {
-        return "este es un helper de ejemplo";
+        return config('app.app_name', 'AF DEVELOPER');
     }
 }

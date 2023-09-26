@@ -106,6 +106,7 @@ class PostController extends Controller
     public function update(Request $request,  Post $post)
     {
         try {
+
             if ($request->hasFile('picture')) {
                 $file = $request->file('picture');
                 $image_name = time() . '_' . $file->getClientOriginalName();

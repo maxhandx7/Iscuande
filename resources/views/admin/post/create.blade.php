@@ -36,7 +36,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="category_id">Categoria</label>
-                            <select id="category_id" class="form-control js-example-basic-single " name="category_id" style="width: 100%">
+                            <select id="category_id" class="form-control js-example-basic-single " name="category_id"
+                                style="width: 100%">
                                 <option selected disabled value="">Seleccione Categoria</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -67,6 +68,9 @@
                     <div class="card-body">
                         <h4 class="card-title">Imágen de la publicación</h4>
                         <input id="picture" name="picture" type="file" class="dropify" />
+                        @error('picture')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
             </div>

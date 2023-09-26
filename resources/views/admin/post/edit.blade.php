@@ -29,12 +29,14 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Nombre (*)</label>
-                            <input type="text" name="name" id="name" class="form-control @error('email') is-invalid @enderror" value="{{ old('name', $post->name) }}" placeholder="Nombre de la publicación">
+                            <input type="text" name="name" id="name"
+                                class="form-control @error('email') is-invalid @enderror"
+                                value="{{ old('name', $post->name) }}" placeholder="Nombre de la publicación">
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="Previa">Previa</label>
                             <textarea class="form-control" name="Previa" id="Previa" rows="3">{{ old('Previa', $post->Previa) }}</textarea>
@@ -42,7 +44,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="body">Descripción</label>
                             <textarea class="form-control" name="body" id="summernoteExample" rows="10">{{ old('body', $post->body) }}</textarea>
@@ -50,7 +52,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -59,7 +61,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="category_id">Categoria</label>
-                            <select id="category_id" class="form-control js-example-basic-single " name="category_id" style="width: 100%">
+                            <select id="category_id" class="form-control js-example-basic-single " name="category_id"
+                                style="width: 100%">
                                 <option selected disabled value="">Seleccione Categoria</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}"
@@ -94,7 +97,11 @@
                     <div class="card-body">
                         <h4 class="card-title">Imágen de la publicación</h4>
                         <input id="picture" name="picture" type="file" class="dropify" />
+                        @error('picture')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
+
                 </div>
             </div>
         </div>

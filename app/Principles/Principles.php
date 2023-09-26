@@ -21,7 +21,7 @@ class Principles extends SaiPrinciples
         }
         return array_merge(
             [
-                'Tu nombre es'.$assistant->nombre
+                'Tu nombre es '.$assistant->nombre
             ],
             $principios,
         );
