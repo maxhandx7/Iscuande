@@ -23,13 +23,21 @@ class SearchController extends Controller
             $xmlContent = $response->body();
 
             $xml = simplexml_load_string($xmlContent);
+            $array = [];
+            foreach ($xml->list->document as $key => $value) {
+                foreach ($value as  $values) {
+                    $array[] = $values;
+                }
+                
+            }
+            $xml = collect($array);
             if ($response->successful()) {
-                return view('admin.search.results', ['xml' => $xml->list->document->content]);
+                return view('admin.search.results', compact('xml'));
             } else {
+                return redirect()->back()->with('error', 'No se encontro resultado en la biblioteca');
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'No se encontro resultado en la biblioteca');
-            
         }
     }
 }
