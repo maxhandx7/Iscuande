@@ -20,3 +20,8 @@
     // Rutas que solo los administradores pueden acceder
 });
 @endphp
+
+ALTER TABLE `users`
+	ADD COLUMN `username` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci' AFTER `apellido`,
+	ADD COLUMN `Columna 16` INT NULL AFTER `updated_at`;
+

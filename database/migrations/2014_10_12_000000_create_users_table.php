@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('google_id')->nullable();
             $table->string('name');
             $table->string('apellido');
+            $table->string('username');
             $table->string('tipo_documento');
             $table->string('no_documento')->unique();
             $table->string('telefono')->nullable();

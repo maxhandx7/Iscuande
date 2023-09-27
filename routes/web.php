@@ -59,6 +59,10 @@ Route::get('reports/user', 'ReportController@user')->name('reports.user');
 Route::get('reports/turno', 'ReportController@turno')->name('reports.turno');
 Route::get('reports/cita', 'ReportController@cita')->name('reports.cita');
 Route::get('/search', 'SearchController@show')->name('search');
+Route::get('/comments', 'CommentController@index')->name('comments.index');
+
+
+Route::delete('/comments/{id}', 'CommentController@destroy')->name('comments.destroy');
 
 
 Auth::routes();

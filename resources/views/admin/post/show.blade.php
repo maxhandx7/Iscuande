@@ -11,12 +11,12 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                Administrar mensajes PQRS
+                Administrar comentarios
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Mensajes</li>
+                    <li class="breadcrumb-item active" aria-current="page">Comentarios</li>
                 </ol>
             </nav>
         </div>
@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-body ">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title">Mensajes PQRS</h4>
+                            <h4 class="card-title">Comentarios</h4>
                         </div>
                         <br>
                         @include('alert.message')
@@ -33,27 +33,32 @@
                             <table id="order-listing" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Nombre</th>
+                                        <th>Usuario</th>
+                                        <th>Publicacion</th>
                                         <th>Correo</th>
-                                        <th>Asunto</th>
-                                        <th>Mensaje</th>
+                                        <th>Comentario</th>
+                                        <th>Fecha y hora</th>
                                         <th>Eliminar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($comentarios as $comentario)
                                         <tr>
-                                            <td> {{ $comentario->nombre }} </td>
+                                            <td> <a href="{{ route('users.show', $comentario->user) }}">
+                                                {{ $comentario->user->username }} </a></td>
+
+                                            <td> <a href="{{ route('post', $comentario->post->slug) }}" Target="_blank">
+                                                {{ $comentario->post->name }} </a></td>
 
                                             <td> {{ $comentario->email }} </td>
-
-                                            <td> {{ $comentario->asunto }} </td>
 
                                             <td>
                                                 <p class="text-justify">{{ $comentario->body }} </p>
                                             </td>
+
+                                            <td> {{ $comentario->created_at }} </td>
                                             <td>
-                                                {!! Form::open(['route' => ['configs.destroy', $comentario->id], 'method' => 'DELETE', 'id' => 'delete-form']) !!}
+                                                {!! Form::open(['route' => ['comments.destroy', $comentario], 'method' => 'DELETE', 'id' => 'delete-form']) !!}
                                                 <button class="btn btn-danger delete-confirm" type="submit"
                                                     title="Eliminar" onclick="return confirmDelete()">
                                                     <i class="far fa-trash-alt"></i>

@@ -23,7 +23,7 @@
                         </div>
                         <div class="post-meta">
                             <div class="post-author">
-                                <span class="text-grey">Publicado por</span> <a href="#">{{ $post->user->name }}</a>
+                                <span class="text-grey">Publicado por</span> <a href="#">{{ $post->user->username }}</a>
                             </div>
                             <span class="divider">|</span>
                             <div class="post-date">
@@ -54,7 +54,7 @@
                                 <h5 class="post-title">{{ $comentario->body }}</h5>
                                 <div class="meta">
                                     <span class="mai-calendar"></span> {{ $comentario->created_at->format('d/m/Y') }}
-                                    <span class="mai-person"></span> {{ $comentario->user->name }}
+                                    <span class="mai-person"></span> {{ $comentario->user->username }}
                                   </div>
                             </div>
                         </div>

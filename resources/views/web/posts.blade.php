@@ -40,7 +40,7 @@
                                                 <div class="avatar-img">
                                                     <img src="{{ asset('image/' . $business->logo) }}" alt="">
                                                 </div>
-                                                <span>{{ $post->user->name }}</span>
+                                                <span>{{ $post->user->username }}</span>
                                             </div>
                                             <span class="mai-person"></span> {{ $post->user->tipo }}
                                         </div>
@@ -78,7 +78,7 @@
                                                     href="{{ route('post', $post->slug) }}">{{ $relatedPost->name }}</a>
                                             </h5>
                                             <div class="meta">
-                                                <a> {{ $relatedPost->user->name }}</a>
+                                                <a> {{ $relatedPost->user->username }}</a>
                                                 <a><span class="mai-person"></span> {{ $relatedPost->user->tipo }}</a>
 
                                             </div>

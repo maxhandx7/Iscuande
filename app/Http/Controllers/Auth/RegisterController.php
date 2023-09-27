@@ -68,9 +68,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $nombreUsuario = strtolower(str_replace(' ', '', $data['name']));
+        $contador = 1;
+        $nombreUsuarioOriginal = "@".$nombreUsuario;
+        while (User::where('username', $nombreUsuario)->exists()) {
+            $nombreUsuario = $nombreUsuarioOriginal . $contador;
+            $contador++;
+        }
         return User::create([
             'name' => $data['name'],
             'apellido' => $data['apellido'],
+            'username' => $nombreUsuario,
             'tipo_documento' => $data['tipo_documento'],
             'no_documento' => $data['no_documento'],
             'telefono' => $data['telefono'],

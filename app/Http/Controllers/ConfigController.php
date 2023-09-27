@@ -20,7 +20,8 @@ class ConfigController extends Controller
     public function index()
     {
         $this->authorize('admin-only');
-        $comentarios = comentarios::get();
+        $comentarios = comentarios::where('asunto', '!=', 'nn')->get();
+
         return view('admin.config.index', compact('comentarios'));
     }
 
@@ -58,9 +59,9 @@ class ConfigController extends Controller
         try {
             $comentario = comentarios::find($id);
             $comentario->delete();
-            return redirect()->route('configs.index')->with('success', 'Comentario eliminado');
+            return redirect()->back()->with('success', 'PQRS eliminado');
         } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Ocurrió un error al eliminar el comentario');
+            return redirect()->back()->with('error', 'Ocurrió un error al eliminar el PQRS');
         }
     }
 
@@ -69,6 +70,7 @@ class ConfigController extends Controller
     {
         try {
             $user = Auth::user();
+
             if (Auth::user()->tipo == "PACIENTE") {
                 $user->update([
                     'telefono' => $request->telefono,

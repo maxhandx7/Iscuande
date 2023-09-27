@@ -168,11 +168,15 @@
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item {{ Request::segment(1) === 'posts' ? 'active' : '' }}"> <a
                                             class="nav-link" href="{{ route('posts.index') }}">Publicaciones</a></li>
+                                    <li class="nav-item {{ Request::segment(1) === 'comments' ? 'active' : '' }}"> <a
+                                            class="nav-link" href="{{ route('comments.index') }}">Comentarios</a>
+                                    </li>
                                     <li class="nav-item {{ Request::segment(1) === 'categories' ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('categories.index') }}">Categorias</a>
                                     </li>
                                     <li class="nav-item {{ Request::segment(1) === 'tags' ? 'active' : '' }}"> <a
                                             class="nav-link" href="{{ route('tags.index') }}">Etiquetas</a></li>
+
                                 </ul>
                             </div>
                         </li>
