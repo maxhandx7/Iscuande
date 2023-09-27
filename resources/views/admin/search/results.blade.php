@@ -10,7 +10,7 @@
     <div class="content-wrapper">
         <div class="page-header">
             @include('alert.message')
-            @if ($xml)  
+            @if ($xml[1])
                 <h2 class="page-title">
                     {!! $xml[0] !!}
                 </h2>
@@ -27,20 +27,14 @@
                     <div class="card-body">
 
                         <h3 class="card-title">{!! $xml[1] !!}</h3>
-
-
+                        <ul>
+                            <li><span class="text-muted">{!! $xml[3] !!}</span></li>
+                            <li><span class="text-muted">{!! $xml[4] !!}</span></li>
+                        </ul>
                         @php
-                        for ($i=5; $i <count($xml) ; $i++) { 
-                            echo "<ul>
-                                    <li>".$xml[3]."</li>
-                                    </ul>
-                            ";
-                            echo "<ul>
-                                    <li>".$xml[4]."</li>
-                                    </ul>
-                            ";
-                            echo $xml[$i];
-                        }
+                            for ($i = 5; $i < count($xml); $i++) {
+                                echo $xml[$i];
+                            }
                             
                         @endphp
                     @else
@@ -54,7 +48,7 @@
             </div>
         </div>
     </div>
-    
+
 @endsection
 @section('scripts')
     {!! Html::script('melody/js/data-table.js') !!}
