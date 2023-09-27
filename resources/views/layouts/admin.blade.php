@@ -53,7 +53,7 @@
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item dropdown">
-                        <button onclick="cambiarTema()" class="btn btn-rounded"><i id="dl-icon"
+                        <button onclick="cambiarTema()" class="btn btn-rounded" id="cambiar"><i id="dl-icon"
                                 class="fa fa-moon"></i></button>
                     </li>
                     <li class="nav-item nav-profile dropdown">

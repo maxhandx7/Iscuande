@@ -7,6 +7,64 @@
 @section('preference')
 @endsection
 @section('content')
+    <style>
+        .title {
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .organization {
+            font-style: italic;
+        }
+
+        .content-box {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.5;
+        }
+
+        .snippet {
+            font-style: italic;
+        }
+
+        a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            background-color: #fff;
+            color: #333;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dark-mode {
+            background-color: #1a202c;
+            color: #fff;
+        }
+
+
+        .dark-mode .card-title {
+            color: #fff !important;
+            font-weight: normal;
+            margin-bottom: 1.25rem;
+            text-transform: capitalize;
+            font-size: 1.125rem;
+        }
+    </style>
     <div class="content-wrapper">
         <div class="page-header">
             @include('alert.message')
@@ -52,4 +110,22 @@
 @endsection
 @section('scripts')
     {!! Html::script('melody/js/data-table.js') !!}
+    <script>
+        const darkModeButton = document.getElementById('cambiar');
+        const cards = document.querySelectorAll('.card');
+
+        const temaGuardado = localStorage.getItem("tema");
+
+        if (temaGuardado === "oscuro") {
+            document.querySelector(".card").classList.toggle('dark-mode');
+        } else if (temaGuardado === "claro") {
+            document.querySelector(".dark-mode").setAttribute("class", "card");
+        }
+
+        darkModeButton.addEventListener('click', () => {
+            cards.forEach(card => {
+                card.classList.toggle('dark-mode');
+            });
+        });
+    </script>
 @endsection
