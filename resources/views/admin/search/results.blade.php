@@ -30,7 +30,15 @@
 
 
                         @php
-                        for ($i=3; $i <count($xml) ; $i++) { 
+                        for ($i=5; $i <count($xml) ; $i++) { 
+                            echo "<ul>
+                                    <li>".$xml[3]."</li>
+                                    </ul>
+                            ";
+                            echo "<ul>
+                                    <li>".$xml[4]."</li>
+                                    </ul>
+                            ";
                             echo $xml[$i];
                         }
                             
@@ -46,7 +54,7 @@
             </div>
         </div>
     </div>
-
+    
 @endsection
 @section('scripts')
     {!! Html::script('melody/js/data-table.js') !!}
