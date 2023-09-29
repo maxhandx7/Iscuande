@@ -31,11 +31,11 @@ class AppServiceProvider extends ServiceProvider
         $saludo = '';
 
         if ($now->hour >= 5 && $now->hour < 12) {
-            $saludo = 'Buenos días,';
+            $saludo = 'Buenos días ';
         } elseif ($now->hour >= 12 && $now->hour < 19) {
-            $saludo = 'Buenas tardes,';
+            $saludo = 'Buenas tardes ';
         } else {
-            $saludo = 'Buenas noches,';
+            $saludo = 'Buenas noches ';
         }
         $assistant = Assistant::get();
         $assistant = Assistant::where('id', 1)->firstOrFail();

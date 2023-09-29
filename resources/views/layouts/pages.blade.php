@@ -85,7 +85,7 @@
                         <li class="nav-item">
                             @auth
                                 <a class="btn btn-outline-primary ml-lg-3" href="{{ route('home') }}">Hola,
-                                    {{ Auth::user()->name }} </a>
+                                    {{ Auth::user()->username }} </a>
                             @endauth
 
                             @guest

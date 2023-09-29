@@ -57,7 +57,7 @@ class User extends Authenticatable
         $nombreUsuario = strtolower(str_replace(' ', '', $request->name));
         $contador = 1;
         $nombreUsuarioOriginal = $nombreUsuario;
-        while (User::where('username', $nombreUsuario)->exists()) {
+        while (User::where('username', "@".$nombreUsuario)->exists()) {
             $nombreUsuario = $nombreUsuarioOriginal . $contador;
             $contador++;
         }
@@ -82,7 +82,7 @@ class User extends Authenticatable
             $nombreUsuario = strtolower(str_replace(' ', '', $request->name));
             $contador = 1;
             $nombreUsuarioOriginal = $nombreUsuario;
-            while (User::where('username', $nombreUsuario)->exists()) {
+            while (User::where('username', "@".$nombreUsuario)->exists()) {
                 $nombreUsuario = $nombreUsuarioOriginal . $contador;
                 $contador++;
             }

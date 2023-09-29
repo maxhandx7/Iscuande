@@ -60,7 +60,7 @@
 
                         <a class="nav-link dropdown-toggle" href="/" data-toggle="dropdown" id="profileDropdown">
 
-                            {{ Auth::user()->name . ' ' . Auth::user()->apellido }}
+                            {{ Auth::user()->username}}
 
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"

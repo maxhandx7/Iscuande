@@ -108,7 +108,7 @@
                                         <div class="avatar-img">
                                             <img src="{{ asset('image/' . $business->logo) }}" alt="">
                                         </div>
-                                        <span>{{ $post->user->name }}</span>
+                                        <span>{{ $post->user->username }}</span>
                                     </div>
                                     <span class="mai-person"></span> {{ $post->user->tipo }}
                                 </div>

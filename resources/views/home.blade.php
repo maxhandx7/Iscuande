@@ -11,7 +11,7 @@
         @if (Auth::user()->tipo == 'PACIENTE')
             <div class="page-header">
                 <h3 class="page-title">
-                    Panel del paciente
+                    {{ Auth::user()->name." ".Auth::user()->apellido}}
                 </h3>
                 @include('alert.message')
             </div>
@@ -19,7 +19,7 @@
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">{{ $saludo }} bienvenido a
+                            <h4 class="card-title">{{ $saludo }} <strong>{{ Auth::user()->name}}</strong>, bienvenido a
                                 <strong>{{ $business->name }}</strong>
                             </h4>
                             <hr>
