@@ -81,6 +81,11 @@
                                                     </strong>
                                                     <p class="text-muted"> {{ $user->email }} </p>
                                                     <hr>
+
+                                                    <strong> <i class="fa fa-user-circle-o mr-1"> Usuario </i>
+                                                    </strong>
+                                                    <p class="text-muted"> {{ $user->username }} </p>
+                                                    <hr>
                                                 </div>
 
                                                 <div class="form-group col-md-6">
