@@ -14,7 +14,7 @@
     {!! Html::style('melody/css/main.css') !!}
     {!! Html::style('melody/responsive/css/responsive.min.css') !!}
     @yield('styles')
-    <link rel="shortcut icon" href="{{ asset('image/' . $business->logo) }}" />
+    <link rel="shortcut icon" sizes="96x96" href="{{ asset('image/' . $business->logo) }}" />
 </head>
 
 <body>
