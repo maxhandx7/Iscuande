@@ -18,7 +18,7 @@
   <!-- inject:css -->
   {!! Html::style('melody/css/style.css') !!}
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{asset('image/'.$business->logo)}}" />
+ <link rel="shortcut icon" sizes="96x96" href="{{ asset('image/' . $business->logo) }}" />
 </head>
 
 <body>
