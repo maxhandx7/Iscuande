@@ -7,7 +7,7 @@
 @endcannot
 
 @php
-    public function adminDashboard()
+ //   public function adminDashboard()
 {
     $this->authorize('admin-only');
 

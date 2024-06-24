@@ -40,7 +40,7 @@
                                 <strong><i class="fab fa-adn mr-1"></i> Titulo del encabezado </strong>
 
                                 <p class="text-muted">
-                                    {!! $business->configurations['thead'] !!}
+                                    {!! $business->configurations['thead'] ?? 'sin titulo' !!}
                                 </p>
                                 <hr>
 
@@ -64,7 +64,7 @@
                                 <strong><i class="fas fa-align-left mr-1"></i> Misión</strong>
 
                                 <p class="text-muted">
-                                    {{ $business->mision }}
+                                    {{ $business->mision  }}
                                 </p>
                                 <hr>
                             </div>
@@ -105,21 +105,21 @@
                                 <strong><i class="fab fa-facebook mr-1"></i></strong>
 
                                 <p class="text-muted">
-                                    {{ $business->configurations['facebook'] }}
+                                    {{ $business->configurations['facebook'] ?? 'sin datos' }}
                                 </p>
                                 <hr>
 
                                 <strong><i class="fab fa-twitter mr-1"></i></strong>
 
                                 <p class="text-muted">
-                                    {{ $business->configurations['twitter'] }}
+                                    {{ $business->configurations['twitter'] ?? 'sin datos' }}
                                 </p>
                                 <hr>
 
                                 <strong><i class="fab fa-instagram mr-1"></i></strong>
 
                                 <p class="text-muted">
-                                    {{ $business->configurations['instagram'] }}
+                                    {{ $business->configurations['instagram'] ?? 'sin datos' }}
                                 </p>
                                 <hr>
                             </div>

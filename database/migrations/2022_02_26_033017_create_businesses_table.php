@@ -25,6 +25,7 @@ class CreateBusinessesTable extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('nit');
+            $table->longText('configurations');
 
             $table->timestamps();
         });

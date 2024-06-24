@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => 'Alan Ferney',
             'apellido' => 'Carabali Paz',
+            'username' => '@alancarabali',
             'tipo_documento' => 'cc',
             'no_documento' => '1143982071',
             'telefono' => '3145561727',

@@ -34,19 +34,23 @@ class BusinessController extends Controller
                 return redirect()->route('business.index')->with('success', 'Se ha actualizado la empresa');
             }
             $business = Business::find(auth()->user()->id);
+            
             $configurations = $business->configurations ?? [];
+           
+            if (!is_array($configurations)) {
+                $configurations = [];
+            }
             $validatedData = $request->validate([
-                'show_letter' => 'nullable',
                 'facebook' => 'nullable',
                 'thead' => 'nullable',
                 'twitter' => 'nullable',
                 'instagram' => 'nullable',
             ]);
-            $configurations['show_letter'] = isset($validatedData['show_letter']) ? $validatedData['show_letter'] : false;
-            $configurations['thead'] = isset($validatedData['thead']) ? $validatedData['thead'] : false;
-            $configurations['facebook'] = isset($validatedData['facebook']) ? $validatedData['facebook'] : false;
-            $configurations['twitter'] = isset($validatedData['twitter']) ? $validatedData['twitter'] : false;
-            $configurations['instagram'] = isset($validatedData['instagram']) ? $validatedData['instagram'] : false;
+            $configurations['show_letter'] = $request->input('show_letter', null);
+            $configurations['thead'] = $validatedData['thead'] ? $validatedData['thead'] : null;
+            $configurations['facebook'] = $validatedData['facebook'] ? $validatedData['facebook'] : null;
+            $configurations['twitter'] = $validatedData['twitter'] ? $validatedData['twitter'] : null;
+            $configurations['instagram'] = $validatedData['instagram'] ? $validatedData['instagram'] : null;
             $business->configurations = $configurations;
             $business->update($request->all());
             return redirect()->route('business.index')->with('success', 'Se ha actualizado la empresa');

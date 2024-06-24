@@ -31,9 +31,13 @@
                             <div class="header">
                                 <img src="{{ asset('image/system/medico.png') }}" alt="">
                                 <div class="meta">
+                                    @if ($medico->email )
                                     <a href="mailto:{{ $medico->email }}"><span class="mai-mail"></span></a>
+                                    @endif
+                                    @if ($medico->telefono )
                                     <a href="https://wa.me/{{ $medico->telefono }}/?text=Hola, como estas"><span
-                                            class="mai-logo-whatsapp"></span></a>
+                                        class="mai-logo-whatsapp"></span></a>
+                                    @endif
                                 </div>
                             </div>
                             <div class="body">

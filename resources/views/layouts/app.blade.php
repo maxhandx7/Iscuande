@@ -35,16 +35,16 @@
                     </div>
                     <div class="col-sm-4 text-right text-sm">
                         <div class="social-mini-button">
-                            @if ($business->configurations['facebook'])
+                            @if (isset($business->configurations['facebook']))
                                 <a href="{{ $business->configurations['facebook'] }}" target="_blank"><span
                                         class="mai-logo-facebook-f"></span></a>
                             @endif
 
-                            @if ($business->configurations['twitter'])
+                            @if (isset($business->configurations['twitter']))
                                 <a href="{{$business->configurations['twitter']}}" target="_blank"><span class="mai-logo-twitter"></span></a>
                             @endif
 
-                            @if ($business->configurations['instagram'])
+                            @if (isset($business->configurations['instagram']))
                                 <a href="{{$business->configurations['instagram']}}" target="_blank"><span class="mai-logo-instagram"></span></a>
                             @endif
                         </div>
@@ -56,7 +56,7 @@
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
             <div class="container">
                 <img src="{{ asset('image/' . $business->logo) }}" class="navbar-brand" width="56px" alt="">
-                @if ($business->configurations['show_letter'])
+                @if (isset($business->configurations['show_letter']))
                     <a class="navbar-brand" href="/">{!! $business->configurations['thead'] !!}</a>
                 @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport"
@@ -133,22 +133,22 @@
                         <a href="#" class="footer-link">{{ $business->mail }}</a>
 
                         @if (
-                            $business->configurations['facebook'] ||
-                                $business->configurations['twitter'] ||
-                                $business->configurations['instagram']
+                            isset($business->configurations['facebook']) ||
+                                isset($business->configurations['twitter']) ||
+                                isset($business->configurations['instagram'])
                         )
                             <h5>Redes sociales</h5>
                             <div class="footer-menu">
-                                @if ($business->configurations['facebook'])
+                                @if (isset($business->configurations['facebook']))
                                     <a href="{{ $business->configurations['facebook'] }}" target="_blank"><span
                                             class="mai-logo-facebook-f"></span></a>
                                 @endif
 
-                                @if ($business->configurations['twitter'])
+                                @if (isset($business->configurations['twitter']))
                                     <a href="{{$business->configurations['twitter']}}" target="_blank"><span class="mai-logo-twitter"></span></a>
                                 @endif
 
-                                @if ($business->configurations['instagram'])
+                                @if (isset($business->configurations['instagram']))
                                     <a href="{{$business->configurations['instagram']}}" target="_blank"><span class="mai-logo-instagram"></span></a>
                                 @endif
                             </div>

@@ -14,7 +14,7 @@ class AssistantController extends Controller
         $this->authorize('admin-only');
         $assistant = Assistant::get();
         $assistant = Assistant::where('id', 1)->firstOrFail();
-
+        
         $datosArrayPrinc = json_decode($assistant->principios, true);
         $datosArrayDir = json_decode($assistant->directivas, true);
 

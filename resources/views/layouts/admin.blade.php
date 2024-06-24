@@ -180,12 +180,12 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item {{ Request::segment(1) === 'assistants' ? 'active' : '' }}">
+                        {{-- <li class="nav-item {{ Request::segment(1) === 'assistants' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('assistants.index') }}">
                                 <i class="fa fa-robot menu-icon"></i>
                                 <span class="menu-title">Asistente Virtual</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item {{ Request::segment(1) === 'configs' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('configs.index') }}">
                                 <i class="fa fa-paper-plane menu-icon"></i>
