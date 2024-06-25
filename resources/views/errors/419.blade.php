@@ -2,13 +2,14 @@
 <html lang="es">
 
 
-
+<!-- Mirrored from www.urbanui.com/melody/template/pages/samples/error-500.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Sep 2018 06:08:54 GMT -->
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>AF Admin</title>
+  <title>419 Sesión caducada</title>
   <!-- plugins:css -->
+  {!! Html::style('melody/vendors/iconfonts/font-awesome/css/all.min.css') !!}
   {!! Html::style('melody/vendors/css/vendor.bundle.base.css') !!}
   {!! Html::style('melody/vendors/css/vendor.bundle.addons.css') !!}
   <!-- endinject -->
@@ -21,7 +22,7 @@
 <body>
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper d-flex align-items-center text-center error-page bg-secondary">
+      <div class="content-wrapper d-flex align-items-center text-center error-page bg-warning">
         <div class="row flex-grow">
           <div class="col-lg-7 mx-auto text-white">
             <div class="row align-items-center d-flex flex-row">
@@ -29,18 +30,18 @@
                 <h1 class="display-1 mb-0">419</h1>
               </div>
               <div class="col-lg-6 error-page-divider text-lg-left pl-lg-4">
-                <h2>LO SIENTO!</h2>
-                <h3 class="font-weight-light">Pagina Caducada</h3>
+                <h2><i class="far fa-frown"></i> LO SIENTO!</h2>
+                <h3 class="font-weight-light">La sesión ha caducado!</h3>
               </div>
             </div>
             <div class="row mt-5">
               <div class="col-12 text-center mt-xl-2">
-                <a class="text-white font-weight-medium" href="{{route('home')}}">Volver al panel administrador</a>
+                <a class="text-white font-weight-medium" href="{{ url()->previous() }}">Volver Atrás</a>
               </div>
             </div>
             <div class="row mt-5">
               <div class="col-12 mt-xl-2">
-                <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2023 Todos los derechos reservados <b><a style="text-decoration: none; color:white" href="https://www.afdeveloper.com/" target="_blank"> AF</a> </b></p>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><i class="fa fa-code text-dark"></i>&nbsp;<b><a style="text-decoration: none; color:rgb(17, 15, 129);" href="https://afdeveloper.com/" target="_blank">&nbsp;AF</a> </b> </span>
               </div>
             </div>
           </div>
@@ -65,5 +66,5 @@
 </body>
 
 
-
+<!-- Mirrored from www.urbanui.com/melody/template/pages/samples/error-500.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 15 Sep 2018 06:08:54 GMT -->
 </html>
