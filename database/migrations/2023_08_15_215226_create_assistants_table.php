@@ -13,13 +13,7 @@ class CreateAssistantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('assistants', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->longText('directivas')->nullable();
-            $table->longText('principios')->nullable();
-            $table->timestamps();
-        });
+        Schema::dropIfExists('assistants');
     }
 
     /**
@@ -29,6 +23,11 @@ class CreateAssistantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assistants');
+          // Puedes agregar el esquema para crear la tabla nuevamente si alguna vez quieres revertir esta migración
+        Schema::create('assistants', function (Blueprint $table) {
+            $table->id();
+            // Agrega las columnas que tenía la tabla aquí
+            $table->timestamps();
+        });
     }
 }
