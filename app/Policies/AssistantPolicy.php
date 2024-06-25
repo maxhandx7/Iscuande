@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Assistant;
+
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class AssistantPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Assistant  $assistant
+   
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Assistant $assistant)
+    public function view(User $user)
     {
         //
     }
@@ -48,10 +48,10 @@ class AssistantPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Assistant  $assistant
+
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Assistant $assistant)
+    public function update(User $user)
     {
         //
     }
@@ -60,10 +60,10 @@ class AssistantPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Assistant  $assistant
+
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Assistant $assistant)
+    public function delete(User $user)
     {
         //
     }
@@ -72,10 +72,10 @@ class AssistantPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Assistant  $assistant
+
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Assistant $assistant)
+    public function restore(User $user)
     {
         //
     }
@@ -84,10 +84,10 @@ class AssistantPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Assistant  $assistant
+
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Assistant $assistant)
+    public function forceDelete(User $user)
     {
         //
     }
