@@ -35,18 +35,14 @@
                     </div>
                     <div class="col-sm-4 text-right text-sm">
                         <div class="social-mini-button">
-                            @if (isset($business->configurations['facebook']))
-                                <a href="{{ $business->configurations['facebook'] }}" target="_blank"><span
+                                <a href="{{ $business->configurations['facebook'] ?? '#' }}" target="_blank"><span
                                         class="mai-logo-facebook-f"></span></a>
-                            @endif
+                         
+                                <a href="{{$business->configurations['twitter'] ?? '#'}}" target="_blank"><span class="mai-logo-twitter"></span></a>
 
-                            @if (isset($business->configurations['twitter']))
-                                <a href="{{$business->configurations['twitter']}}" target="_blank"><span class="mai-logo-twitter"></span></a>
-                            @endif
 
-                            @if (isset($business->configurations['instagram']))
-                                <a href="{{$business->configurations['instagram']}}" target="_blank"><span class="mai-logo-instagram"></span></a>
-                            @endif
+                                <a href="{{$business->configurations['instagram'] ?? '#'}}" target="_blank"><span class="mai-logo-instagram"></span></a>
+
                         </div>
                     </div>
                 </div> <!-- .row -->
@@ -75,7 +71,7 @@
                         <li class="nav-item {{ request()->is('medicos') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ url('medicos') }}">Medicos</a>
                         </li>
-                        <li class="nav-item {{ request()->is('blog') ? 'active' : '' }}">
+                        <li class="nav-item {{ request()->is('blog*', 'category*', 'post*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ url('blog') }}">Noticias</a>
                         </li>
                         <li class="nav-item {{ request()->is('contactos') ? 'active' : '' }}">
@@ -102,7 +98,7 @@
         <div class="hero-section">
             <div class="container text-center wow zoomIn">
                 <span class="subhead">Hagamos tu vida más feliz y</span>
-                <h1 class="display-4">Saludable</h1>
+                <h1 class="display-4">Saludable </h1>
                 <a href="{{ route('citas.index') }}" class="btn btn-primary">Sacar cita</a>
             </div>
         </div>

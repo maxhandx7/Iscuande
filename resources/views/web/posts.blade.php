@@ -21,33 +21,66 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
+                        @if(!isset($relatedPosts))
                         @foreach ($posts as $post)
-                            <div class="col-sm-6 py-3">
-                                <div class="card-blog">
-                                    <div class="header">
-                                        <div class="post-category">
-                                            <a href="{{ route('post', $post->slug) }}">{{ $post->category->name }}</a>
-                                        </div>
-                                        <a href="{{ route('post', $post->slug) }}" class="post-thumb">
-                                            <img src="{{ asset('image/' . $post->image) }}" alt="">
-                                        </a>
+                        <div class="col-sm-6 py-3">
+                            <div class="card-blog">
+                                <div class="header">
+                                    <div class="post-category">
+                                        <a href="{{ route('post', $post->slug) }}">{{ $post->category->name }}</a>
                                     </div>
-                                    <div class="body">
-                                        <h5 class="post-title"><a
-                                                href="{{ route('post', $post->slug) }}">{{ $post->name }}</a></h5>
-                                        <div class="site-info">
-                                            <div class="avatar mr-2">
-                                                <div class="avatar-img">
-                                                    <img src="{{ asset('image/' . $business->logo) }}" alt="">
-                                                </div>
-                                                <span>{{ $post->user->username }}</span>
+                                    <a href="{{ route('post', $post->slug) }}" class="post-thumb">
+                                        <img src="{{ asset('image/' . $post->image) }}" alt="">
+                                    </a>
+                                </div>
+                                <div class="body">
+                                    <h5 class="post-title"><a
+                                            href="{{ route('post', $post->slug) }}">{{ $post->name }}</a></h5>
+                                    <div class="site-info">
+                                        <div class="avatar mr-2">
+                                            <div class="avatar-img">
+                                                <img src="{{ asset('image/' . $business->logo) }}" alt="">
                                             </div>
-                                            <span class="mai-person"></span> {{ $post->user->tipo }}
+                                            <span>{{ $post->user->username }}</span>
                                         </div>
+                                        <span class="mai-person"></span> {{ $post->user->tipo }}
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
+                    @endforeach
+                        @else
+
+                        @foreach ($relatedPosts as $post)
+                        <div class="col-sm-6 py-3">
+                            <div class="card-blog">
+                                <div class="header">
+                                    <div class="post-category">
+                                        <a href="{{ route('post', $post->slug) }}">{{ $post->category->name }}</a>
+                                    </div>
+                                    <a href="{{ route('post', $post->slug) }}" class="post-thumb">
+                                        <img src="{{ asset('image/' . $post->image) }}" alt="">
+                                    </a>
+                                </div>
+                                <div class="body">
+                                    <h5 class="post-title"><a
+                                            href="{{ route('post', $post->slug) }}">{{ $post->name }}</a></h5>
+                                    <div class="site-info">
+                                        <div class="avatar mr-2">
+                                            <div class="avatar-img">
+                                                <img src="{{ asset('image/' . $business->logo) }}" alt="">
+                                            </div>
+                                            <span>{{ $post->user->username }}</span>
+                                        </div>
+                                        <span class="mai-person"></span> {{ $post->user->tipo }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                        @endif
+                 
                     </div> <!-- .row -->
                     <div class="col-12 my-5">
                         <nav aria-label="Page Navigation">
@@ -66,26 +99,6 @@
                                             <span>{{ $category->posts_count }}</span></a></li>
                                 @endforeach
                             </ul>
-                            @if (isset($relatedPosts))
-                                <h3 class="sidebar-title">Últimos posts de la misma categoría</h3>
-                                @foreach ($relatedPosts as $relatedPost)
-                                    <div class="blog-item">
-                                        <a class="post-thumb" href="">
-                                            <img src="{{ asset('image/' . $relatedPost->image) }}" alt="">
-                                        </a>
-                                        <div class="content">
-                                            <h5 class="post-title"><a
-                                                    href="{{ route('post', $post->slug) }}">{{ $relatedPost->name }}</a>
-                                            </h5>
-                                            <div class="meta">
-                                                <a> {{ $relatedPost->user->username }}</a>
-                                                <a><span class="mai-person"></span> {{ $relatedPost->user->tipo }}</a>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
                         </div>
 
                         <div class="sidebar-block">
@@ -96,8 +109,6 @@
                                 @endforeach
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div> <!-- .row -->
@@ -109,7 +120,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-4 wow zoomIn">
                     <div class="img-banner d-none d-lg-block">
-                        <img src="one-health/assets/img/mobile_app.png" alt="">
+                        <img src="{{ asset('one-health/assets/img/mobile_app.png') }}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-8 wow fadeInRight">

@@ -98,7 +98,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-4 wow zoomIn">
                     <div class="img-banner d-none d-lg-block">
-                        <img src="one-health/assets/img/mobile_app.png" alt="">
+                        <img src="{{ asset('one-health/assets/img/mobile_app.png') }}" alt="">
                     </div>
                 </div>
                 <div class="col-lg-8 wow fadeInRight">

@@ -34,18 +34,15 @@
                     </div>
                     <div class="col-sm-4 text-right text-sm">
                         <div class="social-mini-button">
-                            @if ($business->configurations['facebook'])
-                                <a href="{{ $business->configurations['facebook'] }}" target="_blank"><span
+                                <a href="{{ $business->configurations['facebook'] ?? '' }}" target="_blank"><span
                                         class="mai-logo-facebook-f"></span></a>
-                            @endif
+                        
 
-                            @if ($business->configurations['twitter'])
-                                <a href="{{$business->configurations['twitter']}}" target="_blank"><span class="mai-logo-twitter"></span></a>
-                            @endif
-
-                            @if ($business->configurations['instagram'])
-                                <a href="{{$business->configurations['instagram']}}" target="_blank"><span class="mai-logo-instagram"></span></a>
-                            @endif
+                    
+                                <a href="{{$business->configurations['twitter'] ?? '' }}" target="_blank"><span class="mai-logo-twitter"></span></a>
+                          
+                                <a href="{{$business->configurations['instagram'] ?? '' }}" target="_blank"><span class="mai-logo-instagram"></span></a>
+             
                         </div>
                     </div>
                 </div> <!-- .row -->
@@ -55,7 +52,7 @@
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
             <div class="container">
                 <img src="{{ asset('image/' . $business->logo) }}" class="navbar-brand" width="56px" alt="">
-                @if ($business->configurations['show_letter'])
+                @if (isset($business->configurations['show_letter']) && $business->configurations['show_letter'])
                     <a class="navbar-brand" href="/"><span class="text-primary">Santa Bárbara </span>Centro de
                         Salud</a>
                 @endif
@@ -75,7 +72,7 @@
                         <li class="nav-item {{ request()->is('medicos') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ url('medicos') }}">Medicos</a>
                         </li>
-                        <li class="nav-item {{ request()->is('blog') ? 'active' : '' }}">
+                        <li class="nav-item {{ request()->is('blog*', 'category*', 'post*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ url('blog') }}">Noticias</a>
                         </li>
                         <li class="nav-item {{ request()->is('contactos') ? 'active' : '' }}">
@@ -121,24 +118,24 @@
                         <a href="#" class="footer-link">{{ $business->mail }}</a>
 
                         @if (
-                            $business->configurations['facebook'] ||
-                                $business->configurations['twitter'] ||
-                                $business->configurations['instagram']
+                            (isset($business->configurations['facebook']) && $business->configurations['facebook']) ||
+                            (isset($business->configurations['twitter']) && $business->configurations['twitter']) ||
+                            (isset($business->configurations['instagram']) && $business->configurations['instagram'])
                         )
                             <h5>Redes sociales</h5>
                             <div class="footer-menu">
-                                @if ($business->configurations['facebook'])
-                                    <a href="{{ $business->configurations['facebook'] }}" target="_blank"><span
+                               
+                                    <a href="{{ $business->configurations['facebook'] ?? '#' }}" target="_blank"><span
                                             class="mai-logo-facebook-f"></span></a>
-                                @endif
+                              
 
-                                @if ($business->configurations['twitter'])
-                                    <a href="{{$business->configurations['twitter']}}" target="_blank"><span class="mai-logo-twitter"></span></a>
-                                @endif
+                                
+                                    <a href="{{$business->configurations['twitter'] ?? '#'}}" target="_blank"><span class="mai-logo-twitter"></span></a>
+                             
 
-                                @if ($business->configurations['instagram'])
-                                    <a href="{{$business->configurations['instagram']}}" target="_blank"><span class="mai-logo-instagram"></span></a>
-                                @endif
+                           
+                                    <a href="{{$business->configurations['instagram'] ?? '#'}}" target="_blank"><span class="mai-logo-instagram"></span></a>
+                     
                             </div>
                         @endif
                     </div>
