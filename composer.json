@@ -66,10 +66,5 @@
             "@php artisan key:generate --ansi"
         ]
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/charlie210012/sai.git"
-        }
-    ]
+   
 }
