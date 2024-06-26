@@ -34,7 +34,7 @@
 </div>
 <footer class="footer">
     <div class="col-lg-12 login-half-bg d-flex flex-row justify-content-center">
-        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.
+        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024.
             Todos los derechos reservados.&nbsp;</span>
     </div>
 </footer>

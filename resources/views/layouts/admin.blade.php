@@ -215,7 +215,7 @@
                 <!-- main-panel ends -->
                 <footer class="footer">
                     <div class="col-lg-12 login-half-bg d-flex flex-row justify-content-center">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024.
                             Todos los derechos reservados.&nbsp;</span>
                         <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><b><a
                                     style="text-decoration: none; color:rgb(17, 15, 129);"

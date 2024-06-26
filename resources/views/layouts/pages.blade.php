@@ -144,14 +144,17 @@
                 <hr>
                 <div class="footer-bottom-wrap">
                     <div class="copyright-text d-flex flex-row justify-content-center">
-                        <span class="text-muted text-left d-block d-sm-inline-block">Copyright © 2023.
+                        <span class="text-muted text-left d-block d-sm-inline-block">Copyright © 2024.
                             Todos los derechos reservados.&nbsp;</span>
                     </div>
                     <div class="copyright-text d-flex flex-row justify-content-center">
                         <span class="text-muted text-right d-block d-sm-inline-block">
-                            <b> POWERED BY
-                                <a style="text-decoration: none; color:rgb(17, 15, 129);"
-                                    href="https://www.afdeveloper.com/" target="_blank">&nbsp;AF</a>
+                            <b> POWER BY&nbsp;
+                                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><i
+                                        class="fa fa-code text-dark"></i><b><a
+                                            style="text-decoration: none; color:rgb(17, 15, 129);"
+                                            href="https://afdeveloper.com/" target="_blank">&nbsp;AF</a> </b>
+                                </span>
                             </b></span>
                     </div>
                 </div>

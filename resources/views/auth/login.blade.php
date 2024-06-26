@@ -67,5 +67,9 @@
         <div class="text-center mt-4 font-weight-light">
             <a href="{{ route('register') }}" class="text-primary">Registrarse</a>
         </div>
+
+        <div class="text-center mt-4 font-weight-light">
+            ← Ir a <a href="/" class="text-primary">{{$business->name}}</a>
+        </div> 
     </form>
 @endsection
