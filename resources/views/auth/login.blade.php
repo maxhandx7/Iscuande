@@ -65,7 +65,7 @@
 
 
         <div class="text-center mt-4 font-weight-light">
-            <a href="{{ route('register') }}" class="text-primary">Registrarse</a>
+            <a href="{{ route('register') }}" class="btn btn-outline-primary">Registrarse</a>
         </div>
 
         <div class="text-center mt-4 font-weight-light">
