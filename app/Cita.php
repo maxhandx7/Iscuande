@@ -51,4 +51,32 @@ class Cita extends Model
     {
         return $this->where('id', $id)->update(['estado' => $estado]);
     }
+
+
+    public function status()
+    {
+        switch ($this->estado) {
+            case 'PENDIENTE':
+                return [
+                    'color' => 'primary',
+                    'text' => 'Pendiente'
+                ];
+            case 'ACEPTADA':
+                return [
+                    'color' => 'success',
+                    'text' => 'Aceptada'
+                ];
+            case 'RECHAZADA':
+                return [
+                    'color' => 'warning',
+                    'text' => 'Rechazada'
+                ];
+
+            default:
+                return [
+                    'color' => 'danger',
+                    'text' => 'Error'
+                ];
+        }
+    }
 }

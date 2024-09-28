@@ -15,9 +15,9 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
                     @if (Auth::user()->tipo != 'PACIENTE')
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
                     @else
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel del paciente</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel del paciente</a></li>
                     @endif
                     <li class="breadcrumb-item active" aria-current="page">Citas</li>
                 </ol>
@@ -38,13 +38,13 @@
                         @endif
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title">Citas</h4>
-                            @if (Auth::user()->tipo !== 'MEDICO' && Auth::user()->tipo !== 'ADMIN')
+                            @if (Auth::user()->tipo == 'PACIENTE')
                                 <div class="btn-group">
                                     <a href=" {{ route('citas.create') }} " class="btn btn-success" type="button">
                                         <i class="fa fa-plus"></i>
                                         Solicitar cita</a>
                                 </div>
-                            @else
+                            @elseif(Auth::user()->tipo == 'ADMIN')
                                 <div class="btn-group">
                                     <a href=" {{ route('createAdmin') }} " class="btn btn-success" type="button">
                                         <i class="fa fa-plus"></i>
@@ -81,7 +81,7 @@
                                             <td>{{ $cita->user->no_documento }}</td>
                                             <td> {{ $cita->fecha_formateada }} </td>
                                             <td> {{ $cita->HoraCita }} </td>
-                                            @if (Auth::user()->tipo == 'ADMIN' || Auth::user()->tipo == 'MEDICO')
+                                            @if (Auth::user()->tipo == 'ADMIN')
                                                 <td>
                                                     <div class="editable-form" data-pk="{{ $cita->id }}">
                                                         <a href="#" class="text-primary editable-text"
@@ -89,8 +89,16 @@
                                                             data-title="Select estado">{{ $cita->estado }}</a>
                                                     </div>
                                                 </td>
+                                            @elseif(Auth::user()->tipo == 'MEDICO')
+                                                <td class="bg-{{ $cita->status()['color'] }}">
+                                                    <label class="badge badge-{{ $cita->status()['color'] }} badge-pill">
+                                                        {{ $cita->status()['text'] }}
+                                                    </label>
+                                                </td>
                                             @else
-                                                <td>{{ $cita->estado }}</td>
+                                                <td> <label class="badge badge-{{ $cita->status()['color'] }} badge-pill">
+                                                        {{ $cita->status()['text'] }}
+                                                    </label></td>
                                             @endif
                                             <td><a class="btn btn-info" href="{{ route('citas.show', $cita) }}"
                                                     title="Ver">

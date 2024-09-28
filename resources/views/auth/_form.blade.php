@@ -3,7 +3,7 @@
 
     <div class="col-md-6">
         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-            value="{{ old('name') }}" required autocomplete="name" autofocus>
+            value="{{ old('name') }}" required autocomplete="name" placeholder="Escriba su nombre" autofocus>
 
         @error('name')
             <span class="invalid-feedback" role="alert">
@@ -19,7 +19,7 @@
 
     <div class="col-md-6">
         <input id="apellido" type="text" class="form-control @error('apellido') is-invalid @enderror"
-            name="apellido" value="{{ old('apellido') }}" required autocomplete="apellido" autofocus>
+            name="apellido" value="{{ old('apellido') }}" required autocomplete="apellido" placeholder="Escriba su apellido" autofocus>
 
         @error('apellido')
             <span class="invalid-feedback" role="alert">
@@ -52,7 +52,7 @@
 
     <div class="col-md-6">
         <input id="no_documento" type="number" class="form-control @error('no_documento') is-invalid @enderror"
-            name="no_documento" value="{{ old('no_documento') }}" required autocomplete="no_documento" autofocus>
+            name="no_documento" value="{{ old('no_documento') }}" required autocomplete="no_documento" placeholder="Escriba su documento" autofocus>
 
         @error('no_documento')
             <span class="invalid-feedback" role="alert">
@@ -69,7 +69,7 @@
 
     <div class="col-md-6">
         <input id="telefono" type="number" class="form-control @error('telefono') is-invalid @enderror" name="telefono"
-            value="{{ old('telefono') }}"  autocomplete="telefono" autofocus>
+            value="{{ old('telefono') }}"  autocomplete="telefono" placeholder="Escriba su numero de telefono" autofocus>
 
         @error('telefono')
             <span class="invalid-feedback" role="alert">
@@ -84,7 +84,7 @@
 
     <div class="col-md-6">
         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-            value="{{ old('email') }}" required autocomplete="email">
+            value="{{ old('email') }}" required autocomplete="email" placeholder="Escriba su correo electronico">
 
         @error('email')
             <span class="invalid-feedback" role="alert">
@@ -99,7 +99,7 @@
 
     <div class="col-md-6">
         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-            name="password" required autocomplete="new-password">
+            name="password" required autocomplete="new-password" placeholder="Escriba su contraseña">
 
         @error('password')
             <span class="invalid-feedback" role="alert">
@@ -114,7 +114,7 @@
 
     <div class="col-md-6">
         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
-            autocomplete="new-password">
+            autocomplete="new-password" placeholder="Confirme su contraseña">
     </div>
 </div>
 
